@@ -2,11 +2,11 @@
 Reveal.js deck collection from the Dify team, covering production-grade agent systems, risk control, RAG evolution, low-/pro-code collaboration, and integration demos.
 
 Online:
-- CN home: https://crazywoola.github.io/dify-x/
-- EN home: https://crazywoola.github.io/dify-x/index_en.html
+- EN home (default): https://crazywoola.github.io/dify-x/
+- CN home: https://crazywoola.github.io/dify-x/index_zh.html
 
 ## Quick start
-- Entry point: open `index.html` or `index_en.html` for the card-based navigator.
+- Entry point: `index.html` redirects to the English navigator; open `index_en.html` (EN) or `index_zh.html` (CN) directly.
 - Local preview: serve the repo root and visit `http://localhost:8000/index.html`:
   ```bash
   python -m http.server 8000
