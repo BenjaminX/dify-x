@@ -1,12 +1,12 @@
 # Research & Evidence Map
 
-本文件记录“企业 Agent：产品形态与场景选择”20 页讲座的分类逻辑、逐页依据、证据边界和图片版权。
+本文件记录“企业 Agent：产品形态与场景选择”21 页讲座的分类逻辑、逐页依据、证据边界和图片版权。
 
 ## Core thesis
 
-> 产品形态跟随工作形态，不跟随“自治等级”。
+> 先弄清工作怎么发生，再决定 Agent 应该做成什么产品。
 
-本讲座不把 HITL、权限、工具调用等功能模块作为叙事主轴，而从四个产品问题出发：用户从哪里遇见它、工作围绕什么对象持续、用户最终拿走什么、场景以什么节奏重复。
+本讲座不把 HITL、权限、工具调用等功能模块作为叙事主轴，而从四个产品问题出发：用户会在哪里遇到它、工作围绕什么持续展开、用户最后要拿到什么、这项工作以什么节奏反复发生。
 
 ## Layout reference
 
@@ -20,9 +20,9 @@
 | 产品形态 | 最小工作单元 | 典型入口 | 典型交付 | 适合场景 |
 | --- | --- | --- | --- | --- |
 | Embedded Copilot | 当前对象 | IDE、CRM、文档、表格内 | 建议、局部内容、下一步 | 编码、销售跟进、写作、表格分析 |
-| Expert Workbench | 项目 / 材料集 | 独立专业工作空间 | Issue list、研究包、专业产物 | 法律尽调、合规、投研、Campaign、本地化 |
+| Expert Workbench | 项目 / 材料 | 独立专业工作空间 | Issue list、研究包、专业成果 | 法律尽调、合规、投研、Campaign、本地化 |
 | Service Agent | 会话 / 意图 | Chat、Email、Voice、App | Resolution / service outcome | 客服、员工服务台、商家支持、旅行服务 |
-| Process Agent | Case / SOP | Case 页面、业务系统、流程队列 | 状态推进、结案记录 | KYC、理赔、采购、订单异常、入职、AP |
+| Process Agent | 业务实例 | Case 页面、业务系统、流程队列 | 状态推进、办结记录 | KYC、理赔、采购、订单异常、入职、AP |
 | Monitoring Agent | 事件 / 信号流 | 告警、经营事件、Incident | 异常 Brief、分诊、调查入口 | ITOM、欺诈、合规、供应链、客户声音 |
 | Analyst Agent | 指标 / 问题 | 独立分析空间、Slack、内部工具 | Notebook、图表、报告、Decision memo | 经营、产品、财务、发布、增长分析 |
 
@@ -40,7 +40,7 @@ Multi-Agent Workspace 不作为第七种用户入口：它通常是 Workbench、
 | Slide ID | 核心内容 | 依据与边界 |
 | --- | --- | --- |
 | `f01-cover` | 标题、讲座定位与讲者 | Zheng Li · Head of DevRel · Dify；学校和日期为占位符 |
-| `f02-thesis` | 产品形态跟随工作形态 | 研究综合判断 |
+| `f02-thesis` | 先看工作怎么发生，再决定产品 | 研究综合判断 |
 | `f03-work-unit` | 六类最小工作单元 | 产品分类抽象；同一场景可组合多种形态 |
 | `f04-product-atlas` | 六种产品形态地图 | 定性定位，不是成熟度或市场份额 |
 | `f05-four-questions` | Entry、Object、Delivery、Rhythm | 产品发现框架，不替代需求研究 |
