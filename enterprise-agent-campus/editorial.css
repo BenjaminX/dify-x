@@ -280,12 +280,12 @@ html,body{background:var(--paper);border-top:3px solid var(--blue)}
 .thank-you-copy{position:relative;z-index:2;width:44%;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:132px 72px 64px 96px;border-right:1px solid rgba(255,255,255,.2)}
 .thank-you-main h2{margin-top:26px;color:#fff;font-size:122px;line-height:.96;letter-spacing:-.06em}
 .thank-you-contact{display:grid;grid-template-columns:220px 1fr;align-items:center;gap:34px;width:650px;padding-top:28px;border-top:1px solid rgba(255,255,255,.24)}
-.thank-you-logo{display:grid;place-items:center;width:210px;height:94px;background:#fff}
+.thank-you-logo{display:grid;place-items:center;width:210px;height:auto;padding:18px;background:#fff;box-sizing:border-box}
 .thank-you-logo img{display:block;width:174px;height:auto}
-.thank-you-contact strong,.thank-you-contact span,.thank-you-contact a{display:block}
-.thank-you-contact strong{font-size:30px;letter-spacing:-.025em}
-.thank-you-contact span{margin-top:8px;color:rgba(255,255,255,.62);font-size:19px}
-.thank-you-contact a{margin-top:18px;color:#aeb9ff;font:600 21px/1.2 var(--mono);text-underline-offset:5px}
+.thank-you-contact>div>strong,.thank-you-contact>div>span,.thank-you-contact>div>a{display:block}
+.thank-you-contact>div>strong{font-size:30px;letter-spacing:-.025em}
+.thank-you-contact>div>span{margin-top:8px;color:rgba(255,255,255,.62);font-size:19px}
+.thank-you-contact>div>a{margin-top:18px;color:#aeb9ff;font:600 21px/1.2 var(--mono);text-underline-offset:5px}
 .thank-you-credit{position:absolute;z-index:2;right:48px;bottom:30px;color:rgba(255,255,255,.5);font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
 
 @media print{
