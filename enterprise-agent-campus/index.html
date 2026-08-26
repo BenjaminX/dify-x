@@ -1,314 +1,222 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>企业 Agent：从能力边界到系统落地 — Dify</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>企业 Agent：产品形态与场景选择 — Dify</title>
   <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260826-reframe">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260826-forms">
 </head>
 <body>
-  <div class="deck-brand"><img src="../assets/logo.svg" alt="Dify"><span>Campus Lecture · Enterprise Agent</span></div>
+  <div class="deck-brand"><img src="../assets/logo.svg" alt="Dify"><span>Campus Lecture · Agent Product Forms</span></div>
   <div class="lang-switch"><a class="active" href="index.html">中文</a><span>/</span><a href="index_en.html">EN</a></div>
   <div class="reveal"><div class="slides">
 
-    <!-- 01 · VISUAL_SLOT: full-bleed abstract light -->
-    <section class="cover-slide" data-slide-id="n01-cover">
-      <img class="photo-bg" src="assets/atmos-silk-ruido98.jpg" alt="Ruido 98 在 Unsplash 发布的蓝橙抽象光影">
-      <div class="cover-shade"></div>
-      <div class="cover-copy">
-        <div><div class="eyebrow on-dark">Enterprise Agent · Campus Lecture</div><h1>企业 Agent<br><span>从能力边界<br>到系统落地</span></h1><p>不是模型能力清单，而是一套委派工作与责任的方法。</p></div>
-        <div class="cover-meta"><span>讲者姓名 · 职务 / 组织</span><span>学校 · 新生讲座 · 2026</span><b>45 MIN</b></div>
-      </div>
-      <aside class="notes">时长 0:30。核心讲法：今天不盘点产品功能，而是回答企业如何把一段真实工作交给 Agent，又不把责任一起丢掉。术语：委派是把部分决策权交给系统。过渡：第一步先问，我们到底交出了什么。证据边界：这是讲座的分析框架，不是行业认证标准。</aside>
+    <!-- 01 · VISUAL_SLOT: cover -->
+    <section class="cover-slide" data-slide-id="f01-cover">
+      <img class="photo-bg" src="assets/atmos-silk-ruido98.jpg" alt="Ruido 98 在 Unsplash 发布的蓝橙抽象光影"><div class="cover-shade"></div>
+      <div class="cover-copy"><div><div class="eyebrow on-dark">Enterprise Agent · Product Atlas</div><h1>企业 Agent<br><span>产品形态<br>与场景选择</span></h1><p>从“能做什么”，走向“应该被做成什么产品”。</p></div><div class="cover-meta"><span>讲者姓名 · 职务 / 组织</span><span>学校 · 新生讲座 · 2026</span><b>45 MIN</b></div></div>
+      <aside class="notes">时长 0:30。核心讲法：今天不从模型、工具调用或治理功能开始，而是观察企业里已经出现的 Agent 产品形态，以及每种形态为什么适合不同工作。术语：产品形态指入口、工作对象、交付物和使用节奏的组合。过渡：先给出全场最重要的判断。证据边界：六类形态是教学分类，不是行业唯一分类。</aside>
     </section>
 
-    <!-- 02 · REPORT_SLOT: delegation thesis -->
-    <section data-slide-id="n02-delegation-question">
-      <div class="eyebrow">Delegation · 问题的真正起点</div>
-      <h2>当你说“让 Agent 做”，<br>你究竟把什么交了出去？</h2>
-      <div class="delegation-axis">
-        <div class="axis-line"></div>
-        <div class="axis-item"><span>01</span><strong>决策权</strong><p>下一步做什么、何时重试、何时结束。</p></div>
-        <div class="axis-item fragment fade-up" data-fragment-index="0"><span>02</span><strong>资源</strong><p>它能读取哪些数据、调用哪些工具、花多少预算。</p></div>
-        <div class="axis-item fragment fade-up" data-fragment-index="1"><span>03</span><strong>责任路径</strong><p>错误由谁发现、谁接管、谁批准恢复。</p></div>
-        <div class="axis-verdict fragment fade-up" data-fragment-index="2">没有责任路径的“自治”，只是<span>无人值守</span>。</div>
-      </div>
-      <aside class="notes">时长 2:00。核心讲法：企业 Agent 的核心不是像不像人，而是组织把哪些决策权和资源授予了它，以及失败后责任如何回到具体的人。术语：责任路径包括发现、升级、处置和恢复。过渡：用一项看似简单的数据任务，看这些隐藏决策如何出现。证据边界：三分法是本讲座为降低理解成本而建立的教学框架。</aside>
+    <!-- 02 · REPORT_SLOT: core thesis -->
+    <section data-slide-id="f02-thesis">
+      <div class="eyebrow">Thesis · 先看工作，再看 Agent</div>
+      <div class="form-thesis"><div class="thesis-left"><small>DON'T START WITH</small><strong>模型有多自主？</strong><p>这只描述能力强弱，不能告诉你用户为什么打开它。</p></div><div class="thesis-arrow fragment fade-up" data-fragment-index="0">→</div><div class="thesis-right fragment fade-up" data-fragment-index="1"><small>START WITH</small><strong>它服务哪一种工作？</strong><p>工作对象、触发方式和交付结果，才会塑造产品。</p></div></div>
+      <div class="thesis-verdict fragment fade-up" data-fragment-index="2">产品形态跟随工作形态，不跟随“自治等级”。</div>
+      <aside class="notes">时长 1:30。核心讲法：同样的模型能力，可以成为 IDE 内的 Copilot、客户服务入口或后台监测系统。差异来自工作本身，不是自治等级。术语：工作形态描述工作围绕什么对象发生、由什么触发、怎样结束。过渡：决定形态的第一变量，是最小工作单元。证据边界：本页是研究综合判断。</aside>
     </section>
 
-    <!-- 03 · CASE_SLOT: anchor process -->
-    <section class="prompt-slide" data-slide-id="n03-one-process">
-      <div class="eyebrow">One Process · 全场只追一项任务</div>
-      <blockquote>“过去四周，哪些地区的退款率异常上升？<br>主要驱动是什么？生成管理层备忘录。”</blockquote>
-      <div class="prompt-underlay fragment fade-up" data-fragment-index="0">
-        <span>“退款率”按订单、金额还是用户？</span><span>“异常”相对谁的基线？</span><span>数据延迟如何处理？</span><span>谁有权看小样本地区？</span><span>相关性可以写成因果吗？</span>
+    <!-- 03 -->
+    <section data-slide-id="f03-work-unit">
+      <div class="eyebrow">Work Unit · 产品围绕什么对象持续存在？</div><h2>找到最小工作单元，就找到了产品的“容器”。</h2>
+      <div class="unit-spine">
+        <div class="unit-line"></div>
+        <div class="unit u1"><span>01</span><strong>当前对象</strong><p>代码行、CRM 记录、表格单元</p><b>→ Copilot</b></div>
+        <div class="unit u2 fragment fade-up" data-fragment-index="0"><span>02</span><strong>项目 / 材料集</strong><p>合同包、研究档案、Campaign</p><b>→ Workbench</b></div>
+        <div class="unit u3 fragment fade-up" data-fragment-index="1"><span>03</span><strong>会话 / 意图</strong><p>客户问题、员工请求</p><b>→ Service Agent</b></div>
+        <div class="unit u4 fragment fade-up" data-fragment-index="2"><span>04</span><strong>Case / 流程实例</strong><p>申请、订单、理赔、采购</p><b>→ Process Agent</b></div>
+        <div class="unit u5 fragment fade-up" data-fragment-index="3"><span>05</span><strong>信号流</strong><p>告警、交易、舆情、设备事件</p><b>→ Monitoring Agent</b></div>
+        <div class="unit u6 fragment fade-up" data-fragment-index="4"><span>06</span><strong>指标 / 问题</strong><p>经营异常、增长、成本、实验</p><b>→ Analyst Agent</b></div>
       </div>
-      <div class="prompt-note fragment fade-up" data-fragment-index="1">一句自然语言，实际压缩了至少五次业务裁决。</div>
-      <aside class="notes">时长 2:00。核心讲法：请先读问题，再逐项揭示隐藏裁决。真正困难的不是生成 SQL，而是识别指标、基线、权限、时效和解释边界。术语：业务裁决指无法只靠语法正确性回答的规则选择。过渡：因此需要一个能持续观察、行动和验证的运行闭环。证据边界：任务和数据是合成教学案例，不是真实客户项目。</aside>
+      <aside class="notes">时长 2:00。核心讲法：Copilot 依附当前对象，Workbench 围绕材料集，服务产品围绕会话，流程产品围绕 case，监测产品围绕信号流，分析产品围绕指标和问题。术语：最小工作单元是用户反复打开、保存和交接的基本对象。过渡：六种对象自然形成六种产品形态。证据边界：同一企业场景可以包含多个工作单元，因此也可能组合多种形态。</aside>
     </section>
 
-    <!-- 04 · REPORT_SLOT: operating definition -->
-    <section data-slide-id="n04-operating-definition">
-      <div class="eyebrow">Operating Definition · 不从拟人化开始</div>
-      <h2>Agent 是在“任务契约”内运行的闭环执行者。</h2>
-      <div class="loop-stage">
-        <div class="loop-ring"></div>
-        <div class="loop-node l1"><span>01</span><strong>Goal</strong><small>完成是什么</small></div>
-        <div class="loop-node l2 fragment fade-up" data-fragment-index="0"><span>02</span><strong>Observe</strong><small>读取当前状态</small></div>
-        <div class="loop-node l3 fragment fade-up" data-fragment-index="0"><span>03</span><strong>Decide</strong><small>选择受允许的下一步</small></div>
-        <div class="loop-node l4 fragment fade-up" data-fragment-index="1"><span>04</span><strong>Act</strong><small>调用工具改变状态</small></div>
-        <div class="loop-node l5 fragment fade-up" data-fragment-index="1"><span>05</span><strong>Verify</strong><small>检查动作是否有效</small></div>
-        <div class="loop-stop fragment fade-up" data-fragment-index="2"><b>STOP CONTRACT</b><br>完成 · 请求澄清 · 升级 · 失败</div>
+    <!-- 04 -->
+    <section class="atlas-slide" data-slide-id="f04-product-atlas">
+      <div class="eyebrow">Product Atlas · 六种主形态</div><h2>它们不是一条升级路径，而是六种不同的产品答案。</h2>
+      <div class="atlas-map">
+        <div class="atlas-axis y">持续运行 ↑</div><div class="atlas-axis x">从个人任务 → 跨系统业务</div>
+        <div class="atlas-dot ad1"><span>01</span><strong>嵌入式 Copilot</strong><small>当前对象</small></div>
+        <div class="atlas-dot ad2 fragment fade-up" data-fragment-index="0"><span>02</span><strong>专家工作台</strong><small>材料 / 项目</small></div>
+        <div class="atlas-dot ad3 fragment fade-up" data-fragment-index="1"><span>03</span><strong>服务 Agent</strong><small>会话 / 意图</small></div>
+        <div class="atlas-dot ad4 fragment fade-up" data-fragment-index="1"><span>04</span><strong>流程 Agent</strong><small>Case / SOP</small></div>
+        <div class="atlas-dot ad5 fragment fade-up" data-fragment-index="2"><span>05</span><strong>监测 Agent</strong><small>事件 / 信号</small></div>
+        <div class="atlas-dot ad6 fragment fade-up" data-fragment-index="2"><span>06</span><strong>分析 Agent</strong><small>指标 / 问题</small></div>
       </div>
-      <div class="source-bar"><span>研究综合判断：Agent 的最低门槛是多步推进、工具动作、状态反馈或异常升级</span><span>WORKING DEFINITION</span></div>
-      <aside class="notes">时长 2:00。核心讲法：把 Agent 定义成运行闭环，而不是人格。它在目标、权限和停止条件组成的任务契约内工作。术语：闭环表示动作之后必须再次观察结果。过渡：为什么“再次观察”如此关键？因为工具动作已经改变了环境。证据边界：此工作定义综合研究报告，不宣称为唯一行业定义。</aside>
+      <div class="atlas-note">同一家公司通常同时拥有 4–6 种形态，而不是一个“万能 Agent”。</div>
+      <aside class="notes">时长 2:30。核心讲法：横轴从个人当前任务走向跨系统业务，纵轴从按需打开走向持续运行。六种形态占据不同位置，不代表成熟度高低。术语：主形态指用户首先感知的产品入口和工作容器。过渡：在看具体形态前，用四个问题快速判断应该做成什么。证据边界：坐标是定性定位，不是市场份额或成熟度评分。</aside>
     </section>
 
     <!-- 05 -->
-    <section class="dark-slide" data-slide-id="n05-closed-loop">
-      <div class="eyebrow on-dark">Closed Loop · 区别不在 Prompt 数量</div>
-      <h2>动作改变了环境。<br>系统必须重新看一眼。</h2>
-      <div class="feedback-system">
-        <div class="feedback-command"><small>INTENT</small><strong>查询退款异常</strong></div>
-        <div class="feedback-controller fragment fade-up" data-fragment-index="0"><small>CONTROLLER</small><strong>选择查询与验证动作</strong></div>
-        <div class="feedback-world fragment fade-up" data-fragment-index="1"><small>WORLD STATE</small><strong>0 行 / 重复订单 / 口径冲突</strong></div>
-        <div class="feedback-return fragment fade-up" data-fragment-index="2">观察结果 → 修正计划 → 再行动</div>
-        <div class="open-loop fragment fade-up" data-fragment-index="2">只把 Prompt 串起来：执行完就走，错误继续向后传播。</div>
+    <section data-slide-id="f05-four-questions">
+      <div class="eyebrow">Four Questions · 场景到产品</div><h2>别先写功能列表，先回答四个产品问题。</h2>
+      <div class="question-route">
+        <div class="route-line"></div>
+        <div class="route-q"><span>01</span><small>ENTRY</small><strong>用户从哪里遇见它？</strong><p>已有软件、独立空间、服务渠道，还是系统事件。</p></div>
+        <div class="route-q fragment fade-up" data-fragment-index="0"><span>02</span><small>OBJECT</small><strong>工作围绕什么持续？</strong><p>一段内容、一个项目、一次会话、一个 case 或一条信号。</p></div>
+        <div class="route-q fragment fade-up" data-fragment-index="1"><span>03</span><small>DELIVERY</small><strong>用户真正拿走什么？</strong><p>建议、专业产物、问题解决、流程状态、告警或决策。</p></div>
+        <div class="route-q fragment fade-up" data-fragment-index="2"><span>04</span><small>RHYTHM</small><strong>什么时候再次回来？</strong><p>每分钟、每个项目、每次请求、每个事件或每周经营复盘。</p></div>
       </div>
-      <aside class="notes">时长 2:15。核心讲法：数据库返回零行、join 放大记录或指标版本冲突，都会改变下一步计划；没有反馈就不是可靠的执行系统。术语：开放环路只发出动作，不用动作结果校正后续行为。过渡：闭环仍然会出错，因此下一步不是追求无限自治，而是限定风险暴露。证据边界：控制系统类比用于解释反馈，不等同于所有 Agent 必须使用同一种技术实现。</aside>
+      <aside class="notes">时长 2:00。核心讲法：入口决定分发，工作对象决定状态，交付物决定价值，使用节奏决定产品是否需要持续存在。术语：使用节奏不是响应速度，而是场景自然重复的频率。过渡：下面依次看六种形态，每页只回答它适合什么工作。证据边界：四问用于产品发现，不替代详细需求研究。</aside>
     </section>
 
-    <!-- 06 -->
-    <section data-slide-id="n06-risk-envelope">
-      <div class="eyebrow">Risk Envelope · 教学启发式</div>
-      <h2>风险暴露不只取决于“模型错没错”。</h2>
-      <div class="exposure-equation">
-        <div class="equation-result"><small>EXPOSURE</small><strong>风险暴露</strong></div><b>=</b>
-        <div class="equation-term fragment fade-up" data-fragment-index="0"><small>ACTION RADIUS</small><strong>动作半径</strong><p>一次错误能影响多少对象</p></div><b>×</b>
-        <div class="equation-term fragment fade-up" data-fragment-index="1"><small>IRREVERSIBILITY</small><strong>不可逆性</strong><p>错误能否安全撤回</p></div><b>×</b>
-        <div class="equation-term fragment fade-up" data-fragment-index="2"><small>DETECTION DELAY</small><strong>发现延迟</strong><p>多久才能看见错误</p></div>
+    <!-- 06 · REPORT_SLOT: embedded copilot -->
+    <section data-slide-id="f06-copilot">
+      <div class="form-index">01 / 06</div><div class="eyebrow">Embedded Copilot · 嵌在已有动作旁边</div><h2>当用户已经知道要做什么，Agent 最好不要成为新目的地。</h2>
+      <div class="copilot-shell">
+        <div class="host-app"><small>EXISTING SYSTEM</small><div class="host-toolbar"></div><div class="host-canvas"><span>代码 / 文档 / CRM / 表格</span></div></div>
+        <div class="sidecar fragment fade-up" data-fragment-index="0"><small>AI SIDE PANEL</small><strong>理解当前对象</strong><strong>给出下一步建议</strong><strong>直接生成局部内容</strong></div>
+        <div class="scene-ribbon fragment fade-up" data-fragment-index="1"><b>适合</b><span>代码补全与解释</span><span>CRM 跟进建议</span><span>表格公式与分析</span><span>文档起草与改写</span></div>
+        <div class="form-kpi">价值单位：每一次微任务节省的时间</div>
       </div>
-      <div class="risk-example fragment fade-up" data-fragment-index="3"><span>读错一张报表</span><i>≪</i><span>向十万客户发送错误通知</span></div>
-      <div class="source-bar"><span>这是用于设计讨论的启发式乘积，不是经过验证的定量风险公式</span><span>TEACHING MODEL</span></div>
-      <aside class="notes">时长 2:15。核心讲法：相同错误率，在只读分析和大规模外部发布中后果完全不同。通过缩小动作半径、保持可回退、缩短发现时间来限制暴露。术语：发现延迟是错误发生到系统或人确认错误之间的时间。过渡：因此任务是否适合 Agent，要同时看结果能否验证、动作能否回退。证据边界：该乘积是教学启发式，不用于计算财务损失或合规资本。</aside>
+      <div class="source-bar"><span><a href="https://docs.github.com/en/copilot/get-started/what-is-github-copilot" target="_blank" rel="noopener">GitHub Copilot Docs</a>：IDE 建议、聊天、命令行、PR 与编码任务入口</span><span>PRODUCT REFERENCE</span></div>
+      <aside class="notes">时长 2:15。核心讲法：Copilot 不要求用户改变工作地点，它读取当前对象并缩短一连串微动作。适合专业人士主导、上下文就在当前软件中的场景。术语：sidecar 是附着在主产品旁的辅助界面。过渡：当工作跨越大量材料并需要长期组织时，sidecar 就不够了。证据边界：GitHub 只作为嵌入式产品形态参考，不把其生产力研究数字延伸到其他行业。</aside>
     </section>
 
-    <!-- 07 -->
-    <section data-slide-id="n07-task-fit">
-      <div class="eyebrow">Task Fit · 从右上角开始</div>
-      <h2>先自动化“可验证、可回退”的任务。</h2>
-      <div class="fit-matrix">
-        <div class="y-label">结果可验证性 ↑</div><div class="x-label">动作可回退性 →</div>
-        <div class="quadrant q1"><small>验证难 · 难回退</small><strong>人类裁决</strong><span>绩效处罚、诊疗决策</span></div>
-        <div class="quadrant q2 fragment fade-up" data-fragment-index="0"><small>验证易 · 难回退</small><strong>审批后执行</strong><span>外部发布、付款</span></div>
-        <div class="quadrant q3 fragment fade-up" data-fragment-index="1"><small>验证难 · 易回退</small><strong>探索与草稿</strong><span>研究假设、策略备选</span></div>
-        <div class="quadrant q4 fragment fade-up" data-fragment-index="2"><small>验证易 · 易回退</small><strong>优先起点</strong><span>只读分析、文档结构化</span></div>
-        <div class="matrix-arrow fragment fade-up" data-fragment-index="3">START HERE</div>
+    <!-- 07 · REPORT_SLOT: workbench -->
+    <section class="workbench-slide" data-slide-id="f07-workbench">
+      <div class="form-index">02 / 06</div><div class="eyebrow">Expert Workbench · 围绕一组材料工作</div>
+      <div class="workbench-layout"><div class="wb-lead"><h2>当任务需要收集、比较、判断和形成专业产物，Agent 应该成为一个工作空间。</h2><p>它保存项目、材料、问题清单、发现和最终交付，而不是只保存聊天记录。</p></div>
+        <div class="wb-canvas fragment fade-up" data-fragment-index="0"><div class="wb-tab">MATTER / PROJECT #27</div><div class="wb-files"><span>合同 48</span><span>法规 12</span><span>访谈 7</span></div><div class="wb-findings"><strong>ISSUES</strong><p>控制权变更条款</p><p>数据跨境缺口</p><p>供应商集中风险</p></div><div class="wb-output">DILIGENCE MEMO →</div></div>
       </div>
-      <aside class="notes">时长 2:15。核心讲法：选择任务不是按行业热门度，而是按结果可验证性和动作可回退性。右上角可以积累评测与运维经验。术语：可验证不等于必须百分之百正确，而是有稳定方法判断对错。过渡：确定任务后，还要决定哪些步骤固定，哪些局部需要 Agent 判断。证据边界：矩阵是任务筛选工具，具体象限会随企业控制能力改变。</aside>
+      <div class="scene-ribbon workbench-scenes"><b>适合</b><span>法律尽调</span><span>合规审查</span><span>投研与战略研究</span><span>Campaign / 本地化</span></div>
+      <div class="source-bar"><span><a href="https://legal.thomsonreuters.com/en/legal/due-diligence-corp" target="_blank" rel="noopener">Thomson Reuters CoCounsel Legal</a>：Define → Collect → Assess → Document</span><span>PRODUCT REFERENCE</span></div>
+      <aside class="notes">时长 2:15。核心讲法：专家工作台的核心对象不是对话，而是 matter、项目或材料集；价值在于把收集、比较、风险判断和产物组织在一个空间。术语：matter 是法律与专业服务中持续存在的项目单位。过渡：如果工作不是项目，而是一次外部请求，产品形态会变成服务入口。证据边界：CoCounsel 来源方披露的效果数字不用于跨产品比较，本页只引用端到端工作台结构。</aside>
     </section>
 
-    <!-- 08 -->
-    <section data-slide-id="n08-uncertainty-placement">
-      <div class="eyebrow">Uncertainty Placement · 不要把整条流程都变成 Agent</div>
-      <h2>固定确定的主干，只开放一小段不确定性。</h2>
-      <div class="uncertainty-line">
-        <div class="fixed-step"><span>1</span><strong>收集输入</strong></div>
-        <div class="fixed-step"><span>2</span><strong>权限检查</strong></div>
-        <div class="agent-pocket fragment fade-up" data-fragment-index="0"><small>BOUNDED AGENT POCKET</small><strong>解释问题 ↔ 选择查询 ↔ 验证结果</strong><p>限定工具 · 限定轮次 · 限定预算</p></div>
-        <div class="fixed-step fragment fade-up" data-fragment-index="1"><span>4</span><strong>生成固定格式</strong></div>
-        <div class="human-gate fragment fade-up" data-fragment-index="2"><span>H</span><strong>人工确认</strong></div>
-      </div>
-      <div class="uncertainty-rule">不确定性在哪里，Agent loop 才放在哪里。</div>
-      <aside class="notes">时长 2:00。核心讲法：工作流负责确定顺序、权限和格式；Agent 只处理局部需要动态判断的部分；高风险出口交给人。术语：受限 Agent pocket 是嵌在固定工作流中的开放判断区。过渡：要让这个小循环可管理，需要三份明确契约。证据边界：这是一种推荐架构，不排除极简单任务完全用 Workflow，或研究型任务需要更大开放空间。</aside>
+    <!-- 08 · REPORT_SLOT: service agent -->
+    <section class="service-slide" data-slide-id="f08-service">
+      <div class="form-index on-dark">03 / 06</div><div class="eyebrow on-dark">Service Agent · 会话只是入口，解决才是产品</div><h2>当用户带着一个意图出现，产品必须围绕“是否解决”设计。</h2>
+      <div class="service-wave"><div class="channels"><span>CHAT</span><span>EMAIL</span><span>VOICE</span><span>APP</span></div><div class="intent-wave fragment fade-up" data-fragment-index="0">问题 → 识别意图 → 获取账户上下文 → 完成服务动作 → 结果确认</div><div class="resolution fragment fade-up" data-fragment-index="1"><small>OUTCOME</small><strong>RESOLVED</strong><p>不是回答了一句话，而是请求不再需要继续处理。</p></div></div>
+      <div class="scene-ribbon dark-ribbon"><b>适合</b><span>客户服务</span><span>员工 IT / HR 服务台</span><span>商家支持</span><span>旅行改签 / 状态查询</span></div>
+      <div class="source-bar dark-source"><span><a href="https://www.intercom.com/help/en/articles/8205718-fin-ai-agent-outcomes" target="_blank" rel="noopener">Intercom Fin outcomes</a>：以 conversation outcome / resolution 定义服务价值</span><span>PRODUCT REFERENCE</span></div>
+      <aside class="notes">时长 2:15。核心讲法：服务 Agent 以渠道为入口，以意图和会话为工作单元，以 resolution 为交付。适合高频、标准意图、需要账户上下文的服务场景。术语：resolution 是用户问题得到解决，而不是机器人成功回复。过渡：如果一次请求会变成长时间、跨系统的业务实例，就进入流程 Agent。证据边界：Intercom 定义用于说明产品计量方式，不引用供应商排名或跨企业平均指标。</aside>
     </section>
 
-    <!-- 09 -->
-    <section data-slide-id="n09-three-contracts">
-      <div class="eyebrow">Three Contracts · 把“做得不错”写成可检查条件</div>
-      <h2>Agent 上线前，先签三份机器可执行的契约。</h2>
-      <div class="contract-stack">
-        <div class="contract-sheet task-contract"><small>01 · TASK CONTRACT</small><strong>任务契约</strong><p>输入、完成条件、质量阈值、停止条件。</p><em>缺失 → 系统不知道何时算完成</em></div>
-        <div class="contract-sheet tool-contract fragment fade-up" data-fragment-index="0"><small>02 · TOOL CONTRACT</small><strong>工具契约</strong><p>身份、权限、预算、前置与后置条件。</p><em>缺失 → 模型建议直接变成越权动作</em></div>
-        <div class="contract-sheet evidence-contract fragment fade-up" data-fragment-index="1"><small>03 · EVIDENCE CONTRACT</small><strong>证据契约</strong><p>必须保存的输入、来源、动作、版本和审批。</p><em>缺失 → 事后只能看到一段答案</em></div>
-      </div>
-      <aside class="notes">时长 2:15。核心讲法：任务契约回答什么叫完成，工具契约回答允许做什么，证据契约回答如何证明做过什么。三份契约缺一，分别导致漫游、越权和不可审计。术语：机器可执行表示关键条件进入流程配置、工具模式或日志字段，而不只写在制度文档。过渡：先深入第一类基础——模型究竟需要什么上下文才能理解任务。证据边界：三契约是本讲座的系统设计抽象，不对应 Dify 的三个固定产品对象。</aside>
+    <!-- 09 · REPORT_SLOT: process agent -->
+    <section data-slide-id="f09-process">
+      <div class="form-index">04 / 06</div><div class="eyebrow">Process Agent · 围绕一个 Case 推进状态</div><h2>当价值来自“从开始走到结束”，产品应附着在业务实例上。</h2>
+      <div class="case-pipeline"><div class="case-label">CASE #A-2048<br><small>Vendor Onboarding</small></div><div class="case-step"><span>01</span><strong>收件</strong><small>文档与请求</small></div><div class="case-step fragment fade-up" data-fragment-index="0"><span>02</span><strong>判断</strong><small>供应商与政策</small></div><div class="case-step fragment fade-up" data-fragment-index="0"><span>03</span><strong>补全</strong><small>缺失材料</small></div><div class="case-step fragment fade-up" data-fragment-index="1"><span>04</span><strong>跨系统执行</strong><small>ERP / CRM / Ticket</small></div><div class="case-step fragment fade-up" data-fragment-index="1"><span>05</span><strong>结案</strong><small>状态与记录</small></div></div>
+      <div class="process-scenes"><span>采购与供应商准入</span><span>KYC / 开户</span><span>理赔</span><span>订单异常</span><span>员工入职</span><span>应付账款</span></div>
+      <div class="form-kpi">价值单位：每个 Case 的周期、吞吐与一次通过率</div>
+      <div class="source-bar"><span><a href="https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/automate-business-processes-with-agents-plus-workflows-in-microsoft-copilot-studio/" target="_blank" rel="noopener">Microsoft Copilot Studio</a>：采购、客服、销售与流程编排案例</span><span>PRODUCT REFERENCE</span></div>
+      <aside class="notes">时长 2:15。核心讲法：流程 Agent 的核心 UI 应该是 case 状态、材料、下一动作和跨系统结果，而不只是聊天框。适合有明确生命周期和系统记录的业务实例。术语：case 是从创建到关闭可被追踪的一次业务实例。过渡：还有一类产品不是等待 case，而是持续观察世界是否发生变化。证据边界：Microsoft 来源支持流程与 Agent 组合的场景模式，不推导通用 ROI。</aside>
     </section>
 
-    <!-- 10 -->
-    <section data-slide-id="n10-context-stack">
-      <div class="eyebrow">Context Stack · 上下文不是更多 Token</div>
-      <h2>可靠理解来自可执行的业务语义。</h2>
-      <div class="context-strata">
-        <div class="stratum s-runtime fragment fade-up" data-fragment-index="4"><span>05</span><strong>运行状态</strong><p>时间、用户、任务历史、当前限制</p></div>
-        <div class="stratum s-policy fragment fade-up" data-fragment-index="3"><span>04</span><strong>政策与例外</strong><p>隐私阈值、禁用范围、人工升级规则</p></div>
-        <div class="stratum s-definition fragment fade-up" data-fragment-index="2"><span>03</span><strong>业务定义</strong><p>退款率分子、分母、基线和时区</p></div>
-        <div class="stratum s-lineage fragment fade-up" data-fragment-index="1"><span>02</span><strong>血缘与历史查询</strong><p>数据从哪里来、团队过去如何验证</p></div>
-        <div class="stratum s-schema"><span>01</span><strong>Schema 与元数据</strong><p>表、字段、类型和所有者</p></div>
-        <div class="context-output">可执行语义 → 选择正确指标、表与验证方式</div>
-      </div>
-      <div class="source-bar"><span><a href="https://openai.com/index/inside-our-in-house-data-agent/" target="_blank" rel="noopener">OpenAI · Inside our in-house data agent</a>：多层上下文、权限继承与运行时验证</span><span>PRIMARY ENGINEERING SOURCE</span></div>
-      <aside class="notes">时长 2:15。核心讲法：从 schema 向上叠加血缘、业务定义、政策和运行状态；上下文的目标是约束选择，而不是塞满提示词。OpenAI 公开的内部数据 Agent 强调多层上下文、查询历史、人类标注和运行时信息。术语：血缘描述数据由哪些上游处理产生。过渡：理解正确仍不等于可以安全行动，下一页看工具契约。证据边界：来源说明工程模式，不把 OpenAI 底层数据平台规模表述为 Agent 采用率或准确率。</aside>
+    <!-- 10 · REPORT_SLOT: monitoring agent -->
+    <section class="monitor-slide" data-slide-id="f10-monitoring">
+      <div class="form-index">05 / 06</div><div class="eyebrow">Monitoring Agent · 产品没有“打开”时刻</div><h2>当工作从信号开始，Agent 应该像雷达，而不是搜索框。</h2>
+      <div class="radar-stage"><div class="radar"><i></i><i></i><i></i><div class="sweep"></div><span class="ping p1"></span><span class="ping p2"></span><span class="ping p3"></span></div><div class="signal-feed fragment fade-up" data-fragment-index="0"><small>LIVE SIGNALS</small><p>02:14 · Error rate ↑ 3.2×</p><p>02:16 · 付款失败集中于 APAC</p><p>02:18 · 同类事件关联发布 v742</p><div class="signal-output">INCIDENT BRIEF CREATED →</div></div></div>
+      <div class="scene-ribbon monitor-scenes"><b>适合</b><span>ITOM / SRE 告警</span><span>欺诈与交易风险</span><span>合规监测</span><span>供应链异常</span><span>客户声音</span></div>
+      <div class="source-bar"><span><a href="https://www.servicenow.com/docs/r/it-operations-management/now-assist-for-it-operations-management/now-assist-itom-ai-agent-workflows.html" target="_blank" rel="noopener">ServiceNow ITOM agentic workflows</a>：告警分诊、模式识别、关联事件与验证</span><span>PRODUCT REFERENCE</span></div>
+      <aside class="notes">时长 2:15。核心讲法：监测 Agent 由事件触发，持续聚合、去噪、关联和形成 incident brief；用户通常从告警或案例进入，而不是先发问题。术语：signal stream 是不断到达、需要判断优先级的事件序列。过渡：最后一种主形态也从问题开始，但它围绕指标和证据展开。证据边界：ServiceNow 来源说明 ITOM 产品形态，不代表所有监测场景均可直接自治。</aside>
     </section>
 
-    <!-- 11 -->
-    <section data-slide-id="n11-tool-contract">
-      <div class="eyebrow">Tool Contract · API 不是普通文本</div>
-      <h2>每一次工具调用，都是一次真实的授权边界。</h2>
-      <div class="tool-envelope">
-        <div class="tool-intent"><small>MODEL INTENT</small><strong>“运行退款查询”</strong></div>
-        <div class="envelope-body fragment fade-up" data-fragment-index="0">
-          <div><span>PRE</span><strong>前置条件</strong><p>指标版本已确认</p></div><div><span>ID</span><strong>身份 / 权限</strong><p>继承请求者只读权限</p></div><div><span>KEY</span><strong>幂等键</strong><p>重试不重复产生动作</p></div><div><span>CAP</span><strong>成本 / 轮次</strong><p>扫描量与调用次数上限</p></div><div><span>POST</span><strong>后置条件</strong><p>行数、唯一性、分母检查</p></div><div><span>UNDO</span><strong>撤销方式</strong><p>不可撤销则转人工</p></div>
-        </div>
-        <div class="tool-outcome fragment fade-up" data-fragment-index="1"><b>ALLOW</b><span>执行并记录</span><b class="ask">ASK</b><span>补充缺失条件</span><b class="stop">STOP</b><span>越权或不可逆</span></div>
-      </div>
-      <aside class="notes">时长 2:15。核心讲法：模型提出意图，工具层负责授权和验证。工具契约至少定义前置条件、身份、幂等、预算、后置条件和撤销。术语：幂等表示同一请求重复执行不会产生多次副作用。过渡：动作被限制之后，还要让每一步可追溯。证据边界：字段清单是通用工程建议；具体机制由数据库、API 网关和企业身份系统实现。</aside>
+    <!-- 11 · REPORT_SLOT: analyst agent -->
+    <section data-slide-id="f11-analyst">
+      <div class="form-index">06 / 06</div><div class="eyebrow">Analyst Agent · 从问题走到可消费的决策材料</div><h2>当用户不知道答案，也不知道该查哪张表，产品需要承载探索过程。</h2>
+      <div class="analysis-tree"><div class="analysis-question">为什么退款率上升？</div><div class="branch b1 fragment fade-up" data-fragment-index="0"><strong>定义与数据发现</strong><p>指标、表、血缘、历史查询</p></div><div class="branch b2 fragment fade-up" data-fragment-index="1"><strong>多轮分析</strong><p>分群、异常、对照、重试</p></div><div class="branch b3 fragment fade-up" data-fragment-index="2"><strong>发布产物</strong><p>Notebook、图表、报告、结果链接</p></div><div class="analysis-delivery fragment fade-up" data-fragment-index="3">QUESTION → INSIGHT → DECISION MEMO</div></div>
+      <div class="scene-ribbon analyst-scenes"><b>适合</b><span>经营复盘</span><span>产品健康度</span><span>发布评估</span><span>财务分析</span><span>实验与增长诊断</span></div>
+      <div class="source-bar"><span><a href="https://openai.com/index/inside-our-in-house-data-agent/" target="_blank" rel="noopener">OpenAI in-house data agent</a>：发现数据、运行 SQL、发布 Notebook 与报告</span><span>PRODUCT REFERENCE</span></div>
+      <aside class="notes">时长 2:15。核心讲法：分析 Agent 不是自然语言 SQL 输入框，而是保存问题、探索分支、证据和最终决策材料的分析产品。适合开放问题和多轮探索。术语：可消费产物是能进入经营会议或后续决策的 notebook、图表或 memo。过渡：复杂项目中还会出现多 Agent，但它更像内部组织方式。证据边界：OpenAI 案例为内部定制工具；底层数据平台规模不代表 Agent 采用率或准确率。</aside>
     </section>
 
     <!-- 12 -->
-    <section class="ledger-slide" data-slide-id="n12-evidence-ledger">
-      <div class="eyebrow">Evidence Ledger · 解释不是证据</div>
-      <h2>每次运行，都要写下一本可重放的账。</h2>
-      <div class="ledger">
-        <div class="ledger-row"><span>00:00</span><strong>INPUT</strong><p>问题 v3 · 用户 u-184 · 只读范围 APAC</p></div>
-        <div class="ledger-row fragment fade-up" data-fragment-index="0"><span>00:03</span><strong>CONTEXT</strong><p>退款率定义 v12 · 数据血缘 hash · 隐私政策 v7</p></div>
-        <div class="ledger-row fragment fade-up" data-fragment-index="1"><span>00:08</span><strong>ACTION</strong><p>query_refunds.sql · 参数 · 扫描预算 · tool_call_91</p></div>
-        <div class="ledger-row fragment fade-up" data-fragment-index="1"><span>00:11</span><strong>RESULT</strong><p>结果链接 · 行数 · checksum · 验证测试</p></div>
-        <div class="ledger-row fragment fade-up" data-fragment-index="2"><span>00:18</span><strong>JUDGMENT</strong><p>已知 / 推断 / 无法判断 · 假设 · 置信边界</p></div>
-        <div class="ledger-row fragment fade-up" data-fragment-index="2"><span>00:24</span><strong>OWNER</strong><p>审批人 · 修改记录 · 发布决定</p></div>
-      </div>
-      <div class="ledger-verdict">“因为模型这么判断”无法重放；证据链可以。</div>
-      <aside class="notes">时长 2:15。核心讲法：证据账本保存输入版本、上下文、动作、原始结果、判断与责任人，使失败可以重放和修复。术语：重放指使用保存的版本和参数复现执行过程。过渡：账本告诉我们谁在何时做了决定，也让人工闸门从口号变成明确的决策权。证据边界：示例字段是教学用，不代表所有日志都可无限期保存；隐私与保留政策仍适用。</aside>
+    <section class="multi-slide" data-slide-id="f12-multi-agent">
+      <div class="eyebrow on-dark">Multi-Agent Workspace · 不是第七种入口</div><h2>多 Agent 通常藏在产品内部，用户面对的仍是一个项目空间。</h2>
+      <div class="project-room"><div class="shared-artifact"><small>SHARED PROJECT</small><strong>“完成一次并购尽调”</strong><p>材料 · 任务 · 发现 · 决策 · 产物</p></div><div class="role rr1 fragment fade-up" data-fragment-index="0"><span>R</span><strong>Research</strong></div><div class="role rr2 fragment fade-up" data-fragment-index="0"><span>L</span><strong>Legal</strong></div><div class="role rr3 fragment fade-up" data-fragment-index="1"><span>F</span><strong>Finance</strong></div><div class="role rr4 fragment fade-up" data-fragment-index="1"><span>S</span><strong>Synthesis</strong></div></div>
+      <div class="multi-rule">只有当工作可以按专业角色清晰拆分，并围绕共享产物重新汇合，多 Agent 才形成产品价值。</div>
+      <aside class="notes">时长 2:00。核心讲法：用户通常不需要看到多个聊天机器人；多 Agent 是 Workbench、流程产品或开发空间内部的专业分工。适合软件交付、尽调、复杂研究和事故战情室。术语：共享产物是所有角色共同更新的项目状态。过渡：把六种主形态压回一张场景选择矩阵。证据边界：多 Agent 产品仍在快速演化，本页不把角色数量当成成熟度。</aside>
     </section>
 
     <!-- 13 -->
-    <section data-slide-id="n13-decision-rights">
-      <div class="eyebrow">Decision Rights · Human-in-the-loop 的准确含义</div>
-      <h2>不是“记得检查”，而是谁拥有哪类决定。</h2>
-      <div class="rights-ladder">
-        <div class="right-step r-agent"><small>AGENT OWNS</small><strong>稳定、可验证、可回退</strong><p>查询、格式化、重新验证</p></div>
-        <div class="right-step r-shared fragment fade-up" data-fragment-index="0"><small>AGENT PROPOSES · HUMAN CONFIRMS</small><strong>有影响但可解释</strong><p>异常解释、管理层备忘录、记录修改</p></div>
-        <div class="right-step r-human fragment fade-up" data-fragment-index="1"><small>HUMAN OWNS</small><strong>例外、冲突、不可逆、高不确定</strong><p>政策裁决、外部发布、因果结论</p></div>
-        <div class="rights-trigger fragment fade-up" data-fragment-index="2">触发升级：权限冲突 · 证据不足 · 超预算 · 无法验证 · 不可逆动作</div>
+    <section data-slide-id="f13-scenario-matrix">
+      <div class="eyebrow">Scenario Matrix · 用工作特征选形态</div><h2>同样叫“Agent”，产品设计和价值指标完全不同。</h2>
+      <div class="form-matrix"><div class="fm-head"><span>工作单元</span><span>产品形态</span><span>典型场景</span><span>核心价值指标</span></div>
+        <div class="fm-row"><b>当前对象</b><strong>Copilot</strong><p>编码、CRM、文档、表格</p><em>任务耗时 / 使用频率</em></div>
+        <div class="fm-row"><b>项目 / 材料</b><strong>Workbench</strong><p>尽调、合规、研究、本地化</p><em>项目周期 / 产物质量</em></div>
+        <div class="fm-row"><b>会话 / 意图</b><strong>Service Agent</strong><p>客服、员工服务、商家支持</p><em>解决率 / 每次结果成本</em></div>
+        <div class="fm-row"><b>Case / SOP</b><strong>Process Agent</strong><p>KYC、理赔、采购、订单异常</p><em>周期 / 吞吐 / 一次通过率</em></div>
+        <div class="fm-row"><b>信号流</b><strong>Monitoring Agent</strong><p>ITOM、欺诈、合规、供应链</p><em>发现时间 / 噪声 / 处置时间</em></div>
+        <div class="fm-row"><b>指标 / 问题</b><strong>Analyst Agent</strong><p>经营、产品、财务、增长</p><em>洞察时间 / 复用 / 决策采用</em></div>
       </div>
-      <aside class="notes">时长 2:00。核心讲法：人工参与必须落到决策权表；Agent 可独立处理哪类动作、哪些只能建议、哪些完全由人负责。术语：Human-in-the-loop 是控制结构，不是“最后有人看一眼”的愿望。过渡：有了权责，还需要一套持续发布与回退纪律。证据边界：权责层级要由流程 owner、风险与 IT 联合定义，本页不替代具体制度。</aside>
+      <aside class="notes">时长 2:30。核心讲法：逐行对齐工作单元、产品形态、场景和价值指标。产品形态不只是 UI，它还决定团队如何度量价值。术语：一次通过率指 case 不因缺失或错误而返工的比例。过渡：场景成熟后，产品形态也可能沿工作变化而迁移。证据边界：指标是类别建议，阈值需由具体业务定义。</aside>
     </section>
 
     <!-- 14 -->
-    <section data-slide-id="n14-reliability-loop">
-      <div class="eyebrow">Reliability Loop · 可靠性是一套发布纪律</div>
-      <h2>不是上线前测一次，而是持续证明。</h2>
-      <div class="release-orbit">
-        <div class="orbit-ring"></div>
-        <div class="release-node rn1"><span>01</span><strong>离线评测</strong><small>黄金任务 + 异常样本</small></div>
-        <div class="release-node rn2 fragment fade-up" data-fragment-index="0"><span>02</span><strong>旁路观察</strong><small>不改生产状态</small></div>
-        <div class="release-node rn3 fragment fade-up" data-fragment-index="0"><span>03</span><strong>小流量放行</strong><small>限定用户与动作</small></div>
-        <div class="release-node rn4 fragment fade-up" data-fragment-index="1"><span>04</span><strong>生产监测</strong><small>质量、安全与漂移</small></div>
-        <div class="release-node rn5 fragment fade-up" data-fragment-index="1"><span>05</span><strong>反馈归因</strong><small>错误进入样本库</small></div>
-        <div class="release-core fragment fade-up" data-fragment-index="2"><strong>ROLL BACK</strong><p>证据变弱就降级<br>不是等事故后解释</p></div>
+    <section data-slide-id="f14-form-migration">
+      <div class="eyebrow">Form Migration · 场景重复后，产品会改变</div><h2>不是 Agent “升级了”，而是工作从一次性变成了系统性。</h2>
+      <div class="migration-lines">
+        <div class="migration"><span>用户每次主动提问</span><b>Analyst Agent</b><i>→</i><span>同一指标每天都要看</span><strong>Monitoring Agent</strong></div>
+        <div class="migration fragment fade-up" data-fragment-index="0"><span>专家在当前文档里获得建议</span><b>Copilot</b><i>→</i><span>材料越来越多、项目持续数周</span><strong>Workbench</strong></div>
+        <div class="migration fragment fade-up" data-fragment-index="1"><span>客户提出一次服务请求</span><b>Service Agent</b><i>→</i><span>请求变成跨系统业务实例</span><strong>Process Agent</strong></div>
       </div>
-      <div class="source-bar"><span><a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" target="_blank" rel="noopener">NIST AI RMF Core</a>：Govern · Map · Measure · Manage，贯穿生命周期</span><span>PRIMARY FRAMEWORK</span></div>
-      <aside class="notes">时长 2:15。核心讲法：离线评测、旁路、canary、生产监测、反馈和回退形成闭环。OpenAI 的数据 Agent 也使用持续评测对比黄金 SQL 与结果。术语：canary 是只对一小部分流量开放新行为。过渡：最后把这些控制映射到 Dify 的系统位置。证据边界：NIST 提供风险管理框架，不认证本讲座架构；具体阈值仍由组织定义。</aside>
+      <div class="migration-rule fragment fade-up" data-fragment-index="2">迁移信号：重复出现 · 需要保存状态 · 需要跨角色 / 跨系统 · 形成稳定交付物</div>
+      <aside class="notes">时长 2:00。核心讲法：产品迁移来自工作重复、状态积累和跨系统扩展。开放分析变成固定监测，局部建议变成项目工作台，一次服务变成流程实例。术语：形态迁移不是替换旧产品，常常是组合新的层。过渡：Dify 的价值就在于同一能力可以被包装成不同入口。证据边界：迁移路径是常见模式，不代表每个产品都必须演进。</aside>
     </section>
 
     <!-- 15 -->
-    <section data-slide-id="n15-dify-control-plane">
-      <div class="eyebrow">Dify System View · 编排层，不是数据权威</div>
-      <h2>Dify 把契约编排成一次可观察的运行。</h2>
-      <div class="control-plane">
-        <div class="enterprise-layer"><small>ENTERPRISE SYSTEMS · SOURCE OF AUTHORITY</small><span>Identity</span><span>Warehouse</span><span>Catalog</span><span>Business APIs</span><span>Policy</span></div>
-        <div class="dify-layer fragment fade-up" data-fragment-index="0"><small>DIFY · ORCHESTRATION &amp; CONTROL PLANE</small><strong>Workflow backbone</strong><b>→</b><strong class="agent-chip">Bounded Agent pocket</strong><b>→</b><strong>Human gate</strong></div>
-        <div class="runtime-layer fragment fade-up" data-fragment-index="1"><span>Models</span><span>Knowledge</span><span>Tools</span><span>Variables</span><span>Logs</span><span>API</span></div>
-        <div class="plane-verdict fragment fade-up" data-fragment-index="2">模型负责生成候选动作；企业系统保留权限与事实权威；Dify 负责把过程连起来、看得见、停得住。</div>
-      </div>
-      <div class="source-bar"><span><a href="https://docs.dify.ai/en/guides/application-orchestrate/creating-an-application" target="_blank" rel="noopener">Dify Workflow docs</a> · <a href="https://docs.dify.ai/en/develop-plugin/dev-guides-and-walkthroughs/tool-plugin" target="_blank" rel="noopener">Tool plugin docs</a></span><span>30 MIN FRAMEWORK COMPLETE</span></div>
-      <aside class="notes">时长 1:30。核心讲法：Dify 提供 Workflow、Agent strategy、Tools、Knowledge、Variables、Logs 和 API 的编排位置；身份、仓库和政策仍由企业系统掌握。术语：控制平面协调执行，但不是数据或权限的最终权威。过渡：接下来用十分钟把同一退款任务完整跑一遍。证据边界：这是基于公开文档的系统映射，不是对全部 Dify 功能的穷举，也不暗示外部案例企业使用 Dify。</aside>
+    <section data-slide-id="f15-dify-packaging">
+      <div class="eyebrow">Dify Packaging · 平台不是产品形态</div><h2>同一套能力，可以被发布成六种不同产品。</h2>
+      <div class="dify-metro"><div class="dify-core">DIFY<br><small>Models · Knowledge · Tools · Orchestration</small></div><div class="metro-line ml1"><span>API / Embed</span><strong>Copilot</strong></div><div class="metro-line ml2"><span>Agent App / Chatflow</span><strong>Workbench / Analyst</strong></div><div class="metro-line ml3"><span>Chatflow + Channels</span><strong>Service Agent</strong></div><div class="metro-line ml4"><span>Workflow + API</span><strong>Process Agent</strong></div><div class="metro-line ml5"><span>Trigger + Workflow</span><strong>Monitoring Agent</strong></div></div>
+      <div class="packaging-verdict">选择 Dify 组件之前，先决定用户面对的是哪一种产品。</div>
+      <div class="source-bar"><span><a href="https://docs.dify.ai/en/guides/application-orchestrate/creating-an-application" target="_blank" rel="noopener">Dify Workflow docs</a> · Workflow、用户输入、分支、迭代与 API 发布</span><span>30 MIN FRAMEWORK COMPLETE</span></div>
+      <aside class="notes">时长 1:30。核心讲法：Dify 提供模型、知识、工具和编排，但真正的产品形态来自发布入口和工作对象。API 可嵌入 Copilot，Chatflow 承载服务，Workflow 推进流程和监测，Agent App 承载探索。术语：packaging 是把共享能力包装成面向具体用户和场景的产品。过渡：用同一个退款率问题，演示三种形态的差别。证据边界：映射是产品设计建议，不是 Dify 官方固定分类。</aside>
     </section>
 
-    <!-- 16 · CASE_SLOT + VISUAL_SLOT: synthetic case opening -->
-    <section class="case-cover" data-slide-id="n16-case-ambiguity">
-      <img class="photo-bg" src="assets/atmos-indigo-richard-horvath.jpg" alt="Richard Horvath 在 Unsplash 发布的靛蓝抽象空间">
-      <div class="case-shade"></div>
-      <div class="case-copy"><div class="case-label">STATIC TEACHING SIMULATION · NOT A CUSTOMER CASE</div><blockquote>过去四周，哪些地区的退款率异常上升？</blockquote><div class="definition-strip fragment fade-up" data-fragment-index="0"><span>分子？</span><span>分母？</span><span>地区？</span><span>基线？</span><span>时区？</span><span>迟到事件？</span></div></div>
-      <aside class="notes">时长 1:30。核心讲法：再次呈现同一问题，但这次把六个定义槽直接放在问题下方。若任何关键定义没有版本，系统应先澄清而不是猜。术语：迟到事件是发生时间早但延迟进入仓库的记录。过渡：假设定义齐全，来看一次可重放的完整运行轨迹。证据边界：静态合成推演，不使用真实客户数据，也不是 Dify 客户成功案例。</aside>
+    <!-- 16 · CASE_SLOT + VISUAL_SLOT -->
+    <section class="case-cover" data-slide-id="f16-case-brief">
+      <img class="photo-bg" src="assets/atmos-indigo-richard-horvath.jpg" alt="Richard Horvath 在 Unsplash 发布的靛蓝抽象空间"><div class="case-shade"></div>
+      <div class="case-copy"><div class="case-label">ONE CAPABILITY · THREE PRODUCTS</div><blockquote>“过去四周，哪些地区的退款率异常上升？”</blockquote><p>同一个分析能力，应该做成 Copilot、分析 Agent，还是监测 Agent？</p></div>
+      <aside class="notes">时长 1:00。核心讲法：案例不再演示 SQL 或故障控制，而是比较同一能力如何因使用场景不同变成三种产品。术语：产品化问题不是“能否回答”，而是用户在何时、从哪里、以什么方式获得答案。过渡：先看最轻的嵌入式 Copilot。证据边界：静态合成教学推演，不是真实客户案例。</aside>
     </section>
 
-    <!-- 17 · CASE_SLOT: run trace -->
-    <section data-slide-id="n17-case-trace">
-      <div class="eyebrow">Execution Trace · 每一步都产生状态与证据</div>
-      <h2>一条好链路，不只输出 Memo，还暴露如何抵达。</h2>
-      <div class="trace-table">
-        <div class="trace-head"><span>STEP</span><span>STATE / EVIDENCE</span><span>STOP IF</span></div>
-        <div class="trace-row"><b>01 · 澄清</b><p>指标 v12 · 过去 28 天 · 周同比基线</p><em>口径无 owner</em></div>
-        <div class="trace-row fragment fade-up" data-fragment-index="0"><b>02 · 检索语义</b><p>表、字段、血缘、隐私阈值、历史查询</p><em>版本冲突</em></div>
-        <div class="trace-row fragment fade-up" data-fragment-index="0"><b>03 · 形成计划</b><p>join 图 · 过滤条件 · 成本预算 · 验证测试</p><em>扫描超预算</em></div>
-        <div class="trace-row fragment fade-up" data-fragment-index="1"><b>04 · 只读执行</b><p>SQL hash · tool call · 原始结果链接</p><em>权限不足</em></div>
-        <div class="trace-row fragment fade-up" data-fragment-index="1"><b>05 · 验证</b><p>唯一性 · 分母 · 空值 · 对账 · 小样本</p><em>测试失败</em></div>
-        <div class="trace-row fragment fade-up" data-fragment-index="2"><b>06 · 生成备忘录</b><p>已知 / 推断 / 未知 · 图表 · 假设</p><em>需要因果结论</em></div>
-        <div class="trace-row human-row fragment fade-up" data-fragment-index="3"><b>H · 人工确认</b><p>修改记录 · 发布决定 · owner</p><em>最终决策权</em></div>
-      </div>
-      <div class="source-bar"><span><a href="https://aws.amazon.com/cn/blogs/china/quickly-deploy-text2sql-intelligent-data-analysis-assistant-based-on-dify-agent-on-aws/" target="_blank" rel="noopener">AWS · Dify Text-to-SQL 工程实践</a>仅作实现参考；不作为生产 ROI 证据</span><span>READ-ONLY CASE</span></div>
-      <aside class="notes">时长 3:30。核心讲法：逐行走完澄清、语义、计划、执行、验证、备忘录和人工确认；每一步都有产物和停止条件。SQL 只是第四步。术语：SQL hash 用于确认执行文本未被静默修改。过渡：下一步主动注入四种常见失败，看系统如何处置。证据边界：AWS 来源证明工程实现路径，不证明真实客户生产收益；仓库和权限能力由企业提供。</aside>
+    <!-- 17 · CASE_SLOT: copilot product -->
+    <section data-slide-id="f17-case-copilot">
+      <div class="eyebrow">Form A · BI Copilot</div><h2>如果分析师已经在 Dashboard 里，产品只需要帮助他继续追问。</h2>
+      <div class="bi-shell"><div class="dashboard"><small>REFUND RATE · WEEKLY</small><div class="chart"><i style="--h:38%"></i><i style="--h:42%"></i><i style="--h:50%"></i><i style="--h:74%"></i><i style="--h:68%"></i><i style="--h:82%"></i></div><div class="dash-metric">8.4% <span>+2.4pp</span></div></div><div class="bi-copilot fragment fade-up" data-fragment-index="0"><small>COPILOT</small><p>“按地区拆分，并解释南区变化。”</p><strong>南区贡献 71% 增量；主要集中在两个渠道。</strong><div>继续追问 →</div></div></div>
+      <div class="product-spec"><span><small>ENTRY</small>BI / Spreadsheet 内</span><span><small>RHYTHM</small>分析师按需使用</span><span><small>DELIVERY</small>局部解释与下一张图</span><span><small>SCENE</small>探索已有 Dashboard</span></div>
+      <aside class="notes">时长 2:30。核心讲法：BI Copilot 的场景前提是用户已经打开正确仪表盘并知道要追问什么；产品不保存独立项目，只增强当前分析动作。术语：局部解释围绕当前可见图表和筛选条件。过渡：如果用户只有一个业务问题、还不知道数据在哪里，就需要分析 Agent。证据边界：图表和数字为合成示例。</aside>
     </section>
 
-    <!-- 18 · CASE_SLOT: fault lab -->
-    <section class="fault-lab-slide" data-slide-id="n18-case-failure-lab">
-      <div class="eyebrow">Failure Lab · 可靠性来自会停</div>
-      <h2>故障不是“答错了”，而是违反了某份契约。</h2>
-      <div class="fault-lab">
-        <div class="fault-test"><span>01</span><strong>指标定义刚刚变更</strong><p>症状：同名口径 v11 / v12 冲突</p><b class="ask">ASK · 请求 owner 确认版本</b></div>
-        <div class="fault-test fragment fade-up" data-fragment-index="0"><span>02</span><strong>Join 重复订单</strong><p>测试：唯一键计数放大 1.8×</p><b class="auto">FIX · 改计划并重新验证</b></div>
-        <div class="fault-test fragment fade-up" data-fragment-index="1"><span>03</span><strong>敏感小样本地区</strong><p>测试：地区样本低于隐私阈值</p><b class="stop">STOP · 聚合或升级</b></div>
-        <div class="fault-test fragment fade-up" data-fragment-index="2"><span>04</span><strong>把相关性写成因果</strong><p>测试：没有实验或识别策略</p><b class="stop">STOP · 只能写“相关”</b></div>
-      </div>
-      <div class="fault-legend">自动修正只适用于：可验证 + 低风险 + 不扩大权限</div>
-      <aside class="notes">时长 3:00。核心讲法：每个故障指向具体测试和处置。定义冲突要问，join 错误可自动修复再验证，隐私和因果越界必须停。术语：识别策略是支持因果结论的实验或准实验方法。过渡：当系统做对了，输出仍要区分事实、推断和不能下的结论。证据边界：故障阈值为教学示例；真实阈值必须由数据治理、隐私与业务 owner 决定。</aside>
+    <!-- 18 · CASE_SLOT: analyst product -->
+    <section class="analyst-case-slide" data-slide-id="f18-case-analyst">
+      <div class="eyebrow">Form B · Analyst Agent</div><h2>如果用户只有问题，产品必须替他组织一次完整调查。</h2>
+      <div class="investigation-canvas"><div class="investigation-head"><span>INVESTIGATION #184</span><strong>Refund anomaly · Last 4 weeks</strong></div><div class="investigation-path"><div><small>QUESTION</small><p>哪些地区异常？</p></div><div><small>DISCOVERY</small><p>指标、表、历史分析</p></div><div><small>ANALYSIS</small><p>分群、渠道、物流、活动</p></div><div><small>EVIDENCE</small><p>SQL、图表、结果链接</p></div><div><small>DELIVERY</small><p>管理层 Memo</p></div></div><div class="finding fragment fade-up" data-fragment-index="0"><b>FINDING 01</b><strong>南区贡献 71% 的增量</strong><p>两个促销渠道与延迟配送共同出现。</p></div><div class="finding f2 fragment fade-up" data-fragment-index="1"><b>OPEN QUESTION</b><strong>不能直接声称因果</strong><p>建议抽样核对并设计后续实验。</p></div></div>
+      <div class="product-spec"><span><small>ENTRY</small>独立分析空间</span><span><small>RHYTHM</small>临时开放问题</span><span><small>DELIVERY</small>证据包 + Memo</span><span><small>SCENE</small>经营与产品调查</span></div>
+      <aside class="notes">时长 3:00。核心讲法：分析 Agent 把一个开放问题变成 investigation，保存发现路径、证据和管理层产物。适合业务用户没有预先选好表或图的场景。术语：investigation 是可持续几小时或几天的分析项目。过渡：当同一问题每周都被重复问，产品还会进一步变成监测 Agent。证据边界：发现和数字均为合成教学内容。</aside>
     </section>
 
-    <!-- 19 · CASE_SLOT: decision memo -->
-    <section class="memo-slide" data-slide-id="n19-case-decision-memo">
-      <div class="memo-paper">
-        <div class="memo-head"><div><small>MANAGEMENT DECISION MEMO · DRAFT</small><h2>退款异常：该知道什么，<br>不该声称什么</h2></div><span>OWNER<br>Finance Ops</span></div>
-        <div class="memo-grid">
-          <div class="memo-block known"><small>KNOWN · 已知</small><p>南区退款率较四周基线上升 2.4pp；95% 增量集中在两个渠道。</p></div>
-          <div class="memo-block inferred fragment fade-up" data-fragment-index="0"><small>INFERRED · 推断</small><p>促销后配送延迟与退款同时上升，值得优先排查。</p></div>
-          <div class="memo-block cannot fragment fade-up" data-fragment-index="1"><small>CANNOT CONCLUDE · 不能下结论</small><p>现有观察数据不能证明配送延迟导致退款。</p></div>
-          <div class="memo-block next fragment fade-up" data-fragment-index="2"><small>NEXT ACTION · 下一步</small><p>抽样核对 50 单；由区域 owner 确认是否启动配送实验。</p></div>
-        </div>
-        <div class="memo-footer fragment fade-up" data-fragment-index="3"><span>SQL #91</span><span>RESULT LINK</span><span>METRIC v12</span><span>ASSUMPTIONS</span><span>HUMAN EDITS</span></div>
-      </div>
-      <aside class="notes">时长 2:00。核心讲法：优秀的管理层输出主动区分已知、推断、不能得出的结论和下一步动作；底部保留可追溯证据。术语：2.4pp 是百分点，不是增长 2.4%。过渡：案例结束，回到最初的委派问题。证据边界：全部数字为合成示例，只用于说明输出结构，不代表任何企业结果。</aside>
+    <!-- 19 · CASE_SLOT: monitoring product -->
+    <section class="monitor-case-slide" data-slide-id="f19-case-monitor">
+      <div class="eyebrow on-dark">Form C · Refund Monitor</div><h2>如果组织每天都关心同一异常，产品不该等人来问。</h2>
+      <div class="monitor-timeline"><div class="timeline-line"></div><div class="time-event e1"><span>09:00</span><strong>刷新指标</strong><p>所有地区在基线内</p></div><div class="time-event e2 fragment fade-up" data-fragment-index="0"><span>11:20</span><strong>南区越过动态阈值</strong><p>+1.8pp · 连续 3 个窗口</p></div><div class="time-event e3 fragment fade-up" data-fragment-index="1"><span>11:24</span><strong>自动聚合上下文</strong><p>渠道、物流、活动与历史异常</p></div><div class="time-event e4 fragment fade-up" data-fragment-index="2"><span>11:28</span><strong>创建经营事件</strong><p>Brief、负责人、后续调查入口</p></div></div>
+      <div class="three-form-compare fragment fade-up" data-fragment-index="3"><div><b>Copilot</b><span>人在 Dashboard 时追问</span></div><div><b>Analyst Agent</b><span>有人提出问题后调查</span></div><div><b>Monitor</b><span>信号出现时主动创建事件</span></div></div>
+      <div class="product-spec dark-spec"><span><small>ENTRY</small>告警 / 经营事件</span><span><small>RHYTHM</small>持续运行</span><span><small>DELIVERY</small>异常 Brief + 调查入口</span><span><small>SCENE</small>稳定、重复的指标监测</span></div>
+      <aside class="notes">时长 3:30。核心讲法：监测产品把重复的分析问题编译成持续运行的信号检测、上下文聚合和事件创建。最后用三列对比同一能力的入口、节奏和交付。术语：动态阈值随历史分布或季节性变化。过渡：回到自己的专业，选择你需要的产品形态。证据边界：阈值和时间线为合成示例，不代表生产监控配置。</aside>
     </section>
 
-    <!-- 20 · VISUAL_SLOT: closing / Q&A -->
-    <section class="closing-slide" data-slide-id="n20-qa">
-      <img class="photo-bg" src="assets/atmos-pastel-codioful.jpg" alt="Codioful 在 Unsplash 发布的柔和渐变">
-      <div class="closing-shade"></div>
-      <div class="closing-copy">
-        <div class="eyebrow on-dark">Q&amp;A · 把责任重新放回系统设计</div>
-        <h2>企业 Agent 的本质，<br><span>是有限决策权 + 证据 + 停止义务。</span></h2>
-        <div class="question-path">
-          <p class="fragment fade-up" data-fragment-index="0"><b>01</b> 你所在专业，哪项任务同时“可验证、可回退”？</p>
-          <p class="fragment fade-up" data-fragment-index="1"><b>02</b> 哪个动作必须由人拥有最终决策权？</p>
-          <p class="fragment fade-up" data-fragment-index="2"><b>03</b> 你会保存什么证据，证明 Agent 比现有流程更好？</p>
-        </div>
-        <div class="closing-meta"><p>讲者姓名 · speaker@example.com<br><a href="source-map.md" target="_blank">研究、来源与图片版权 → source-map.md</a></p><p>Unsplash：Ruido 98 · Richard Horvath · Codioful<br>学校 · 新生讲座 · 2026</p></div>
-      </div>
-      <aside class="notes">时长 5:00。核心讲法：先复述结论，再用三个问题讨论。如果现场安静，让同学先说出一个“必须停止”的动作。术语：停止义务是系统在证据不足、权限冲突或风险过高时主动不继续。过渡：会后可通过 source map 查阅全部依据。证据边界：Q&amp;A 不扩展为未经验证的产品承诺；联系方式和学校信息仍是占位符。</aside>
+    <!-- 20 · VISUAL_SLOT: closing -->
+    <section class="closing-slide" data-slide-id="f20-qa">
+      <img class="photo-bg" src="assets/atmos-pastel-codioful.jpg" alt="Codioful 在 Unsplash 发布的柔和渐变"><div class="closing-shade"></div>
+      <div class="closing-copy"><div class="eyebrow on-dark">Q&amp;A · 从场景反推产品</div><h2>不要问“我要做一个 Agent”。<br><span>先问：这项工作需要哪种产品形态？</span></h2><div class="question-path"><p class="fragment fade-up" data-fragment-index="0"><b>01</b> 你的场景最小工作单元是什么？</p><p class="fragment fade-up" data-fragment-index="1"><b>02</b> 用户从哪里遇见它，最后拿走什么？</p><p class="fragment fade-up" data-fragment-index="2"><b>03</b> 它是按需使用、按项目使用，还是持续运行？</p></div><div class="closing-meta"><p>讲者姓名 · speaker@example.com<br><a href="source-map.md" target="_blank">研究、来源与图片版权 → source-map.md</a></p><p>Unsplash：Ruido 98 · Richard Horvath · Codioful<br>学校 · 新生讲座 · 2026</p></div></div>
+      <aside class="notes">时长 5:00。核心讲法：用三个产品问题引导讨论。若现场安静，让同学先说出自己专业里一个稳定的工作对象，再判断对应形态。术语：场景选择是从工作单元、入口、交付和节奏反推产品。过渡：会后可查看 source map。证据边界：Q&amp;A 不扩展为未经验证的产品承诺；联系方式仍是占位符。</aside>
     </section>
 
   </div></div>
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
-  <script>
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    Reveal.initialize({ hash: true, width: 1920, height: 1080, margin: 0, controls: true, controlsTutorial: false, progress: true, slideNumber: 'c/t', navigationMode: 'linear', transition: reduceMotion ? 'none' : 'fade', transitionSpeed: 'fast', backgroundTransition: reduceMotion ? 'none' : 'fade', pdfSeparateFragments: false, plugins: [RevealNotes] });
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+  <script>const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;Reveal.initialize({hash:true,width:1920,height:1080,margin:0,controls:true,controlsTutorial:false,progress:true,slideNumber:'c/t',navigationMode:'linear',transition:reduceMotion?'none':'fade',transitionSpeed:'fast',backgroundTransition:reduceMotion?'none':'fade',pdfSeparateFragments:false,plugins:[RevealNotes]});</script>
 </body>
 </html>
