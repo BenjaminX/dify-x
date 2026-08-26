@@ -67,9 +67,13 @@ Multi-Agent Workspace 不作为第七种用户入口：它通常是 Workbench、
 
 | Slide | Local asset | Author and original link | Treatment |
 | --- | --- | --- | --- |
-| `f01-cover` | `assets/atmos-silk-ruido98.jpg` | [Ruido 98](https://unsplash.com/photos/SytlpdDJ1lk) | Full bleed; dark left gradient |
-| `f16-case-brief` | `assets/atmos-indigo-richard-horvath.jpg` | [Richard Horvath](https://unsplash.com/photos/_nWaeTF6qo0) | Full bleed; indigo contrast; dark overlay |
-| `f20-qa` | `assets/atmos-pastel-codioful.jpg` | [Codioful](https://unsplash.com/photos/LeG68PrXA6Y) | Full bleed; low saturation; navy overlay |
+| `f01-cover` | `assets/bg-enterprise-grid-timothee-duran.jpg` | [Timothée Duran](https://unsplash.com/photos/dcLG-6DEPiQ) | Full bleed; portrait source cropped around the blue sky and right-side facade; dark left gradient |
+| `f04-product-atlas` | `assets/bg-atrium-willian-justen.jpg` | [Willian Justen de Vasconcellos](https://unsplash.com/photos/avT9dYK-9rE) | Full bleed at low opacity; centered on the ceiling grid; warm-white veil for diagram contrast |
+| `f12-multi-agent` | `assets/bg-collaboration-mimi-thian.jpg` | [Mimi Thian](https://unsplash.com/photos/vdXMSiX-n6M) | Full bleed; centered on the group and laptop; navy overlay and blur-backed project objects |
+| `f16-case-brief` | `assets/bg-architecture-shadow-declan-sun.jpg` | [Declan Sun](https://unsplash.com/photos/n8UBJeKko3I) | Full bleed; horizontal crop follows repeating shadows; dark navy overlay |
+| `f20-qa` | `assets/bg-geometric-facade-arlind.jpg` | [Arlind Photography](https://unsplash.com/photos/qk9KT1bcj70) | Full bleed; portrait source cropped around geometric facade; low saturation and navy overlay |
+
+All five files are localized in `assets/`; the slides do not depend on network access. Each image is published on its linked page as a free Unsplash image.
 
 ## Timing contract
 
