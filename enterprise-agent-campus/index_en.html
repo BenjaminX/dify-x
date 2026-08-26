@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260826b">
+  <link rel="stylesheet" href="styles.css?v=20260826c">
 </head>
 <body>
   <div class="deck-brand"><img src="../assets/logo.svg" alt="Dify"><span>Campus Lecture · Enterprise Agent</span></div>
@@ -185,7 +185,7 @@
             <div class="waveform" aria-label="Abstract waveform representing multilingual customer requests"><span style="--h:58px;--o:.55"></span><span style="--h:110px"></span><span style="--h:176px"></span><span style="--h:90px"></span><span style="--h:224px"></span><span style="--h:140px"></span><span style="--h:250px"></span><span style="--h:106px"></span><span style="--h:194px"></span><span style="--h:76px"></span><span style="--h:236px"></span><span style="--h:152px"></span><span style="--h:94px"></span><span style="--h:210px"></span><span style="--h:122px"></span><span style="--h:182px"></span><span style="--h:66px"></span><span style="--h:142px"></span><span style="--h:98px"></span><span style="--h:54px;--o:.55"></span></div>
             <div class="service-flow fragment fade-up" data-fragment-index="0"><b>Read account state</b><span>→</span><b>Execute allowed action</b><span>→</span><b class="amber">Escalate with context</b></div>
           </div>
-          <div class="service-stats fragment fade-up" data-fragment-index="1"><div class="big">120K / DAY<small>7 languages · 80% containment</small></div><div class="big">94%<small>Vendor-disclosed accuracy</small></div><span class="vendor-note" style="margin-top:34px;color:rgba(255,255,255,.48)">A · VENDOR-DISCLOSED · NOT AUDITED</span></div>
+          <div class="service-stats fragment fade-up" data-fragment-index="1"><div class="big">120K / DAY<small>7 languages · 80% containment</small></div><div class="big">94%<small>Vendor-disclosed accuracy</small></div><span class="vendor-note on-dark service-disclosure">A · VENDOR-DISCLOSED · NOT AUDITED</span></div>
         </div>
         <div class="source-bar"><span><a href="https://aws.amazon.com/solutions/case-studies/innovators/ryanair-agentic-ai/" target="_blank" rel="noopener">AWS / Ryanair · Transforming customer service with agentic AI</a> · Not comparable across cases</span><span class="evidence evidence-a">A</span></div>
         <aside class="notes">Time 2:30. Core delivery: service agents require account state, bounded actions, continuous evaluation, and complete handoff—not only FAQ retrieval. Term: containment is the share of conversations completed without human takeover under the source's definition. Transition: both cases show that capability must enter a system. Evidence boundary: all numbers are disclosed by AWS/Ryanair, not independently audited, and do not imply Dify usage.</aside>
@@ -297,8 +297,8 @@
       <section class="closing-slide" data-slide-id="s20-qa-sources">
         <img class="photo-bg" src="assets/atmos-pastel-codioful.jpg" alt="Soft pastel gradient by Codioful on Unsplash"><div class="closing-shade"></div>
         <div class="closing-content">
-          <div class="eyebrow" style="color:#a9b9ff">Q&amp;A · Bring the Framework to Your Field</div>
-          <h2>Where would you make<br><span style="color:#91a6ff">the agent stop?</span></h2>
+          <div class="eyebrow closing-eyebrow">Q&amp;A · Bring the Framework to Your Field</div>
+          <h2>Where would you make<br><span class="closing-accent">the agent stop?</span></h2>
           <div class="qa-path"><div class="qa-question fragment fade-up" data-index="01" data-fragment-index="0">Which workflow in your field should be tried first?</div><div class="qa-question fragment fade-up" data-index="02" data-fragment-index="1">Which action must stay under human confirmation?</div><div class="qa-question fragment fade-up" data-index="03" data-fragment-index="2">How would you prove the agent beats the current process—not just looks smarter?</div></div>
           <div class="closing-meta"><p>Speaker Name · speaker@example.com<br>Full research and evidence map: <a href="source-map.md" target="_blank">source-map.md</a></p><p>Unsplash: Ruido 98 · Darkhan Basshybayev · Richard Horvath · Codioful<br>All public metrics are source-disclosed and not independently audited.</p></div>
         </div>
@@ -311,7 +311,8 @@
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
   <script>
-    Reveal.initialize({ hash: true, width: 1920, height: 1080, margin: 0, controls: true, progress: true, slideNumber: 'c/t', transition: 'fade', backgroundTransition: 'fade', plugins: [RevealNotes] });
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    Reveal.initialize({ hash: true, width: 1920, height: 1080, margin: 0, controls: true, controlsTutorial: false, progress: true, slideNumber: 'c/t', navigationMode: 'linear', transition: reduceMotion ? 'none' : 'fade', transitionSpeed: 'fast', backgroundTransition: reduceMotion ? 'none' : 'fade', pdfSeparateFragments: false, plugins: [RevealNotes] });
   </script>
 </body>
 </html>

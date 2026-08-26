@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260826b">
+  <link rel="stylesheet" href="styles.css?v=20260826c">
 </head>
 <body>
   <div class="deck-brand"><img src="../assets/logo.svg" alt="Dify"><span>Campus Lecture · Enterprise Agent</span></div>
@@ -225,7 +225,7 @@
           <div class="service-stats fragment fade-up" data-fragment-index="1">
             <div class="big">120K / DAY<small>7 种语言 · 80% containment</small></div>
             <div class="big">94%<small>来源方披露的 accuracy</small></div>
-            <span class="vendor-note" style="margin-top:34px;color:rgba(255,255,255,.48)">A · VENDOR-DISCLOSED · NOT AUDITED</span>
+            <span class="vendor-note on-dark service-disclosure">A · 来源方披露 · 未独立审计</span>
           </div>
         </div>
         <div class="source-bar"><span><a href="https://aws.amazon.com/solutions/case-studies/innovators/ryanair-agentic-ai/" target="_blank" rel="noopener">AWS / Ryanair · Transforming customer service with agentic AI</a> · 指标不可跨案例比较</span><span class="evidence evidence-a">A</span></div>
@@ -404,8 +404,8 @@
         <img class="photo-bg" src="assets/atmos-pastel-codioful.jpg" alt="Codioful 在 Unsplash 发布的柔和渐变">
         <div class="closing-shade"></div>
         <div class="closing-content">
-          <div class="eyebrow" style="color:#a9b9ff">Q&amp;A · 把框架带回你的专业</div>
-          <h2>你会让 Agent<br><span style="color:#91a6ff">在哪里停下来？</span></h2>
+          <div class="eyebrow closing-eyebrow">Q&amp;A · 把框架带回你的专业</div>
+          <h2>你会让 Agent<br><span class="closing-accent">在哪里停下来？</span></h2>
           <div class="qa-path">
             <div class="qa-question fragment fade-up" data-index="01" data-fragment-index="0">你所在专业，最适合先尝试哪一种流程？</div>
             <div class="qa-question fragment fade-up" data-index="02" data-fragment-index="1">哪个动作必须由人确认，不能交给开放循环？</div>
@@ -425,16 +425,21 @@
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
   <script>
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     Reveal.initialize({
       hash: true,
       width: 1920,
       height: 1080,
       margin: 0,
       controls: true,
+      controlsTutorial: false,
       progress: true,
       slideNumber: 'c/t',
-      transition: 'fade',
-      backgroundTransition: 'fade',
+      navigationMode: 'linear',
+      transition: reduceMotion ? 'none' : 'fade',
+      transitionSpeed: 'fast',
+      backgroundTransition: reduceMotion ? 'none' : 'fade',
+      pdfSeparateFragments: false,
       plugins: [RevealNotes]
     });
   </script>
