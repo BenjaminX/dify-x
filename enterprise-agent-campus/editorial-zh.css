@@ -45,6 +45,19 @@ html[lang="zh-CN"] .form-thesis p{
   font-size:24px;
 }
 
+/* Keep the transition arrow in its own gutter instead of covering Chinese copy. */
+html[lang="zh-CN"] [data-slide-id="f02-thesis"] .thesis-right{
+  padding-left:144px;
+}
+
+html[lang="zh-CN"] [data-slide-id="f02-thesis"] .thesis-arrow{
+  left:calc(44% + 48px);
+  width:64px;
+  height:64px;
+  background:var(--lift);
+  font-size:48px;
+}
+
 /* Product split pages keep the interface anchored at x = 820 */
 html[lang="zh-CN"] [data-slide-id="f06-copilot"] h2,
 html[lang="zh-CN"] [data-slide-id="f08-service"] h2,
@@ -102,4 +115,3 @@ html[lang="zh-CN"] .thank-you-main h2{
   font-size:122px;
   line-height:.96;
 }
-
