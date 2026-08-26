@@ -1,318 +1,143 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Enterprise Agents: From Capability Boundaries to Production Systems — Dify</title>
   <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260826c">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260826-reframe">
 </head>
 <body>
   <div class="deck-brand"><img src="../assets/logo.svg" alt="Dify"><span>Campus Lecture · Enterprise Agent</span></div>
   <div class="lang-switch"><a href="index.html">中文</a><span>/</span><a class="active" href="index_en.html">EN</a></div>
+  <div class="reveal"><div class="slides">
 
-  <div class="reveal">
-    <div class="slides">
+    <section class="cover-slide" data-slide-id="n01-cover">
+      <img class="photo-bg" src="assets/atmos-silk-ruido98.jpg" alt="Abstract blue and orange light by Ruido 98 on Unsplash"><div class="cover-shade"></div>
+      <div class="cover-copy"><div><div class="eyebrow on-dark">Enterprise Agent · Campus Lecture</div><h1>Enterprise Agents<br><span>From Capability Boundaries<br>to Production Systems</span></h1><p>Not a model feature list—a method for delegating work and responsibility.</p></div><div class="cover-meta"><span>Speaker Name · Role / Organization</span><span>University · New Student Lecture · 2026</span><b>45 MIN</b></div></div>
+      <aside class="notes">Time 0:30. Core delivery: this is not a product feature tour; it asks how an enterprise delegates real work to an agent without discarding accountability. Term: delegation transfers limited decision rights to a system. Transition: start by asking what exactly is being delegated. Evidence boundary: this is the lecture's analytical frame, not an industry certification.</aside>
+    </section>
 
-      <!-- Slide 01 · VISUAL_SLOT: cover / abstract light -->
-      <section class="cover-slide" data-slide-id="s01-cover">
-        <img class="photo-bg" src="assets/atmos-silk-ruido98.jpg" alt="Blue and orange abstract light by Ruido 98 on Unsplash">
-        <div class="cover-shade"></div>
-        <div class="cover-content">
-          <div>
-            <div class="eyebrow">Enterprise Agent · Campus Lecture</div>
-            <h1>Enterprise Agents<br><span class="blue">From Boundaries<br>to Production</span></h1>
-            <p class="subtitle">A 45-minute lecture about scenarios, systems, and stopping conditions.</p>
-          </div>
-          <div class="cover-meta">
-            <p>Speaker Name · Role / Organization<br>speaker@example.com</p>
-            <p>University · New Student Lecture<br>2026 · 45 MIN</p>
-          </div>
-        </div>
-        <div class="cover-axis">BOUNDARY · EVIDENCE · ACTION</div>
-        <aside class="notes">Time 0:30. Core delivery: this is not a feature tutorial; Dify is the implementation lens for understanding enterprise agent systems. Term: a boundary includes permissions, stop conditions, and accountability. Transition: start with one contrast. Evidence boundary: this is the lecture's framing, not the only industry taxonomy.</aside>
-      </section>
+    <section data-slide-id="n02-delegation-question">
+      <div class="eyebrow">Delegation · The Real Starting Question</div><h2>When you say “let the agent do it,”<br>what did you actually hand over?</h2>
+      <div class="delegation-axis"><div class="axis-line"></div><div class="axis-item"><span>01</span><strong>Decision rights</strong><p>What to do next, when to retry, and when to finish.</p></div><div class="axis-item fragment fade-up" data-fragment-index="0"><span>02</span><strong>Resources</strong><p>Which data and tools it may use—and how much it may spend.</p></div><div class="axis-item fragment fade-up" data-fragment-index="1"><span>03</span><strong>Accountability path</strong><p>Who detects failure, takes over, and authorizes recovery.</p></div><div class="axis-verdict fragment fade-up" data-fragment-index="2">“Autonomy” without an accountability path is merely <span>unattended operation</span>.</div></div>
+      <aside class="notes">Time 2:00. Core delivery: the enterprise question is not whether an agent resembles a person, but which decision rights and resources it receives, and how failure returns to a named owner. Term: the accountability path covers detection, escalation, response, and recovery. Transition: use one simple-looking data task to reveal the hidden decisions. Evidence boundary: the three-part model is a teaching abstraction.</aside>
+    </section>
 
-      <!-- Slide 02 -->
-      <section data-slide-id="s02-opening-thesis">
-        <div class="eyebrow">Opening Thesis · A Change in Direction</div>
-        <div class="thesis-bridge">
-          <div class="thesis-word">
-            <span class="label">SOFTWARE THAT</span>
-            <strong>Answers</strong>
-            <p>Generates plausible content, then leaves the remaining work to the user.</p>
-          </div>
-          <div class="bridge-arrow fragment fade-up" data-fragment-index="0">→</div>
-          <div class="thesis-word advance-word fragment fade-up" data-fragment-index="1">
-            <span class="label">SOFTWARE THAT</span>
-            <strong>Advances</strong>
-            <p>Moves work to a reviewable next step within permissions and stopping conditions.</p>
-            <div class="proof-stamp">Leave evidence, not only an answer</div>
-          </div>
-        </div>
-        <aside class="notes">Time 1:30. Core delivery: enterprise value shifts from answering to advancing, and advancement must leave inspectable evidence. Term: reviewable means the source, action, and intermediate state remain visible. Transition: the lecture follows three questions. Evidence boundary: this distills the research summary; it does not imply Q&amp;A systems have no value.</aside>
-      </section>
+    <section class="prompt-slide" data-slide-id="n03-one-process">
+      <div class="eyebrow">One Process · One Thread Through the Lecture</div><blockquote>“Which regions saw an abnormal rise in refund rate over the last four weeks?<br>What drove it? Draft a management memo.”</blockquote>
+      <div class="prompt-underlay fragment fade-up" data-fragment-index="0"><span>Refunds by orders, value, or users?</span><span>Abnormal versus which baseline?</span><span>How are late events handled?</span><span>Who may see tiny cohorts?</span><span>Can correlation be called cause?</span></div><div class="prompt-note fragment fade-up" data-fragment-index="1">One sentence compresses at least five business judgments.</div>
+      <aside class="notes">Time 2:00. Core delivery: read the prompt, then reveal the hidden decisions. The hard part is not SQL syntax; it is choosing definitions, baseline, access, recency, and interpretation limits. Term: a business judgment cannot be resolved by syntax alone. Transition: the system therefore needs a loop that observes, acts, and verifies. Evidence boundary: the task and data are synthetic.</aside>
+    </section>
 
-      <!-- Slide 03 -->
-      <section data-slide-id="s03-three-questions">
-        <div class="eyebrow">Three Questions · 30 + 10 + 5</div>
-        <h2>In 45 minutes, we cross three checkpoints.</h2>
-        <div class="journey">
-          <div class="journey-line"></div>
-          <div class="journey-stop"><div class="journey-dot">01</div><h3>Scenario</h3><p>Which work fits an agent?</p></div>
-          <div class="journey-stop fragment fade-up" data-fragment-index="0"><div class="journey-dot">02</div><h3>System</h3><p>How does capability enter a workflow?</p></div>
-          <div class="journey-stop fragment fade-up" data-fragment-index="1"><div class="journey-dot">03</div><h3>Stop</h3><p>When must a person take over?</p></div>
-          <div class="journey-time">30 MIN FRAMEWORK → 10 MIN CASE → 5 MIN Q&amp;A</div>
-        </div>
-        <aside class="notes">Time 0:45. Core delivery: build the scenario and system model, walk through a data case, then discuss. Term: stopping is a designed system behavior, not necessarily a failure. Transition: define the minimum agent threshold. Evidence boundary: timing can flex slightly on stage, while the 30/10/5 structure remains.</aside>
-      </section>
+    <section data-slide-id="n04-operating-definition">
+      <div class="eyebrow">Operating Definition · Start Without Personification</div><h2>An agent is a closed-loop executor operating inside a task contract.</h2>
+      <div class="loop-stage"><div class="loop-ring"></div><div class="loop-node l1"><span>01</span><strong>Goal</strong><small>What counts as done</small></div><div class="loop-node l2 fragment fade-up" data-fragment-index="0"><span>02</span><strong>Observe</strong><small>Read current state</small></div><div class="loop-node l3 fragment fade-up" data-fragment-index="0"><span>03</span><strong>Decide</strong><small>Select an allowed next step</small></div><div class="loop-node l4 fragment fade-up" data-fragment-index="1"><span>04</span><strong>Act</strong><small>Change state through a tool</small></div><div class="loop-node l5 fragment fade-up" data-fragment-index="1"><span>05</span><strong>Verify</strong><small>Check whether it worked</small></div><div class="loop-stop fragment fade-up" data-fragment-index="2"><b>STOP CONTRACT</b><br>Complete · Clarify · Escalate · Fail</div></div>
+      <div class="source-bar"><span>Research synthesis: the minimum threshold is multi-step progress, a tool action, state feedback, or exception escalation</span><span>WORKING DEFINITION</span></div>
+      <aside class="notes">Time 2:00. Core delivery: define the agent as an operating loop, not a persona. It works inside a contract made of goals, permissions, and stop conditions. Term: closed loop means observing again after an action. Transition: that second observation matters because a tool action changes the environment. Evidence boundary: this working definition synthesizes the research report; it is not the only industry definition.</aside>
+    </section>
 
-      <!-- Slide 04 · REPORT_SLOT: enterprise Agent definition -->
-      <section data-slide-id="s04-agent-threshold">
-        <div class="eyebrow">Definition · Minimum Agent Threshold</div>
-        <h2>It becomes an agent only after it crosses an “advance work” boundary.</h2>
-        <div class="threshold-stage">
-          <div class="threshold-baseline"></div>
-          <div class="below-tasks"><span>One-shot Q&amp;A</span><span>Summaries</span><span>Copy generation</span></div>
-          <div class="agent-loop">GOAL → OBSERVE → ACT → CHECK → STOP</div>
-          <div class="threshold-actions">
-            <div class="threshold-action fragment fade-up" data-fragment-index="0"><span>01</span><h3>Multi-step decisions</h3><p>Choose the next path from intermediate results.</p></div>
-            <div class="threshold-action fragment fade-up" data-fragment-index="0"><span>02</span><h3>Tool use</h3><p>Connect knowledge, databases, or business APIs.</p></div>
-            <div class="threshold-action fragment fade-up" data-fragment-index="1"><span>03</span><h3>State advancement</h3><p>Leave records or structured outputs across systems.</p></div>
-            <div class="threshold-action fragment fade-up" data-fragment-index="1"><span>04</span><h3>Escalation</h3><p>Pause on exceptions, high risk, or low confidence.</p></div>
-          </div>
-          <div class="threshold-stop fragment fade-up" data-fragment-index="2">EXPLICIT GOAL · PERMISSION · STOP CONDITION<br>Without them, it is a capability demo.</div>
-        </div>
-        <div class="source-bar"><span>Source: Enterprise Agent Scenario Library §1.1 · Research current to 2026-08-26</span><span>WORKING DEFINITION</span></div>
-        <aside class="notes">Time 1:45. Core delivery: one of these four behaviors is sufficient; not every agent needs high autonomy. Term: a stop condition defines completion, failure, clarification, or escalation. Transition: multiple automation forms exist above the threshold. Evidence boundary: this is the report's working definition, not a claim of universal consensus.</aside>
-      </section>
+    <section class="dark-slide" data-slide-id="n05-closed-loop">
+      <div class="eyebrow on-dark">Closed Loop · Not a Count of Prompts</div><h2>Actions change the environment.<br>The system must look again.</h2>
+      <div class="feedback-system"><div class="feedback-command"><small>INTENT</small><strong>Find refund anomalies</strong></div><div class="feedback-controller fragment fade-up" data-fragment-index="0"><small>CONTROLLER</small><strong>Select query and validation actions</strong></div><div class="feedback-world fragment fade-up" data-fragment-index="1"><small>WORLD STATE</small><strong>0 rows / duplicate orders / conflicting metric</strong></div><div class="feedback-return fragment fade-up" data-fragment-index="2">Observe result → Revise plan → Act again</div><div class="open-loop fragment fade-up" data-fragment-index="2">A chain of prompts is open-loop when it executes and moves on while errors propagate downstream.</div></div>
+      <aside class="notes">Time 2:15. Core delivery: zero rows, a join that multiplies records, or conflicting metric versions should change the next plan. Without feedback, execution is not reliable. Term: an open loop issues an action without using its outcome to correct what follows. Transition: a closed loop can still fail, so the next goal is limiting exposure, not maximizing autonomy. Evidence boundary: the control-system analogy explains feedback; it does not prescribe one implementation.</aside>
+    </section>
 
-      <!-- Slide 05 -->
-      <section data-slide-id="s05-automation-spectrum">
-        <div class="eyebrow">Spectrum · Automation Forms</div>
-        <h2>Autonomy increases to the right. Maturity does not.</h2>
-        <div class="rail-map">
-          <div class="rail-title top">AUTONOMY → More dynamic decisions and coordination cost</div>
-          <div class="spectrum-rail"><i class="rail-arrow"></i></div>
-          <div class="spectrum-stops">
-            <div class="spectrum-stop"><div class="dot"></div><h3>Q&amp;A</h3><p>Answer a question</p></div>
-            <div class="spectrum-stop"><div class="dot"></div><h3>Copilot</h3><p>Human stays in control</p></div>
-            <div class="spectrum-stop fragment fade-up" data-fragment-index="0"><div class="dot"></div><h3>Workflow</h3><p>Fix the SOP backbone</p></div>
-            <div class="spectrum-stop fragment fade-up" data-fragment-index="1"><div class="dot"></div><h3>Agent</h3><p>Bounded judgment</p></div>
-            <div class="spectrum-stop fragment fade-up" data-fragment-index="1"><div class="dot"></div><h3>Multi-Agent</h3><p>Role coordination</p></div>
-          </div>
-          <div class="rail-title bottom">CONTROL → Verifiable, observable, reversible</div>
-          <div class="control-rail fragment fade-up" data-fragment-index="2"><i class="rail-arrow"></i></div>
-          <div class="rail-caution fragment fade-up" data-fragment-index="2">The task chooses the form. Most enterprises begin with workflows.</div>
-        </div>
-        <aside class="notes">Time 1:30. Core delivery: the far right is not the destination; autonomy and maturity are separate axes. Term: workflow fixes deterministic steps, while an agent handles bounded uncertainty. Transition: every form still needs six system elements. Evidence boundary: this spectrum is conceptual, not a product tier or maturity score.</aside>
-      </section>
+    <section data-slide-id="n06-risk-envelope">
+      <div class="eyebrow">Risk Envelope · Teaching Heuristic</div><h2>Exposure is not just “was the model wrong?”</h2>
+      <div class="exposure-equation"><div class="equation-result"><small>EXPOSURE</small><strong>Risk exposure</strong></div><b>=</b><div class="equation-term fragment fade-up" data-fragment-index="0"><small>ACTION RADIUS</small><strong>Action radius</strong><p>How many objects one error can affect</p></div><b>×</b><div class="equation-term fragment fade-up" data-fragment-index="1"><small>IRREVERSIBILITY</small><strong>Irreversibility</strong><p>Whether the error can be safely undone</p></div><b>×</b><div class="equation-term fragment fade-up" data-fragment-index="2"><small>DETECTION DELAY</small><strong>Detection delay</strong><p>How long before anyone sees it</p></div></div>
+      <div class="risk-example fragment fade-up" data-fragment-index="3"><span>Misread one report</span><i>≪</i><span>Send a wrong notice to 100,000 customers</span></div><div class="source-bar"><span>A design heuristic—not a validated quantitative risk formula</span><span>TEACHING MODEL</span></div>
+      <aside class="notes">Time 2:15. Core delivery: the same error rate has very different consequences in read-only analysis versus mass external publication. Limit exposure by shrinking action radius, preserving reversibility, and shortening detection time. Term: detection delay is the time from error to confirmed detection. Transition: task fit therefore depends on both verifiability and reversibility. Evidence boundary: do not use this product to compute losses or regulatory capital.</aside>
+    </section>
 
-      <!-- Slide 06 -->
-      <section data-slide-id="s06-system-anatomy">
-        <div class="eyebrow">Anatomy · Six Elements</div>
-        <h2>The model is an engine, not the whole machine.</h2>
-        <div class="anatomy">
-          <div class="anatomy-ring"></div>
-          <div class="anatomy-core"><div><strong>Agent<br>System</strong><br><span>MODEL INSIDE</span></div></div>
-          <div class="organ o1 fragment fade-up" data-index="01" data-fragment-index="0"><h3>Goal</h3><p>Success, completion, stopping.</p></div>
-          <div class="organ o2 fragment fade-up" data-index="02" data-fragment-index="0"><h3>Context</h3><p>Knowledge, data, business meaning.</p></div>
-          <div class="organ o3 fragment fade-up" data-index="03" data-fragment-index="1"><h3>Tools</h3><p>Read, compute, bounded action.</p></div>
-          <div class="organ o4 fragment fade-up" data-index="04" data-fragment-index="1"><h3>State</h3><p>Progress, intermediate work, recovery.</p></div>
-          <div class="organ o5 fragment fade-up" data-index="05" data-fragment-index="2"><h3>Control</h3><p>Permissions, rules, approval, rollback.</p></div>
-          <div class="organ o6 fragment fade-up" data-index="06" data-fragment-index="2"><h3>Evidence</h3><p>Sources, versions, logs, validation.</p></div>
-        </div>
-        <aside class="notes">Time 1:30. Core delivery: remember goal, context, tools, state, control, and evidence; the model is one component. Term: state makes long tasks resumable, and evidence makes results reviewable. Transition: which enterprise workflows suit this machine? Evidence boundary: the six elements are a teaching model, not a one-to-one Dify menu.</aside>
-      </section>
+    <section data-slide-id="n07-task-fit">
+      <div class="eyebrow">Task Fit · Start in the Upper Right</div><h2>Automate work that is verifiable and reversible first.</h2>
+      <div class="fit-matrix"><div class="y-label">Outcome verifiability ↑</div><div class="x-label">Action reversibility →</div><div class="quadrant q1"><small>Hard to verify · Hard to reverse</small><strong>Human judgment</strong><span>Performance sanctions, clinical decisions</span></div><div class="quadrant q2 fragment fade-up" data-fragment-index="0"><small>Easy to verify · Hard to reverse</small><strong>Execute after approval</strong><span>External publication, payment</span></div><div class="quadrant q3 fragment fade-up" data-fragment-index="1"><small>Hard to verify · Easy to reverse</small><strong>Explore and draft</strong><span>Research hypotheses, strategic options</span></div><div class="quadrant q4 fragment fade-up" data-fragment-index="2"><small>Easy to verify · Easy to reverse</small><strong>Priority starting point</strong><span>Read-only analysis, document structuring</span></div><div class="matrix-arrow fragment fade-up" data-fragment-index="3">START HERE</div></div>
+      <aside class="notes">Time 2:15. Core delivery: select tasks by verifiability and reversibility, not by industry hype. The upper-right quadrant lets the organization accumulate evaluation and operating experience. Term: verifiable means there is a stable method to judge output, not that accuracy must be perfect. Transition: once the task is chosen, place uncertainty precisely. Evidence boundary: the matrix is a screening tool; control maturity can change where a task sits.</aside>
+    </section>
 
-      <!-- Slide 07 · REPORT_SLOT: eight-scenario atlas -->
-      <section class="scenario-slide" data-slide-id="s07-scenario-atlas">
-        <img class="scene-photo" src="assets/atmos-prism-darkhan-basshybayev.jpg" alt="Iridescent abstract prism by Darkhan Basshybayev on Unsplash">
-        <div class="eyebrow">Scenario Transit · Eight Scenario Families</div>
-        <h2>Mature use cases are three kinds of reviewable workflow.</h2>
-        <div class="transit-map">
-          <div class="transit-route route-doc fragment fade-up" data-fragment-index="0"><div class="route-name">DOCUMENTS<br>→ STRUCTURE</div><div class="route-line"><div class="route-stop"><strong>Contracts / regulation</strong><small>High maturity</small></div><div class="route-stop"><strong>Legal evidence chains</strong><small>High maturity</small></div><div class="route-stop"><strong>Localization</strong><small>Medium maturity</small></div></div></div>
-          <div class="transit-route route-service fragment fade-up" data-fragment-index="1"><div class="route-name">SIGNALS<br>→ ACTION</div><div class="route-line"><div class="route-stop"><strong>Multilingual service</strong><small>High maturity</small></div><div class="route-stop"><strong>Voice of customer</strong><small>High maturity</small></div></div></div>
-          <div class="transit-route route-decision fragment fade-up" data-fragment-index="2"><div class="route-name">DATA<br>→ DECISION</div><div class="route-line"><div class="route-stop"><strong>KYC ownership tracing</strong><small>Medium maturity</small></div><div class="route-stop"><strong>Diligence / decision memos</strong><small>Medium maturity</small></div><div class="route-stop"><strong>Enterprise analytics</strong><small>High maturity</small></div></div></div>
-        </div>
-        <div class="source-bar"><span>Source: Enterprise Agent Scenario Library §2 · Maturity is qualitative, not a product score</span><span>8 SCENARIOS · 3 FLOW PATTERNS</span></div>
-        <aside class="notes">Time 2:30. Core delivery: scan the eight scenarios, then focus on how documents, signals, or data become reviewable outputs. Term: public maturity combines named cases, disclosed scale, and clear workflow boundaries. Transition: use five gates to decide whether a specific process should start or stop. Evidence boundary: high or medium does not imply copy-and-paste readiness or a product ranking.</aside>
-      </section>
+    <section data-slide-id="n08-uncertainty-placement">
+      <div class="eyebrow">Uncertainty Placement · Do Not Turn the Whole Process into an Agent</div><h2>Fix the deterministic backbone; open one small pocket of uncertainty.</h2>
+      <div class="uncertainty-line"><div class="fixed-step"><span>1</span><strong>Collect input</strong></div><div class="fixed-step"><span>2</span><strong>Check access</strong></div><div class="agent-pocket fragment fade-up" data-fragment-index="0"><small>BOUNDED AGENT POCKET</small><strong>Interpret ↔ Select query ↔ Validate</strong><p>Bound tools · Bound turns · Bound budget</p></div><div class="fixed-step fragment fade-up" data-fragment-index="1"><span>4</span><strong>Render fixed format</strong></div><div class="human-gate fragment fade-up" data-fragment-index="2"><span>H</span><strong>Human confirm</strong></div></div><div class="uncertainty-rule">Put the agent loop only where uncertainty lives.</div>
+      <aside class="notes">Time 2:00. Core delivery: workflow owns sequence, access, and output shape; the agent handles local dynamic judgment; high-risk exits go to a person. Term: a bounded agent pocket is an open judgment area inside a fixed workflow. Transition: managing that loop requires three explicit contracts. Evidence boundary: this is a recommended architecture, not a universal mandate.</aside>
+    </section>
 
-      <!-- Slide 08 -->
-      <section data-slide-id="s08-start-stop-gates">
-        <div class="eyebrow">Stage Gates · Choose the Process First</div>
-        <h2>Pass each gate before granting more permission.</h2>
-        <div class="gates">
-          <div class="gate-path"></div>
-          <div class="gate-list">
-            <div class="stage-gate"><div class="gate-door"></div><h3>Frequent</h3><p>Improvement is measurable</p><div class="gate-fail">NO → Not worth automating</div></div>
-            <div class="stage-gate fragment fade-up" data-fragment-index="0"><div class="gate-door"></div><h3>Stable data</h3><p>Legal programmatic access</p><div class="gate-fail">NO → Fix the source</div></div>
-            <div class="stage-gate fragment fade-up" data-fragment-index="1"><div class="gate-door"></div><h3>Existing SOP</h3><p>Normal and exception paths</p><div class="gate-fail">NO → Ask for clarity</div></div>
-            <div class="stage-gate fragment fade-up" data-fragment-index="1"><div class="gate-door"></div><h3>Verifiable</h3><p>Sample and baseline</p><div class="gate-fail">NO → Do not launch</div></div>
-            <div class="stage-gate fragment fade-up" data-fragment-index="2"><div class="gate-door"></div><h3>Reversible</h3><p>Undo incorrect actions</p><div class="gate-fail">NO → Human decision</div></div>
-          </div>
-          <div class="gate-pass fragment fade-up" data-fragment-index="3">PASS → Begin read-only or draft-only</div>
-        </div>
-        <div class="source-bar"><span>Source: Enterprise Agent Scenario Library §5–§6 · Professional judgment is not outsourced</span><span>VERIFY BEFORE AUTONOMY</span></div>
-        <aside class="notes">Time 1:45. Core delivery: frequency, stable data, an SOP, verification, and reversibility form the pilot threshold. Term: a baseline captures the current cycle time, quality, rework, and cost. Transition: two named cases show where the human gate belongs. Evidence boundary: “not suitable” means not ready for permission today, not impossible forever.</aside>
-      </section>
+    <section data-slide-id="n09-three-contracts">
+      <div class="eyebrow">Three Contracts · Turn “Good Enough” into Testable Conditions</div><h2>Before launch, write three machine-executable contracts.</h2>
+      <div class="contract-stack"><div class="contract-sheet task-contract"><small>01 · TASK CONTRACT</small><strong>Task contract</strong><p>Inputs, done condition, quality threshold, stop condition.</p><em>Missing → the system cannot know when it is done</em></div><div class="contract-sheet tool-contract fragment fade-up" data-fragment-index="0"><small>02 · TOOL CONTRACT</small><strong>Tool contract</strong><p>Identity, access, budget, pre- and postconditions.</p><em>Missing → a suggestion becomes an unauthorized action</em></div><div class="contract-sheet evidence-contract fragment fade-up" data-fragment-index="1"><small>03 · EVIDENCE CONTRACT</small><strong>Evidence contract</strong><p>Required input, source, action, version, and approval records.</p><em>Missing → only the final prose survives</em></div></div>
+      <aside class="notes">Time 2:15. Core delivery: the task contract defines completion, the tool contract defines permission, and the evidence contract defines proof. Missing one produces wandering, overreach, or an unauditable run. Term: machine-executable means key conditions live in workflow configuration, tool schemas, or log fields—not only policy prose. Transition: first examine the context needed to understand the task. Evidence boundary: these contracts are a system-design abstraction, not three fixed Dify objects.</aside>
+    </section>
 
-      <!-- Slide 09 · CASE_SLOT: contract case -->
-      <section class="editorial-case" data-slide-id="s09-contract-case">
-        <div class="editorial-grid">
-          <div class="editorial-lead"><div><div class="eyebrow">Case 01 · Contract Data</div><h2>Contract<br><span class="blue">Structure</span></h2></div><p>The agent handles repetitive extraction; finance experts review exceptions and non-standard terms.</p><span class="vendor-note">A · VENDOR-DISCLOSED · 2025</span></div>
-          <div class="editorial-body">
-            <div class="case-tension"><div class="metric">½<small>REVIEW CYCLE CUT IN HALF</small></div><p>The system ingests PDFs, scans, and phone photos, producing evidence-linked records across thousands of contracts.</p></div>
-            <div class="human-placement fragment fade-up" data-fragment-index="0"><div class="eyebrow">Human Gate Placement</div><div class="placement-line"><div class="placement-step"><strong>Extract and flag</strong><span>Fields, terms, anomalies, source pages</span></div><div class="human-node">HITL</div><div class="placement-step"><strong>Validate, then store</strong><span>Experts confirm exceptions and conflicts</span></div></div></div>
-            <div class="source-bar"><span><a href="https://openai.com/index/openai-contract-data-agent/" target="_blank" rel="noopener">OpenAI · Turning contracts into searchable data</a> · Does not imply Dify usage</span><span class="evidence evidence-a">A</span></div>
-          </div>
-        </div>
-        <aside class="notes">Time 2:30. Core delivery: extraction and flagging are automated, while expert judgment stays before storage. Term: HITL is a workflow state, not a reminder to check. Transition: the second case applies the same principle at multilingual service scale. Evidence boundary: cycle time and volume are vendor-disclosed by OpenAI, not independently audited, and do not imply Dify usage.</aside>
-      </section>
+    <section data-slide-id="n10-context-stack">
+      <div class="eyebrow">Context Stack · Context Is Not More Tokens</div><h2>Reliable understanding comes from executable business semantics.</h2>
+      <div class="context-strata"><div class="stratum s-runtime fragment fade-up" data-fragment-index="4"><span>05</span><strong>Runtime state</strong><p>Time, user, task history, current constraints</p></div><div class="stratum s-policy fragment fade-up" data-fragment-index="3"><span>04</span><strong>Policies and exceptions</strong><p>Privacy thresholds, forbidden ranges, escalation rules</p></div><div class="stratum s-definition fragment fade-up" data-fragment-index="2"><span>03</span><strong>Business definitions</strong><p>Refund numerator, denominator, baseline, and time zone</p></div><div class="stratum s-lineage fragment fade-up" data-fragment-index="1"><span>02</span><strong>Lineage and query history</strong><p>Where data came from and how teams validated it</p></div><div class="stratum s-schema"><span>01</span><strong>Schema and metadata</strong><p>Tables, fields, types, and owners</p></div><div class="context-output">Executable semantics → choose the right metric, table, and validation</div></div>
+      <div class="source-bar"><span><a href="https://openai.com/index/inside-our-in-house-data-agent/" target="_blank" rel="noopener">OpenAI · Inside our in-house data agent</a>: layered context, inherited access, runtime validation</span><span>PRIMARY ENGINEERING SOURCE</span></div>
+      <aside class="notes">Time 2:15. Core delivery: layer lineage, business definitions, policy, and runtime state above schema. Context should constrain choices, not fill the prompt window. OpenAI's published engineering account highlights layered context, query history, human annotations, and runtime information. Term: lineage traces upstream transformations. Transition: correct understanding still does not authorize safe action; next is the tool contract. Evidence boundary: do not translate data-platform scale into agent adoption or accuracy.</aside>
+    </section>
 
-      <!-- Slide 10 · CASE_SLOT: service case -->
-      <section class="service-slide" data-slide-id="s10-service-case">
-        <div class="eyebrow">Case 02 · Multilingual Service</div>
-        <h2>A mature service agent does more than FAQ: read → act → escalate.</h2>
-        <div class="service-stage">
-          <div class="wave-wrap">
-            <div class="waveform" aria-label="Abstract waveform representing multilingual customer requests"><span style="--h:58px;--o:.55"></span><span style="--h:110px"></span><span style="--h:176px"></span><span style="--h:90px"></span><span style="--h:224px"></span><span style="--h:140px"></span><span style="--h:250px"></span><span style="--h:106px"></span><span style="--h:194px"></span><span style="--h:76px"></span><span style="--h:236px"></span><span style="--h:152px"></span><span style="--h:94px"></span><span style="--h:210px"></span><span style="--h:122px"></span><span style="--h:182px"></span><span style="--h:66px"></span><span style="--h:142px"></span><span style="--h:98px"></span><span style="--h:54px;--o:.55"></span></div>
-            <div class="service-flow fragment fade-up" data-fragment-index="0"><b>Read account state</b><span>→</span><b>Execute allowed action</b><span>→</span><b class="amber">Escalate with context</b></div>
-          </div>
-          <div class="service-stats fragment fade-up" data-fragment-index="1"><div class="big">120K / DAY<small>7 languages · 80% containment</small></div><div class="big">94%<small>Vendor-disclosed accuracy</small></div><span class="vendor-note on-dark service-disclosure">A · VENDOR-DISCLOSED · NOT AUDITED</span></div>
-        </div>
-        <div class="source-bar"><span><a href="https://aws.amazon.com/solutions/case-studies/innovators/ryanair-agentic-ai/" target="_blank" rel="noopener">AWS / Ryanair · Transforming customer service with agentic AI</a> · Not comparable across cases</span><span class="evidence evidence-a">A</span></div>
-        <aside class="notes">Time 2:30. Core delivery: service agents require account state, bounded actions, continuous evaluation, and complete handoff—not only FAQ retrieval. Term: containment is the share of conversations completed without human takeover under the source's definition. Transition: both cases show that capability must enter a system. Evidence boundary: all numbers are disclosed by AWS/Ryanair, not independently audited, and do not imply Dify usage.</aside>
-      </section>
+    <section data-slide-id="n11-tool-contract">
+      <div class="eyebrow">Tool Contract · An API Call Is Not Ordinary Text</div><h2>Every tool call crosses a real authorization boundary.</h2>
+      <div class="tool-envelope"><div class="tool-intent"><small>MODEL INTENT</small><strong>“Run the refund query”</strong></div><div class="envelope-body fragment fade-up" data-fragment-index="0"><div><span>PRE</span><strong>Precondition</strong><p>Metric version confirmed</p></div><div><span>ID</span><strong>Identity / access</strong><p>Inherit requester read access</p></div><div><span>KEY</span><strong>Idempotency key</strong><p>Retries do not repeat effects</p></div><div><span>CAP</span><strong>Cost / turn cap</strong><p>Scan and call limits</p></div><div><span>POST</span><strong>Postcondition</strong><p>Rows, uniqueness, denominator</p></div><div><span>UNDO</span><strong>Undo path</strong><p>Escalate if irreversible</p></div></div><div class="tool-outcome fragment fade-up" data-fragment-index="1"><b>ALLOW</b><span>Execute and record</span><b class="ask">ASK</b><span>Fill missing conditions</span><b class="stop">STOP</b><span>Unauthorized or irreversible</span></div></div>
+      <aside class="notes">Time 2:15. Core delivery: the model proposes intent; the tool layer authorizes and validates. Define precondition, identity, idempotency, budget, postcondition, and undo. Term: idempotent execution does not create duplicate side effects on retry. Transition: once actions are bounded, make each step traceable. Evidence boundary: the fields are general engineering guidance; databases, API gateways, and identity systems implement the controls.</aside>
+    </section>
 
-      <!-- Slide 11 -->
-      <section data-slide-id="s11-dify-system">
-        <div class="eyebrow">Dify System Cutaway · Capability to System</div>
-        <h2>Dify connects distributed capabilities into an observable operating chain.</h2>
-        <div class="cutaway">
-          <div class="cutaway-band fragment fade-up" data-fragment-index="0"><div class="band-label">CAPABILITY</div><div class="band-nodes"><div class="band-node"><strong>Models</strong><span>Generation, reasoning, multimodal</span></div><div class="band-node"><strong>Knowledge</strong><span>Retrieval, citation, enterprise context</span></div><div class="band-node"><strong>Tools</strong><span>APIs, plugins, MCP, code</span></div></div></div>
-          <div class="cutaway-band core fragment fade-up" data-fragment-index="1"><div class="band-label">ORCHESTRATION</div><div class="band-nodes"><div class="band-node"><strong>Workflow</strong><span>Deterministic paths, state, exceptions</span></div><div class="band-node"><strong>Agent</strong><span>Bounded loops and dynamic tool choice</span></div></div></div>
-          <div class="cutaway-band fragment fade-up" data-fragment-index="2"><div class="band-label">DELIVERY</div><div class="band-nodes"><div class="band-node"><strong>API</strong><span>Enter existing apps and processes</span></div><div class="band-node"><strong>Logs</strong><span>Evidence, feedback, evaluation</span></div></div></div>
-        </div>
-        <div class="cutaway-caption"><span>PROMPT IS ONE COMPONENT</span><span>BUILD → ORCHESTRATE → DELIVER → OBSERVE</span></div>
-        <aside class="notes">Time 2:30. Core delivery: this is not a feature list; models, knowledge, and tools pass through orchestration into APIs and logs. Term: orchestration defines steps, state, and exception paths. Transition: the key design choice is which steps remain fixed and which judgment is open. Evidence boundary: Dify is the implementation spine; external cases support scenarios and engineering patterns only.</aside>
-      </section>
+    <section class="ledger-slide" data-slide-id="n12-evidence-ledger">
+      <div class="eyebrow">Evidence Ledger · An Explanation Is Not Evidence</div><h2>Every run should write a replayable ledger.</h2>
+      <div class="ledger"><div class="ledger-row"><span>00:00</span><strong>INPUT</strong><p>Question v3 · user u-184 · read-only scope APAC</p></div><div class="ledger-row fragment fade-up" data-fragment-index="0"><span>00:03</span><strong>CONTEXT</strong><p>Refund definition v12 · lineage hash · privacy policy v7</p></div><div class="ledger-row fragment fade-up" data-fragment-index="1"><span>00:08</span><strong>ACTION</strong><p>query_refunds.sql · parameters · scan cap · tool_call_91</p></div><div class="ledger-row fragment fade-up" data-fragment-index="1"><span>00:11</span><strong>RESULT</strong><p>Result link · row count · checksum · validation tests</p></div><div class="ledger-row fragment fade-up" data-fragment-index="2"><span>00:18</span><strong>JUDGMENT</strong><p>Known / inferred / unknown · assumptions · confidence boundary</p></div><div class="ledger-row fragment fade-up" data-fragment-index="2"><span>00:24</span><strong>OWNER</strong><p>Approver · edits · publication decision</p></div></div><div class="ledger-verdict">“The model thought so” cannot be replayed. An evidence chain can.</div>
+      <aside class="notes">Time 2:15. Core delivery: the ledger preserves input version, context, action, raw result, judgment, and owner so failure can be replayed and repaired. Term: replay reproduces a run from stored versions and parameters. Transition: the ledger also makes human gates explicit decision rights. Evidence boundary: retention and privacy policies still govern which fields may be stored and for how long.</aside>
+    </section>
 
-      <!-- Slide 12 -->
-      <section data-slide-id="s12-boundary-flow">
-        <div class="eyebrow">Boundary Flow · Workflow × Agent × Human</div>
-        <h2>Fix the deterministic path. Bound the open judgment.</h2>
-        <div class="boundary-canvas">
-          <svg viewBox="0 0 1710 650" aria-hidden="true"><defs><marker id="arrow-blue-en" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#143cff"/></marker><marker id="arrow-amber-en" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 Z" fill="#d18a00"/></marker></defs><path d="M80 325 H1580" fill="none" stroke="#143cff" stroke-width="16" stroke-linecap="round" marker-end="url(#arrow-blue-en)"/><path class="fragment" data-fragment-index="0" d="M650 325 C650 60 1080 60 1080 325 C1080 510 760 510 760 325" fill="none" stroke="#6981ff" stroke-width="12" stroke-linecap="round" marker-end="url(#arrow-blue-en)"/><circle cx="1290" cy="325" r="62" fill="#d18a00"/><path class="fragment" data-fragment-index="1" d="M1290 325 V545" fill="none" stroke="#d18a00" stroke-width="8" stroke-dasharray="16 14" marker-end="url(#arrow-amber-en)"/></svg>
-          <div class="flow-label fl-start"><strong>Task input</strong><span>Goal and contract</span></div><div class="flow-label fl-workflow"><strong>Workflow</strong><span>Fixed SOP backbone</span></div><div class="flow-label fl-agent fragment fade-up" data-fragment-index="0"><strong>Agent loop</strong><span>Local uncertainty only</span></div><div class="flow-label fl-human"><strong>Human gate</strong><span>High-risk work becomes human state</span></div><div class="flow-label fl-result"><strong>Reviewable output</strong><span>Evidence, state, owner</span></div><div class="boundary-rule fragment fade-up" data-fragment-index="2">Human confirmation is workflow state—not “remember to check.”</div>
-        </div>
-        <aside class="notes">Time 2:15. Core delivery: enterprise design combines a fixed backbone, a bounded loop, and human state rather than choosing workflow or agent. Term: a human gate pauses with context and resumes only after a decision. Transition: correct action depends on two rails—understanding and permission. Evidence boundary: this is a recommended architecture, not a requirement that every workflow include an agent loop.</aside>
-      </section>
+    <section data-slide-id="n13-decision-rights">
+      <div class="eyebrow">Decision Rights · What Human-in-the-Loop Really Means</div><h2>Not “remember to review”—who owns which decision?</h2>
+      <div class="rights-ladder"><div class="right-step r-agent"><small>AGENT OWNS</small><strong>Stable, verifiable, reversible</strong><p>Query, format, revalidate</p></div><div class="right-step r-shared fragment fade-up" data-fragment-index="0"><small>AGENT PROPOSES · HUMAN CONFIRMS</small><strong>Consequential but explainable</strong><p>Anomaly interpretation, memo, record change</p></div><div class="right-step r-human fragment fade-up" data-fragment-index="1"><small>HUMAN OWNS</small><strong>Exception, conflict, irreversibility, high uncertainty</strong><p>Policy judgment, external publication, causal claim</p></div><div class="rights-trigger fragment fade-up" data-fragment-index="2">ESCALATE: access conflict · weak evidence · over budget · cannot validate · irreversible action</div></div>
+      <aside class="notes">Time 2:00. Core delivery: human participation must resolve to a decision-rights table—what the agent owns, proposes, or may not decide. Term: human-in-the-loop is a control structure, not the hope that someone glances at the end. Transition: decision rights still need continuous release and rollback discipline. Evidence boundary: workflow owners, risk, and IT must define the actual table.</aside>
+    </section>
 
-      <!-- Slide 13 -->
-      <section data-slide-id="s13-context-permission">
-        <div class="eyebrow">Two Rails · Understanding × Permission</div>
-        <h2>Make the agent understand correctly before deciding how far it may act.</h2>
-        <div class="twin-rails">
-          <div class="twin-rail context-rail"><div class="twin-title"><strong>Context rail</strong><span>UNDERSTAND</span></div><div class="rail-sequence"><div class="sequence-node"><strong>Metric definition</strong></div><div class="sequence-node"><strong>Table meaning</strong></div><div class="sequence-node"><strong>Query history</strong></div><div class="sequence-node"><strong>Live data</strong></div></div><div class="evidence-hub"><div><strong>Correct meaning</strong><br><span>ASSUMPTIONS VISIBLE</span></div></div></div>
-          <div class="twin-rail permission-rail fragment fade-up" data-fragment-index="0"><div class="twin-title"><strong>Permission rail</strong><span>ACT SAFELY</span></div><div class="rail-sequence"><div class="sequence-node"><strong>Read only</strong></div><div class="sequence-node"><strong>Draft</strong></div><div class="sequence-node"><strong>Write record</strong></div><div class="sequence-node"><strong>Publish</strong></div></div><div class="evidence-hub"><div><strong>Safe action</strong><br><span>USER PERMISSION</span></div></div></div>
-        </div>
-        <div class="source-bar"><span>Tool calls are real permissions; irreversible actions stop and escalate by default</span><span>CONTEXT ≠ MORE TOKENS</span></div>
-        <aside class="notes">Time 2:15. Core delivery: context is not “put everything in the prompt,” and permission is not a single tool toggle. Term: semantic context explains business meaning; pass-through permissions inherit the caller's identity. Transition: the two rails still need an enterprise control perimeter. Evidence boundary: the action levels illustrate risk design, not a formal classification used by every enterprise.</aside>
-      </section>
+    <section data-slide-id="n14-reliability-loop">
+      <div class="eyebrow">Reliability Loop · Reliability Is Release Discipline</div><h2>Do not test once before launch. Keep proving.</h2>
+      <div class="release-orbit"><div class="orbit-ring"></div><div class="release-node rn1"><span>01</span><strong>Offline eval</strong><small>Golden tasks + edge cases</small></div><div class="release-node rn2 fragment fade-up" data-fragment-index="0"><span>02</span><strong>Shadow</strong><small>No production state change</small></div><div class="release-node rn3 fragment fade-up" data-fragment-index="0"><span>03</span><strong>Canary</strong><small>Bound users and actions</small></div><div class="release-node rn4 fragment fade-up" data-fragment-index="1"><span>04</span><strong>Production monitor</strong><small>Quality, safety, drift</small></div><div class="release-node rn5 fragment fade-up" data-fragment-index="1"><span>05</span><strong>Feedback attribution</strong><small>Errors enter the eval set</small></div><div class="release-core fragment fade-up" data-fragment-index="2"><strong>ROLL BACK</strong><p>Downgrade when evidence weakens<br>—not after an incident</p></div></div>
+      <div class="source-bar"><span><a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" target="_blank" rel="noopener">NIST AI RMF Core</a>: Govern · Map · Measure · Manage across the lifecycle</span><span>PRIMARY FRAMEWORK</span></div>
+      <aside class="notes">Time 2:15. Core delivery: offline evaluation, shadow, canary, production monitoring, feedback, and rollback form a loop. OpenAI's data-agent account also describes continuous evaluation against golden SQL and results. Term: canary limits new behavior to a small traffic slice. Transition: finally map the controls to Dify's system position. Evidence boundary: NIST supplies a risk-management framework; it does not certify this architecture.</aside>
+    </section>
 
-      <!-- Slide 14 · REPORT_SLOT: eight control capabilities -->
-      <section data-slide-id="s14-control-perimeter">
-        <div class="eyebrow">Control Perimeter · Control Determines Usability</div>
-        <h2>Do not give the agent unlimited freedom. Surround the system with controls.</h2>
-        <div class="control-stage">
-          <div class="control-orbit"></div><div class="control-core"><div><strong>Production<br>Workflow</strong><br><span>CONTROL &gt; AUTONOMY</span></div></div>
-          <div class="control-node cn1 fragment fade-up" data-fragment-index="0"><span>01</span><strong>Identity &amp; access</strong></div><div class="control-node cn2 fragment fade-up" data-fragment-index="0"><span>02</span><strong>Data &amp; model boundaries</strong></div><div class="control-node cn3 fragment fade-up" data-fragment-index="0"><span>03</span><strong>Evidence &amp; versions</strong></div><div class="control-node cn4 fragment fade-up" data-fragment-index="0"><span>04</span><strong>System integration</strong></div>
-          <div class="control-node cn5 fragment fade-up" data-fragment-index="1"><span>05</span><strong>Human gates</strong></div><div class="control-node cn6 fragment fade-up" data-fragment-index="1"><span>06</span><strong>Continuous evaluation</strong></div><div class="control-node cn7 fragment fade-up" data-fragment-index="1"><span>07</span><strong>Release &amp; rollback</strong></div><div class="control-node cn8 fragment fade-up" data-fragment-index="1"><span>08</span><strong>Business + IT ownership</strong></div>
-        </div>
-        <div class="source-bar"><span>Source: Enterprise Agent Scenario Library §4 · Synthesis of public cases and internal research signals</span><span class="evidence evidence-internal">Internal Signal</span></div>
-        <aside class="notes">Time 2:30. Core delivery: explain four pairs—access and data, evidence and integration, people and evaluation, release and ownership. Term: co-ownership means business defines the SOP and exceptions while IT provides secure connections and operations. Transition: with controls in place, permission still expands in stages. Evidence boundary: this is a research synthesis, not a certification standard; internal signals are not independently audited production outcomes.</aside>
-      </section>
+    <section data-slide-id="n15-dify-control-plane">
+      <div class="eyebrow">Dify System View · Orchestration, Not Data Authority</div><h2>Dify orchestrates the contracts into one observable run.</h2>
+      <div class="control-plane"><div class="enterprise-layer"><small>ENTERPRISE SYSTEMS · SOURCE OF AUTHORITY</small><span>Identity</span><span>Warehouse</span><span>Catalog</span><span>Business APIs</span><span>Policy</span></div><div class="dify-layer fragment fade-up" data-fragment-index="0"><small>DIFY · ORCHESTRATION &amp; CONTROL PLANE</small><strong>Workflow backbone</strong><b>→</b><strong class="agent-chip">Bounded Agent pocket</strong><b>→</b><strong>Human gate</strong></div><div class="runtime-layer fragment fade-up" data-fragment-index="1"><span>Models</span><span>Knowledge</span><span>Tools</span><span>Variables</span><span>Logs</span><span>API</span></div><div class="plane-verdict fragment fade-up" data-fragment-index="2">Models propose actions; enterprise systems retain authority; Dify connects the process so it is visible and stoppable.</div></div>
+      <div class="source-bar"><span><a href="https://docs.dify.ai/en/guides/application-orchestrate/creating-an-application" target="_blank" rel="noopener">Dify Workflow docs</a> · <a href="https://docs.dify.ai/en/develop-plugin/dev-guides-and-walkthroughs/tool-plugin" target="_blank" rel="noopener">Tool plugin docs</a></span><span>30 MIN FRAMEWORK COMPLETE</span></div>
+      <aside class="notes">Time 1:30. Core delivery: Dify provides orchestration positions for Workflow, Agent strategy, Tools, Knowledge, Variables, Logs, and API; identity, warehouse, and policy stay authoritative in enterprise systems. Term: a control plane coordinates execution without becoming the ultimate source of data or access truth. Transition: now run the refund task end to end in ten minutes. Evidence boundary: this is a public-doc mapping, not an exhaustive product inventory or claim that external cases use Dify.</aside>
+    </section>
 
-      <!-- Slide 15 -->
-      <section data-slide-id="s15-autonomy-runway">
-        <div class="eyebrow">Autonomy Runway · Three Release Stages</div>
-        <h2>Grant autonomy to proven actions—not to an agent identity.</h2>
-        <div class="runway"><div class="runway-shape"></div><div class="runway-stages"><div class="runway-stage"><span class="stage-index">01 · OBSERVE</span><h3>Shadow and draft</h3><p>Read, suggest, compare with human work.</p></div><div class="runway-stage fragment fade-up" data-fragment-index="0"><span class="stage-index">02 · CONFIRM</span><h3>Execute after approval</h3><p>Each tool action receives explicit approval.</p></div><div class="runway-stage fragment fade-up" data-fragment-index="1"><span class="stage-index">03 · AUTO</span><h3>Automate low risk</h3><p>Only stable and reversible actions.</p></div></div><div class="runway-human"><span>More human involvement</span><span>Downgrade when evidence weakens ←</span><span>Less, never zero</span></div></div>
-        <aside class="notes">Time 2:00. Core delivery: stages advance by evidence, not calendar time, and production drift can trigger a downgrade. Term: shadow mode does not change the live process; it compares agent work with human outcomes. Transition: promotion requires both business and safety acceptance. Evidence boundary: stage three is not full automation; it covers only stable, low-risk, reversible actions.</aside>
-      </section>
+    <section class="case-cover" data-slide-id="n16-case-ambiguity">
+      <img class="photo-bg" src="assets/atmos-indigo-richard-horvath.jpg" alt="Abstract indigo space by Richard Horvath on Unsplash"><div class="case-shade"></div><div class="case-copy"><div class="case-label">STATIC TEACHING SIMULATION · NOT A CUSTOMER CASE</div><blockquote>Which regions saw an abnormal rise in refund rate over the last four weeks?</blockquote><div class="definition-strip fragment fade-up" data-fragment-index="0"><span>Numerator?</span><span>Denominator?</span><span>Region?</span><span>Baseline?</span><span>Time zone?</span><span>Late events?</span></div></div>
+      <aside class="notes">Time 1:30. Core delivery: show the same question again, now with six definition slots. If a critical definition lacks a version, clarify rather than guess. Term: a late event occurred earlier but arrived in the warehouse later. Transition: assume definitions are available and inspect one replayable run. Evidence boundary: a static synthetic walkthrough with no customer data.</aside>
+    </section>
 
-      <!-- Slide 16 -->
-      <section data-slide-id="s16-acceptance-summary">
-        <div class="eyebrow">Acceptance · Two Metric Sets, One Launch Decision</div>
-        <h2>Efficiency and safety must appear on the same acceptance sheet.</h2>
-        <div class="acceptance"><div class="metric-rail business-metrics"><h3>Business</h3><div class="metric-ticks"><div class="metric-tick">Cycle and waiting time</div><div class="metric-tick">Quality and rework</div><div class="metric-tick">Adoption and unit cost</div></div></div><div class="acceptance-equals fragment fade-up" data-fragment-index="1">AND</div><div class="metric-rail safety-metrics fragment fade-up" data-fragment-index="0"><h3>Safety</h3><div class="metric-ticks"><div class="metric-tick">Unauthorized or wrong actions</div><div class="metric-tick">Unsupported claims and privacy exposure</div><div class="metric-tick">Irreversible incidents</div></div></div></div>
-        <div class="summary-sequence fragment fade-up" data-fragment-index="2">Choose process <span>→</span> Build boundaries <span>→</span> Prove reliability <span>→</span> Expand autonomy</div>
-        <div class="source-bar"><span>Source: Enterprise Agent Scenario Library §5 · Without a baseline, value cannot be proven</span><span>30 MIN FRAMEWORK COMPLETE</span></div>
-        <aside class="notes">Time 1:45. Core delivery: business metrics prevent safety-only theater, and safety metrics prevent time-saved accounting that ignores error cost. Term: the acceptance baseline comes from the current process. Transition: now walk the framework through a static data analysis task. Evidence boundary: metric categories are general recommendations; each business must define thresholds.</aside>
-      </section>
+    <section data-slide-id="n17-case-trace">
+      <div class="eyebrow">Execution Trace · Every Step Emits State and Evidence</div><h2>A good chain exposes not only the memo, but how it arrived.</h2>
+      <div class="trace-table"><div class="trace-head"><span>STEP</span><span>STATE / EVIDENCE</span><span>STOP IF</span></div><div class="trace-row"><b>01 · Clarify</b><p>Metric v12 · last 28 days · week-over-week baseline</p><em>No metric owner</em></div><div class="trace-row fragment fade-up" data-fragment-index="0"><b>02 · Retrieve semantics</b><p>Tables, fields, lineage, privacy threshold, query history</p><em>Version conflict</em></div><div class="trace-row fragment fade-up" data-fragment-index="0"><b>03 · Build plan</b><p>Join graph · filters · cost cap · validation tests</p><em>Scan over budget</em></div><div class="trace-row fragment fade-up" data-fragment-index="1"><b>04 · Read-only execute</b><p>SQL hash · tool call · raw result link</p><em>Access denied</em></div><div class="trace-row fragment fade-up" data-fragment-index="1"><b>05 · Validate</b><p>Uniqueness · denominator · nulls · reconciliation · cohort size</p><em>Test fails</em></div><div class="trace-row fragment fade-up" data-fragment-index="2"><b>06 · Draft memo</b><p>Known / inferred / unknown · chart · assumptions</p><em>Cause is requested</em></div><div class="trace-row human-row fragment fade-up" data-fragment-index="3"><b>H · Human confirm</b><p>Edit trail · release decision · owner</p><em>Final decision right</em></div></div>
+      <div class="source-bar"><span><a href="https://aws.amazon.com/cn/blogs/china/quickly-deploy-text2sql-intelligent-data-analysis-assistant-based-on-dify-agent-on-aws/" target="_blank" rel="noopener">AWS · Dify Text-to-SQL engineering practice</a> is an implementation reference, not production ROI evidence</span><span>READ-ONLY CASE</span></div>
+      <aside class="notes">Time 3:30. Core delivery: walk through clarify, semantics, planning, execution, validation, memo, and human confirmation. Each step emits an artifact and a stop condition; SQL is only step four. Term: an SQL hash confirms the executed text did not silently change. Transition: inject four common failures. Evidence boundary: the AWS source demonstrates an engineering path, not customer production returns.</aside>
+    </section>
 
-      <!-- Slide 17 · CASE_SLOT: synthetic data analysis walkthrough -->
-      <section class="data-case-slide" data-slide-id="s17-data-case">
-        <img class="photo-bg" src="assets/atmos-indigo-richard-horvath.jpg" alt="Indigo abstract flowing forms by Richard Horvath on Unsplash"><div class="data-case-shade"></div>
-        <div class="data-case-copy"><div class="case-badge">Teaching Simulation · Not a Customer Case</div><blockquote class="data-prompt">Which regions saw an abnormal rise in refund rate over the last four weeks? What drove it? Produce a reviewable management memo.</blockquote><div class="case-contract"><span>Input: question + enterprise semantics</span><span>Permission: read-only query</span><span>Output: SQL + result link + assumptions + memo</span></div></div>
-        <aside class="notes">Time 1:30. Core delivery: state clearly that this is a teaching simulation, not a Dify customer case, and ask how much hidden context sits behind the question. Term: a reviewable memo links back to queries, data versions, and assumptions. Transition: SQL generation is one step, not the full task. Evidence boundary: the task, data, and outcome are synthetic.</aside>
-      </section>
+    <section class="fault-lab-slide" data-slide-id="n18-case-failure-lab">
+      <div class="eyebrow">Failure Lab · Reliability Comes from Knowing When to Stop</div><h2>A failure is not merely “a wrong answer”—it violates a contract.</h2>
+      <div class="fault-lab"><div class="fault-test"><span>01</span><strong>Metric definition just changed</strong><p>Symptom: two active meanings, v11 and v12</p><b class="ask">ASK · Request owner confirmation</b></div><div class="fault-test fragment fade-up" data-fragment-index="0"><span>02</span><strong>Join duplicates orders</strong><p>Test: unique-key count expands 1.8×</p><b class="auto">FIX · Replan and revalidate</b></div><div class="fault-test fragment fade-up" data-fragment-index="1"><span>03</span><strong>Sensitive tiny cohort</strong><p>Test: region falls below privacy threshold</p><b class="stop">STOP · Aggregate or escalate</b></div><div class="fault-test fragment fade-up" data-fragment-index="2"><span>04</span><strong>Correlation becomes cause</strong><p>Test: no experiment or identification strategy</p><b class="stop">STOP · State association only</b></div></div><div class="fault-legend">Auto-correction only when: verifiable + low risk + no access expansion</div>
+      <aside class="notes">Time 3:00. Core delivery: each fault maps to a test and disposition. Ask on definition conflict, automatically repair and revalidate a join, stop on privacy or causal overreach. Term: an identification strategy is the experiment or quasi-experiment supporting causal inference. Transition: even a correct run must separate fact, inference, and what cannot be claimed. Evidence boundary: thresholds are illustrative; governance owners define production values.</aside>
+    </section>
 
-      <!-- Slide 18 · CASE_SLOT + VISUAL_SLOT: analysis pipeline -->
-      <section data-slide-id="s18-analysis-pipeline">
-        <div class="eyebrow">Data Agent Pipeline · Text-to-SQL Is One Step</div>
-        <h2>The real task is choosing the right meaning, validating results, and exposing assumptions.</h2>
-        <div class="pipeline">
-          <div class="pipeline-line"></div>
-          <div class="pipeline-nodes"><div class="pipeline-node"><div class="pipe-dot">01</div><strong>Clarify</strong><span>Time, region, anomaly</span></div><div class="pipeline-node"><div class="pipe-dot">02</div><strong>Semantic search</strong><span>Metric, table, lineage, rules</span></div><div class="pipeline-node"><div class="pipe-dot">03</div><strong>Query plan</strong><span>Join, filter, cost cap</span></div><div class="pipeline-node"><div class="pipe-dot">04</div><strong>Read-only SQL</strong><span>Dify calls a bounded tool</span></div><div class="pipeline-node"><div class="pipe-dot">05</div><strong>Validate</strong><span>Nulls, denominators, joins</span></div><div class="pipeline-node"><div class="pipe-dot">06</div><strong>Generate report</strong><span>Charts, assumptions, links</span></div><div class="pipeline-node"><div class="pipe-dot">H</div><strong>Human confirm</strong><span>Meaning, cause, disclosure</span></div></div>
-          <div class="pipeline-break pb1 fragment fade-up" data-fragment-index="0">Wrong metric / stale definition<br>Valid SQL can still be wrong</div><div class="pipeline-break pb2 fragment fade-up" data-fragment-index="1">Wrong table / join / tiny cohort<br>Intermediate results need checks</div><div class="pipeline-break pb3 fragment fade-up" data-fragment-index="2">Correlation becomes causation<br>Expose assumptions and stop</div>
-        </div>
-        <div class="source-bar"><span><a href="https://aws.amazon.com/cn/blogs/china/quickly-deploy-text2sql-intelligent-data-analysis-assistant-based-on-dify-agent-on-aws/" target="_blank" rel="noopener">AWS China · Dify Text-to-SQL engineering practice</a> · Implementation reference, no production ROI</span><span class="evidence evidence-b">B</span></div>
-        <aside class="notes">Time 4:30. Core delivery: walk left to right and emphasize that SQL is step four; meaning, joins, and interpretation create most failures. Term: metadata explains what data means, while lineage explains where it came from. Transition: a reliable system designs a destination for each failure. Evidence boundary: the AWS source is B-level official engineering practice, not customer production ROI; Dify orchestrates while the enterprise supplies the warehouse, metadata, and access controls.</aside>
-      </section>
+    <section class="memo-slide" data-slide-id="n19-case-decision-memo">
+      <div class="memo-paper"><div class="memo-head"><div><small>MANAGEMENT DECISION MEMO · DRAFT</small><h2>Refund anomaly:<br>what we know—and must not claim</h2></div><span>OWNER<br>Finance Ops</span></div><div class="memo-grid"><div class="memo-block known"><small>KNOWN</small><p>South-region refund rate is 2.4pp above its four-week baseline; 95% of the increase sits in two channels.</p></div><div class="memo-block inferred fragment fade-up" data-fragment-index="0"><small>INFERRED</small><p>Post-promotion delivery delays rose with refunds and merit priority investigation.</p></div><div class="memo-block cannot fragment fade-up" data-fragment-index="1"><small>CANNOT CONCLUDE</small><p>Observational data cannot establish that delivery delay caused the refunds.</p></div><div class="memo-block next fragment fade-up" data-fragment-index="2"><small>NEXT ACTION</small><p>Audit 50 orders; regional owner decides whether to run a delivery experiment.</p></div></div><div class="memo-footer fragment fade-up" data-fragment-index="3"><span>SQL #91</span><span>RESULT LINK</span><span>METRIC v12</span><span>ASSUMPTIONS</span><span>HUMAN EDITS</span></div></div>
+      <aside class="notes">Time 2:00. Core delivery: a strong management output separates known, inferred, cannot conclude, and next action, then preserves traceable evidence below. Term: 2.4pp means percentage points, not 2.4 percent growth. Transition: return to the opening delegation question. Evidence boundary: every number is synthetic and only demonstrates output structure.</aside>
+    </section>
 
-      <!-- Slide 19 · CASE_SLOT: fault injection and launch proof -->
-      <section data-slide-id="s19-fault-proof">
-        <div class="eyebrow">Fault Injection · Good Systems Know Where Failure Goes</div>
-        <h2>Treat exceptions as the main flow—not a post-launch patch.</h2>
-        <div class="fault-canvas">
-          <div class="fault-mainline"></div>
-          <div class="faults fragment fade-up" data-fragment-index="0"><div class="fault"><strong>Wrong table</strong><span>DISCOVERY</span></div><div class="fault"><strong>Bad join</strong><span>VALIDATION</span></div><div class="fault"><strong>Stale metric</strong><span>VERSION</span></div><div class="fault"><strong>Tiny cohort</strong><span>PRIVACY</span></div><div class="fault"><strong>High cost</strong><span>QUOTA</span></div><div class="fault"><strong>False cause</strong><span>JUDGMENT</span></div></div>
-          <div class="fault-exits fragment fade-up" data-fragment-index="1"><div class="fault-exit exit-auto"><strong>Auto-correct</strong><span>Verifiable, low risk</span></div><div class="fault-exit exit-ask"><strong>Ask for clarity</strong><span>Missing definition or range</span></div><div class="fault-exit exit-stop"><strong>Stop and escalate</strong><span>High risk or undecidable</span></div></div>
-          <div class="audit-trace fragment fade-up" data-fragment-index="2"><strong>Launch evidence</strong><span>Golden set</span><span>Access tests</span><span>SQL</span><span>Input version</span><span>Result link</span><span>Human edits</span></div>
-          <div class="platform-boundary">OpenAI data platform: 3,500+ users / 600 PB / 70K datasets describes platform scale, ≠ agent adoption, accuracy, or ROI.</div>
-        </div>
-        <div class="source-bar"><span><a href="https://openai.com/index/inside-our-in-house-data-agent/" target="_blank" rel="noopener">OpenAI · Inside our in-house data agent</a> · Engineering reference for inherited access, live validation, and evaluation</span><span class="evidence evidence-b">B</span></div>
-        <aside class="notes">Time 4:00. Core delivery: route six faults to auto-correct, clarify, or stop, then require golden questions, edge cases, and access tests before launch. Term: a golden set includes expected results and allowed tool paths. Transition: return the framework to the audience's own disciplines. Evidence boundary: this is a B-level named engineering practice; 3,500+, 600 PB, and 70K describe the underlying data platform, not agent usage, accuracy, or ROI.</aside>
-      </section>
+    <section class="closing-slide" data-slide-id="n20-qa">
+      <img class="photo-bg" src="assets/atmos-pastel-codioful.jpg" alt="Soft pastel gradient by Codioful on Unsplash"><div class="closing-shade"></div><div class="closing-copy"><div class="eyebrow on-dark">Q&amp;A · Put Accountability Back into System Design</div><h2>The essence of an enterprise agent is<br><span>limited decision rights + evidence + a duty to stop.</span></h2><div class="question-path"><p class="fragment fade-up" data-fragment-index="0"><b>01</b> Which task in your field is both verifiable and reversible?</p><p class="fragment fade-up" data-fragment-index="1"><b>02</b> Which action must remain a human decision right?</p><p class="fragment fade-up" data-fragment-index="2"><b>03</b> What evidence would prove the agent beats the current process?</p></div><div class="closing-meta"><p>Speaker Name · speaker@example.com<br><a href="source-map.md" target="_blank">Research, sources, and image credits → source-map.md</a></p><p>Unsplash: Ruido 98 · Richard Horvath · Codioful<br>University · New Student Lecture · 2026</p></div></div>
+      <aside class="notes">Time 5:00. Core delivery: restate the thesis, then open with the three prompts. If the room is quiet, ask for one action where the system must stop. Term: a duty to stop means the system refuses to continue when evidence is weak, access conflicts, or exposure is too high. Transition: the source map contains the full evidence trail. Evidence boundary: do not turn Q&amp;A into unverified product commitments; speaker and university details are placeholders.</aside>
+    </section>
 
-      <!-- Slide 20 · VISUAL_SLOT: closing image / Q&A / credits -->
-      <section class="closing-slide" data-slide-id="s20-qa-sources">
-        <img class="photo-bg" src="assets/atmos-pastel-codioful.jpg" alt="Soft pastel gradient by Codioful on Unsplash"><div class="closing-shade"></div>
-        <div class="closing-content">
-          <div class="eyebrow closing-eyebrow">Q&amp;A · Bring the Framework to Your Field</div>
-          <h2>Where would you make<br><span class="closing-accent">the agent stop?</span></h2>
-          <div class="qa-path"><div class="qa-question fragment fade-up" data-index="01" data-fragment-index="0">Which workflow in your field should be tried first?</div><div class="qa-question fragment fade-up" data-index="02" data-fragment-index="1">Which action must stay under human confirmation?</div><div class="qa-question fragment fade-up" data-index="03" data-fragment-index="2">How would you prove the agent beats the current process—not just looks smarter?</div></div>
-          <div class="closing-meta"><p>Speaker Name · speaker@example.com<br>Full research and evidence map: <a href="source-map.md" target="_blank">source-map.md</a></p><p>Unsplash: Ruido 98 · Darkhan Basshybayev · Richard Horvath · Codioful<br>All public metrics are source-disclosed and not independently audited.</p></div>
-        </div>
-        <aside class="notes">Time 5:00. Core delivery: use the three prompts to start discussion; if the room is quiet, ask for one action that must remain human-confirmed. Term: the workflow owner maintains policy, evaluation, and incident response. Transition: the source map contains the full research trail. Evidence boundary: do not turn Q&amp;A into unverified product commitments; speaker and university details remain placeholders.</aside>
-      </section>
-
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
-  <script>
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    Reveal.initialize({ hash: true, width: 1920, height: 1080, margin: 0, controls: true, controlsTutorial: false, progress: true, slideNumber: 'c/t', navigationMode: 'linear', transition: reduceMotion ? 'none' : 'fade', transitionSpeed: 'fast', backgroundTransition: reduceMotion ? 'none' : 'fade', pdfSeparateFragments: false, plugins: [RevealNotes] });
-  </script>
+  </div></div>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
+  <script>const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;Reveal.initialize({hash:true,width:1920,height:1080,margin:0,controls:true,controlsTutorial:false,progress:true,slideNumber:'c/t',navigationMode:'linear',transition:reduceMotion?'none':'fade',transitionSpeed:'fast',backgroundTransition:reduceMotion?'none':'fade',pdfSeparateFragments:false,plugins:[RevealNotes]});</script>
 </body>
 </html>
