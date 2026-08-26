@@ -39,7 +39,7 @@ Multi-Agent Workspace 不作为第七种用户入口：它通常是 Workbench、
 
 | Slide ID | 核心内容 | 依据与边界 |
 | --- | --- | --- |
-| `f01-cover` | 标题与讲座定位 | 教学设计；讲者和学校为占位符 |
+| `f01-cover` | 标题、讲座定位与讲者 | Zheng Li · Head of DevRel · Dify；学校和日期为占位符 |
 | `f02-thesis` | 产品形态跟随工作形态 | 研究综合判断 |
 | `f03-work-unit` | 六类最小工作单元 | 产品分类抽象；同一场景可组合多种形态 |
 | `f04-product-atlas` | 六种产品形态地图 | 定性定位，不是成熟度或市场份额 |
@@ -58,7 +58,8 @@ Multi-Agent Workspace 不作为第七种用户入口：它通常是 Workbench、
 | `f17-case-copilot` | 退款分析作为 BI Copilot | 合成图表与数字 |
 | `f18-case-analyst` | 退款分析作为 Analyst Agent | 合成 investigation |
 | `f19-case-monitor` | 退款分析作为 Monitoring Agent | 合成阈值与时间线 |
-| `f20-qa` | 从场景反推产品 | 联系方式为占位符 |
+| `f20-qa` | 从场景反推产品 | Q&A；讲者联系方式为 banana@dify.ai |
+| `f21-thank-you` | Thank You 与联系方式 | Zheng Li · Head of DevRel · Dify；公开工作邮箱 banana@dify.ai |
 
 ## Public primary sources
 
@@ -78,7 +79,7 @@ Multi-Agent Workspace 不作为第七种用户入口：它通常是 Workbench、
 | `f04-product-atlas` | `assets/bg-atrium-willian-justen.jpg` | [Willian Justen de Vasconcellos](https://unsplash.com/photos/avT9dYK-9rE) | Full bleed at low opacity; centered on the ceiling grid; warm-white veil for diagram contrast |
 | `f12-multi-agent` | `assets/bg-collaboration-mimi-thian.jpg` | [Mimi Thian](https://unsplash.com/photos/vdXMSiX-n6M) | Full bleed; centered on the group and laptop; navy overlay and blur-backed project objects |
 | `f16-case-brief` | `assets/bg-architecture-shadow-declan-sun.jpg` | [Declan Sun](https://unsplash.com/photos/n8UBJeKko3I) | Full bleed; horizontal crop follows repeating shadows; dark navy overlay |
-| `f20-qa` | `assets/bg-geometric-facade-arlind.jpg` | [Arlind Photography](https://unsplash.com/photos/qk9KT1bcj70) | Full bleed; portrait source cropped around geometric facade; low saturation and navy overlay |
+| `f20-qa`, `f21-thank-you` | `assets/bg-geometric-facade-arlind.jpg` | [Arlind Photography](https://unsplash.com/photos/qk9KT1bcj70) | Q&A 使用低饱和深蓝遮罩；Thank You 采用 44/56 分栏与不同的立面裁切 |
 
 All five files are localized in `assets/`; the slides do not depend on network access. Each image is published on its linked page as a free Unsplash image.
 
@@ -88,7 +89,8 @@ All five files are localized in `assets/`; the slides do not depend on network a
 | --- | --- | --- |
 | Product-form framework | `f01`–`f15` | 30:00 |
 | One capability, three products | `f16`–`f19` | 10:00 |
-| Q&A | `f20` | 5:00 |
+| Q&A | `f20` | 4:30 |
+| Thank You | `f21` | 0:30 |
 
 ## Claim-handling rules
 
@@ -96,4 +98,4 @@ All five files are localized in `assets/`; the slides do not depend on network a
 2. 来源方效果数字不跨案例比较；本版正文不依赖供应商 ROI 数字。
 3. Dify 作为实现与包装平台，不暗示外部案例企业使用 Dify。
 4. 退款分析案例始终是静态合成教学推演。
-5. 旧版 `n01`–`n20` 的委派、契约、证据账本和 HITL 主线已经退役；新版 `f01`–`f20` 是独立结构。
+5. 旧版 `n01`–`n20` 的委派、契约、证据账本和 HITL 主线已经退役；新版 `f01`–`f21` 是独立结构。
