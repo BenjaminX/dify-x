@@ -3,406 +3,248 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#070914">
-  <title>Workflow Generator: From One Sentence to a Running Graph — Dify × Stripe</title>
+  <meta name="theme-color" content="#081335">
+  <title>From Scenario to System: Designing Enterprise Agents That Actually Run — Dify × Stripe</title>
   <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../agent-plugin-governance/assets/reveal/reset.css">
   <link rel="stylesheet" href="../agent-plugin-governance/assets/reveal/reveal.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="editorial-en.css?v=20260827-scenario-system3">
 </head>
 <body>
-  <div class="deck-logo">
-    <img src="../assets/logo.svg" alt="Dify">
-    <span>Dify × Stripe · Workflow Generator</span>
-  </div>
+  <div class="deck-brand"><img src="../assets/logo.svg" alt="Dify"><span>Dify × Stripe · From Scenario to System</span></div>
   <div class="lang-switch"><a href="index.html">中文</a><span>/</span><a class="active" href="index_en.html">EN</a></div>
 
-  <div class="reveal">
-    <div class="slides">
+  <div class="reveal"><div class="slides">
 
-      <!-- 01 · Cover -->
-      <section class="cover-slide" data-background-image="../agent-plugin-governance/assets/atmos-silk-ruido98.jpg" data-background-size="cover">
-        <div class="cover-head">
-          <span class="mono-tag">DIFY × STRIPE · AGENT WORKSHOP</span>
-          <span class="mono-tag">20 MIN · 2026</span>
-        </div>
-        <div>
-          <h1>Workflow Generator<br><span class="blue">From One Sentence to a Running Graph</span></h1>
-          <p class="cover-sub">How Dify auto-generates workflow DSL: the Planner, Builder, and Validator — and the three problems that took it from prototype to production.</p>
-        </div>
-        <div class="cover-foot">
-          <div class="cover-author">
-            <div class="name">Zheng Li</div>
-            <div class="role">Head of DevRel @ Dify</div>
-            <div class="mail">banana@dify.ai</div>
-          </div>
-          <div class="cover-meta">github.com/langgenius/dify<br>Engineering Notes · For Developers</div>
-        </div>
-        <aside class="notes">0:00–1:00. One-sentence opening: today is one concrete engineering problem — turning a sentence of natural language into a graph that loads and runs correctly on the canvas. Two minutes of demo first, then the implementation.</aside>
-      </section>
+    <!-- 01 -->
+    <section class="cover-slide" data-slide-id="s01-cover">
+      <img class="photo-bg" src="../enterprise-agent-campus/assets/bg-enterprise-grid-timothee-duran.jpg" alt="Geometric office building against a deep blue sky by Timothée Duran on Unsplash">
+      <div class="cover-shade"></div>
+      <div class="cover-copy">
+        <div><div class="eyebrow on-dark">Dify × Stripe · Agent Workshop</div><h1>From Scenario<br><span>to System</span></h1><p>Designing Enterprise Agents That Actually Run</p></div>
+        <div class="cover-meta"><span>Zheng Li · Head of DevRel · Dify</span><span>Choose the product form. Generate the workflow. Engineer the guarantees.</span><b>45 MIN</b></div>
+      </div>
+      <aside class="notes">Time 0:00–1:00. Core delivery: enterprise-agent work has two linked questions—what product should the work become, and what engineering guarantees make that product dependable. This session answers them in that order. Term: product form is the user-visible container, entry point, deliverable, and rhythm of the work. Transition: begin by changing the first question teams ask. Evidence boundary: Dify × Stripe is event co-branding; this talk does not claim that Stripe uses Dify.</aside>
+    </section>
 
-      <!-- 02 · Demo video (placeholder) -->
-      <section class="video-slide" data-background-image="../agent-plugin-governance/assets/bg-tunnel-reinhart-julian.jpg" data-background-size="cover">
-        <div class="video-head">
-          <div>
-            <div class="eyebrow">Demo · Workflow Generator</div>
-            <h2 class="slide-title">⌘K → /create: watch a sentence become a graph</h2>
-          </div>
-          <span class="runtime">RUNTIME ≈ 02:00</span>
-        </div>
-        <!-- When the final video is ready: remove the three placeholder elements inside
-             .video-frame and use <video controls preload="metadata" src="assets/workflow-generator-demo.mp4"></video> -->
-        <div class="video-frame">
-          <div class="play-badge"></div>
-          <div class="video-placeholder-label">VIDEO PLACEHOLDER · FINAL CUT TO FOLLOW</div>
-          <div class="video-placeholder-sub">workflow-generator-demo.mp4 · 16:9 · ≈ 2 MIN</div>
-        </div>
-        <aside class="notes">1:00–3:00. Play the video (placeholder for now, final cut to follow). Content: ⌘K opens /create on the canvas, one sentence in, the plan appears first, then the full graph, then one /refine edit. Afterwards stress one thing only: the output lands directly on the canvas — wired, runnable, editable.</aside>
-      </section>
+    <!-- 02 -->
+    <section data-slide-id="s02-thesis">
+      <div class="eyebrow">Thesis · Start with the work</div>
+      <div class="thesis-stage">
+        <div class="thesis-side thesis-left"><small>DO NOT START WITH</small><strong>What can the model do?</strong><p>That defines a capability ceiling, but not why a user would adopt the product.</p></div>
+        <div class="thesis-arrow fragment fade-up" data-fragment-index="0">→</div>
+        <div class="thesis-side thesis-right fragment fade-up" data-fragment-index="0"><small>START WITH</small><strong>How does the work happen?</strong><p>Where does it begin, what persists, what outcome matters, and when is it complete?</p></div>
+      </div>
+      <div class="slide-verdict fragment fade-up" data-fragment-index="1">Design the work surface first. Decide what the agent does second.</div>
+      <aside class="notes">Time 1:00–3:00. Core delivery: the same model can become an embedded copilot, a project workbench, or a continuous monitor. Model capability does not determine product shape; the work does. Term: work surface is where users see state, evidence, and next actions. Transition: the strongest predictor of that surface is the smallest object users repeatedly reopen and hand off. Evidence boundary: this is a product-design synthesis, not an industry-standard taxonomy.</aside>
+    </section>
 
-      <!-- 03 · The problem -->
-      <section data-background-image="../agent-plugin-governance/assets/atmos-teal-pawel-czerwinski.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">01</span>The Shape of the Problem</div>
-        <h2 class="slide-title">The output isn’t text. It’s a graph that has to survive the canvas.</h2>
-        <p class="slide-lead">Workflow DSL describes nodes, edges, variable references, and layout. It gets rendered by ReactFlow and executed by the runtime — one wrong field from the model and the canvas fails to load, or execution silently emits raw placeholder text.</p>
-        <div class="grid-3 card-row">
-          <div class="glass">
-            <div class="num">SCHEMA</div>
-            <h3>Every node type has its own shape</h3>
-            <p>LLM, code, tool, branch, iteration… each node’s <code>data</code> structure is different. Get it wrong and the draft won’t load.</p>
-          </div>
-          <div class="glass">
-            <div class="num">EDGES</div>
-            <h3>Edges carry handles</h3>
-            <p>Branch nodes emit per-case handles (<code>true</code> / <code>false</code>). Wire the wrong handle and the edge dangles off the canvas.</p>
-          </div>
-          <div class="glass">
-            <div class="num">VARIABLES</div>
-            <h3>References address the whole graph</h3>
-            <p><code>{{#node_id.var#}}</code> points at another node’s output. One broken reference silently degrades into literal text.</p>
-          </div>
-        </div>
-        <div class="foot-line"><span>This sets the baseline for every design choice: anything deterministic code can own, the model doesn’t.</span></div>
-        <aside class="notes">3:00–5:00. Build the intuition: this is not “have the model write some YAML”. All three failure modes are quiet — bad schema won’t load, bad handle leaves a dangling edge, bad reference silently fails at runtime. The hard part isn’t generating; it’s what guarantees correctness afterwards.</aside>
-      </section>
+    <!-- 03 -->
+    <section data-slide-id="s03-work-unit">
+      <div class="eyebrow">Work Unit · Find what persists</div><h2>Find the smallest unit of work,<br>and you find the product container.</h2>
+      <div class="work-unit-rail">
+        <div class="wu-head"><span>WORK UNIT</span><span>PRODUCT FORM</span><span>WHAT USERS REOPEN</span></div>
+        <div class="wu-row fragment fade-up" data-fragment-index="0"><b>Current object</b><strong>Copilot</strong><span>Code, record, document, sheet</span></div>
+        <div class="wu-row fragment fade-up" data-fragment-index="0"><b>Project / corpus</b><strong>Workbench</strong><span>Materials, findings, decisions, artifact</span></div>
+        <div class="wu-row fragment fade-up" data-fragment-index="1"><b>Conversation / intent</b><strong>Service Agent</strong><span>Context, resolution, follow-up</span></div>
+        <div class="wu-row fragment fade-up" data-fragment-index="1"><b>Business instance</b><strong>Process Agent</strong><span>Case state, evidence, next action</span></div>
+        <div class="wu-row fragment fade-up" data-fragment-index="2"><b>Signal stream</b><strong>Monitoring Agent</strong><span>Events, thresholds, incidents</span></div>
+        <div class="wu-row fragment fade-up" data-fragment-index="2"><b>Metric / question</b><strong>Analyst Agent</strong><span>Investigation, evidence, decision material</span></div>
+      </div>
+      <aside class="notes">Time 3:00–5:00. Core delivery: ask what object accumulates state and survives across sessions. A chat transcript is often incidental; the real object may be a case, project, signal stream, or investigation. Term: work unit is the smallest durable object a user can reopen, assign, measure, and complete. Transition: six work units produce six primary product answers. Evidence boundary: one scenario can combine several forms; this slide identifies the primary one.</aside>
+    </section>
 
-      <!-- 04 · Pipeline overview -->
-      <section data-background-image="../agent-plugin-governance/assets/bg-workflow-jakub-zerdzicki.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">02</span>Overall Design</div>
-        <h2 class="slide-title">A four-stage pipeline: the model only answers semantic questions.</h2>
-        <p class="slide-lead">Streamed over SSE: a <code>plan</code> event fires as soon as the Planner finishes, and <code>result</code> follows once assembly completes. Users review the plan while waiting instead of watching a spinner.</p>
-        <div class="pipeline">
-          <div class="flow-step">
-            <div class="stage">STAGE 0 · OPTIONAL</div>
-            <h3>Tool Router<span>tool_router_prompts.py</span></h3>
-            <p>When too many tools are installed, one small call picks the subset that actually matters for this request.</p>
-          </div>
-          <div class="flow-step">
-            <div class="stage">STAGE 1</div>
-            <h3>Planner<span>planner_prompts.py</span></h3>
-            <p>Decides which nodes exist, how they connect, what the inputs are, and which app mode to use.</p>
-          </div>
-          <div class="flow-step">
-            <div class="stage">STAGE 2 · PARALLEL</div>
-            <h3>Node Builders<span>node_builder_prompts.py</span></h3>
-            <p>One focused call per node, producing only that node’s semantic config.</p>
-          </div>
-          <div class="flow-step">
-            <div class="stage">STAGE 3 · DETERMINISTIC</div>
-            <h3>Assembler + Validator<span>runner.py</span></h3>
-            <p>Code owns assembly, layout, repair, and validation — structural correctness never depends on the model.</p>
-          </div>
-        </div>
-        <div class="foot-line"><span>api/core/workflow/generator/ · one package, four responsibilities</span><span>LLM owns semantics / code owns structure</span></div>
-        <aside class="notes">5:00–7:00. The whole architecture on one page; each following slide expands one stage. Stress the split: the model answers “what prompt, which tool, how to bind parameters”; IDs, positions, wiring, and wrapper fields are all deterministic. This split is the through-line of the talk.</aside>
-      </section>
+    <!-- 04 -->
+    <section class="atlas-slide" data-slide-id="s04-product-atlas">
+      <div class="eyebrow">Product Atlas · Six primary forms</div><h2>These are not maturity levels.<br>They are different answers to different work.</h2>
+      <div class="atlas-map">
+        <div class="atlas-axis axis-y">CONTINUOUS OPERATION ↑</div><div class="atlas-axis axis-x">CURRENT TASK → CROSS-SYSTEM BUSINESS</div>
+        <div class="atlas-node a1 fragment fade-up" data-fragment-index="0"><b>Copilot</b><span>beside an existing action</span></div>
+        <div class="atlas-node a2 fragment fade-up" data-fragment-index="0"><b>Workbench</b><span>around a project or corpus</span></div>
+        <div class="atlas-node a3 fragment fade-up" data-fragment-index="1"><b>Service Agent</b><span>conversation to resolution</span></div>
+        <div class="atlas-node a4 fragment fade-up" data-fragment-index="1"><b>Process Agent</b><span>case through states</span></div>
+        <div class="atlas-node a5 fragment fade-up" data-fragment-index="2"><b>Monitoring Agent</b><span>signal to incident</span></div>
+        <div class="atlas-node a6 fragment fade-up" data-fragment-index="2"><b>Analyst Agent</b><span>question to decision material</span></div>
+      </div>
+      <div class="atlas-note">More autonomy is not automatically more mature. Better fit is more mature.</div>
+      <aside class="notes">Time 5:00–8:00. Core delivery: read the map left to right as scope, bottom to top as operating rhythm. Copilots and workbenches are often user-initiated; monitors run continuously. Service and process products may share tools but expose very different state. Term: primary form is the first product surface users perceive. Transition: four practical questions turn this map into a selection tool. Evidence boundary: positions are qualitative and do not imply market share or ROI.</aside>
+    </section>
 
-      <!-- 05 · Early implementation PR #31944 -->
-      <section data-background-image="../agent-plugin-governance/assets/atmos-indigo-richard-horvath.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">03</span>Origin · Early Implementation</div>
-        <h2 class="slide-title">Version one was blunt: one call, the whole graph.</h2>
-        <p class="slide-lead">Internal codename <code>vibe-wf</code>. Type a sentence after ⌘K and a single LLM call emitted the complete graph JSON. It proved the idea — and put three costs on the table at once.</p>
-        <div class="grid-3 card-row">
-          <div class="glass">
-            <div class="num">01 · LEGACY</div>
-            <h3>It fixed the module boundaries</h3>
-            <p>The generator package, the service layer, and the SSE plan → result contract all date back to this version.</p>
-          </div>
-          <div class="glass">
-            <div class="num">02 · COST</div>
-            <h3>A full-inventory cheatsheet</h3>
-            <p>Roughly 550 lines of node schema documentation, injected into every prompt no matter how few node types the request needed.</p>
-          </div>
-          <div class="glass">
-            <div class="num">03 · CEILING</div>
-            <h3>One call carries every mistake</h3>
-            <p>Asking a model to emit a dozen valid node configs in one breath: the bigger the graph, the more it gets wrong. And it was slow.</p>
-          </div>
-        </div>
-        <div class="foot-line">
-          <span>The next three PRs each pay off one of these debts.</span>
-          <a class="pr-chip" href="https://github.com/langgenius/dify/pull/31944"><small>langgenius/dify</small>PR #31944</a>
-        </div>
-        <aside class="notes">7:00–8:30. Don’t frame v1 as a failure — it was the prototype that validated the UX and the pipeline shape. But single-shot full-graph generation has three structural problems: a permanently huge prompt, error rate growing with graph size, and unacceptable latency. Those three map exactly onto the next three slides.</aside>
-      </section>
+    <!-- 05 -->
+    <section data-slide-id="s05-four-questions">
+      <div class="eyebrow">Four Questions · From scenario to product</div><h2>Do not begin with a feature list.<br>Answer four product questions.</h2>
+      <div class="question-route">
+        <div class="route-stop fragment fade-up" data-fragment-index="0"><i>01</i><b>Entry</b><p>Where does the user meet it?</p><span>IDE · inbox · dashboard · alert</span></div><div class="route-line"></div>
+        <div class="route-stop fragment fade-up" data-fragment-index="1"><i>02</i><b>Work object</b><p>What accumulates state?</p><span>document · project · case · metric</span></div><div class="route-line"></div>
+        <div class="route-stop fragment fade-up" data-fragment-index="2"><i>03</i><b>Deliverable</b><p>What does the user take away?</p><span>draft · resolution · decision · action</span></div><div class="route-line"></div>
+        <div class="route-stop fragment fade-up" data-fragment-index="3"><i>04</i><b>Rhythm</b><p>When does the work recur?</p><span>on demand · per project · continuous</span></div>
+      </div>
+      <aside class="notes">Time 8:00–10:00. Core delivery: entry determines distribution, the work object determines persistence, the deliverable defines value, and rhythm determines whether the product waits or watches. Term: rhythm means the natural recurrence of the business work, not model latency. Transition: these questions also tell us when a chat response is too small a product. Evidence boundary: they support product discovery but do not replace user research or workflow mapping.</aside>
+    </section>
 
-      <!-- 06 · Planner -->
-      <section data-background-image="../agent-plugin-governance/assets/atmos-prism-darkhan-basshybayev.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">04</span>Planner</div>
-        <h2 class="slide-title">Plan first, build later: the Planner only decides “what exists and how it connects”.</h2>
-        <div class="spec-list">
-          <div class="spec-row">
-            <span class="num">P-1</span>
-            <strong>Produces a node plan</strong>
-            <span>Type, id, purpose, and tool binding per node — plus edge topology, <code>start_inputs</code>, and the app mode.</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">P-2</span>
-            <strong>The plan event ships early</strong>
-            <span>Pushed to the frontend the moment it exists, so users review the node list without waiting for the full graph.</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">P-3</span>
-            <strong>Schema check + one retry</strong>
-            <span>An invalid plan (edges pointing at unknown nodes, etc.) triggers one retry that carries the concrete error; a second failure is a hard, explicit error.</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">P-4</span>
-            <strong>Mode detection folded in</strong>
-            <span>Chatflow vs. workflow no longer costs a separate classification call — the Planner emits it, with the terminal node type as the fallback.</span>
-          </div>
-        </div>
-        <div class="foot-line"><span>planner_prompts.py · max_tokens 4096</span><span>The plan is the single source of truth for topology</span></div>
-        <aside class="notes">8:30–10:00. The Planner’s key role: its plan is the topology source of truth for everything downstream — Builders divide work by it, the Assembler wires edges by it. Retries are targeted re-asks carrying the error, not blind repeats. JSON-parse corrections are appended as user messages rather than system messages, because some providers drop trailing system messages.</aside>
-      </section>
+    <!-- 06 -->
+    <section data-slide-id="s06-workflow-fit">
+      <div class="eyebrow">Workflow Fit · When chat is too small</div><h2>A workflow becomes the product when value depends on reaching a verified end state.</h2>
+      <div class="workflow-gates">
+        <div class="gate-start"><small>ONE REQUEST</small><strong>“Can you handle this?”</strong></div>
+        <div class="gate fragment fade-up" data-fragment-index="0"><b>STATE</b><span>The work survives beyond one answer</span></div>
+        <div class="gate fragment fade-up" data-fragment-index="1"><b>SYSTEMS</b><span>Several tools or records must agree</span></div>
+        <div class="gate fragment fade-up" data-fragment-index="2"><b>BRANCHES</b><span>Different conditions change the path</span></div>
+        <div class="gate fragment fade-up" data-fragment-index="3"><b>END</b><span>A result can be checked and handed off</span></div>
+        <div class="gate-end"><small>PRODUCT</small><strong>Runnable workflow</strong></div>
+      </div>
+      <div class="workflow-fit-rule">Conversation may be the entry. The workflow is the commitment.</div>
+      <aside class="notes">Time 10:00–12:00. Core delivery: workflows fit when the user is buying progress, not prose. State must persist, systems must coordinate, branches must be explicit, and completion must be verifiable. Term: end state is a machine- or human-checkable completion condition. Transition: now apply the framework to one generic support workflow and watch it become a graph. Evidence boundary: not every multi-step prompt needs a workflow; prefer the lightest form that delivers the outcome.</aside>
+    </section>
 
-      <!-- 07 · Builder -->
-      <section data-background-image="../agent-plugin-governance/assets/atmos-flare-sean-sinclair.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">05</span>Builder</div>
-        <h2 class="slide-title">One node, one focused call.</h2>
-        <p class="slide-lead">A Builder writes semantic config only — prompts, code, variables, parameters, tool bindings — and returns <code>{"config": {...}}</code>. IDs, positions, edges, and wrapper fields are off limits: those never belong to the model.</p>
-        <div class="grid-3 card-row">
-          <div class="glass">
-            <div class="num">PROMPT</div>
-            <h3>Trimmed per node type</h3>
-            <p>The system prompt carries only that type’s schema snippet; the user prompt carries node identity, the instruction, and the full plan for cross-references.</p>
-          </div>
-          <div class="glass">
-            <div class="num">SCOPE</div>
-            <h3>A tight output boundary</h3>
-            <p>Explicitly forbidden from emitting <code>id</code>, <code>position</code>, edges, or viewport — structural fields are filled by the assembly layer.</p>
-          </div>
-          <div class="glass">
-            <div class="num">REFINE</div>
-            <h3>“keep” nodes skip the model</h3>
-            <p>During incremental edits, nodes the plan marks as keep are deep-copied as-is; update nodes carry their existing config into the prompt and change only what the instruction touches.</p>
-          </div>
-        </div>
-        <div class="foot-line"><span>node_builder_prompts.py · get_node_builder_system_prompt(node_type)</span></div>
-        <aside class="notes">10:00–11:30. The developer takeaway: swap “one big call that must get everything right” for “N small calls that each get one small thing right”. Narrower tasks improve quality and latency at the same time. The keep/update semantics are what make refine safe for existing graphs.</aside>
-      </section>
+    <!-- 07 -->
+    <section class="case-cover" data-slide-id="s07-case-brief">
+      <img class="photo-bg" src="../enterprise-agent-campus/assets/bg-architecture-shadow-declan-sun.jpg" alt="Architectural shadows by Declan Sun on Unsplash"><div class="case-shade"></div>
+      <div class="case-copy"><div class="eyebrow on-dark">Static walkthrough · No network required</div><h2>“Read a support ticket, retrieve the account, classify urgency, draft a response, and route high-risk cases for review.”</h2><p>One request. Five responsibilities. A graph that must remain editable after generation.</p></div>
+      <div class="case-label">TEACHING SCENARIO · SYNTHETIC</div>
+      <aside class="notes">Time 12:00–13:00. Core delivery: this is a synthetic, vendor-neutral task chosen because it combines retrieval, reasoning, branching, generation, and escalation. The next three slides are a static walkthrough, not a live demo. Term: high-risk is intentionally unspecified so the plan must expose an assumption. Transition: first, turn the sentence into an inspectable topology. Evidence boundary: no customer data, performance claim, or Stripe production usage is represented.</aside>
+    </section>
 
-      <!-- 08 · Problem 1: too many tools → PR #40611 -->
-      <section data-background-image="../agent-plugin-governance/assets/bg-server-kevin-ache.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">06</span>Problem 1 · Hundreds of Installed Tools</div>
-        <h2 class="slide-title">Everything doesn’t fit, and “first 80” cuts the wrong ones — so inject dynamically.</h2>
-        <p class="slide-lead">The old approach injected a fixed slice: the first 80 installed tools. The more a workspace installs, the more likely the relevant tool falls outside the slice — and the model starts inventing tool names.</p>
-        <div class="spec-list">
-          <div class="spec-row">
-            <span class="num">≤ 24</span>
-            <strong>Direct injection</strong>
-            <span>Few tools, no ceremony: the full catalogue goes into the prompt, zero extra calls.</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">&gt; 24</span>
-            <strong>Tool Router</strong>
-            <span>One 256-token call turns the instruction into capability queries; local deterministic ranking (phrase hits, token overlap, fuzzy match) takes the top 3 per query, at most 16 candidates overall.</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">PIN</span>
-            <strong>Named tools never drop</strong>
-            <span>Tools spelled out as <code>provider/tool</code> in the instruction, and tools already used in the refine graph, bypass every cap.</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">TRUST</span>
-            <strong>Identity is overwritten last</strong>
-            <span>Whatever the model emits, tool identity fields and parameter schemas are rewritten from the server-side catalogue at assembly time — hallucinated parameters are simply filtered out.</span>
-          </div>
-        </div>
-        <div class="foot-line">
-          <span>tool_catalogue.py · router failure falls back to the legacy 80 slice</span>
-          <a class="pr-chip" href="https://github.com/langgenius/dify/pull/40611"><small>langgenius/dify</small>PR #40611</a>
-        </div>
-        <aside class="notes">11:30–13:30. Two layers worth unpacking: first, the routing call is trivially cheap (256 tokens, temperature 0) and the real ranking runs locally on the server — deterministic and reproducible. Second, hydration is the trust boundary — the LLM only contributes parameter bindings; identity and schema always come from the catalogue. That’s the guarantee behind “it uses what you actually installed”.</aside>
-      </section>
+    <!-- 08 -->
+    <section data-slide-id="s08-sentence-to-plan">
+      <div class="eyebrow">Step 1 · Sentence to plan</div><h2>The first useful output is not a graph.<br>It is a topology people can inspect.</h2>
+      <div class="plan-layout">
+        <div class="prompt-pane"><small>USER REQUEST</small><p>Read a support ticket, retrieve the account, classify urgency, draft a response, and route high-risk cases for review.</p><span>Natural language contains intent—not node IDs, handles, or layout.</span></div><div class="plan-arrow">→</div>
+        <div class="plan-sheet fragment fade-up" data-fragment-index="0"><div class="plan-head"><b>PLAN</b><span>workflow · 7 nodes · 7 edges</span></div><ol><li><b>start</b><span>ticket_text, account_id</span></li><li><b>account_lookup</b><span>tool · retrieve account</span></li><li><b>classify_urgency</b><span>llm · low / medium / high</span></li><li><b>risk_branch</b><span>if-else · urgency == high</span></li><li><b>draft_response</b><span>llm · grounded reply</span></li><li><b>human_review</b><span>answer · review packet</span></li><li><b>end</b><span>answer · final response</span></li></ol></div>
+      </div>
+      <div class="plan-verdict fragment fade-up" data-fragment-index="1">The plan is the contract between product intent and graph construction.</div>
+      <aside class="notes">Time 13:00–15:00. Core delivery: the Planner extracts topology, node purpose, inputs, and mode. Streaming the plan early gives users something understandable while detailed nodes build. Term: topology is which nodes exist and how they connect, independent of visual coordinates. Transition: the plan now divides work between semantic generation and deterministic assembly. Evidence boundary: node names and counts are synthetic but mirror the implemented architecture.</aside>
+    </section>
 
-      <!-- 09 · Problem 2: graph must render → PR #32130 -->
-      <section data-background-image="../agent-plugin-governance/assets/atmos-ember-asif-aether.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">07</span>Problem 2 · The Graph Must Render Correctly</div>
-        <h2 class="slide-title">The model generates; the Validator keeps the graph alive on the canvas.</h2>
-        <p class="slide-lead">Every generated graph passes through a deterministic repair pipeline first: errors that can be inferred safely get fixed in place, everything else fails with an error code — a broken graph never reaches the canvas.</p>
-        <div class="spec-list">
-          <div class="spec-row">
-            <span class="num">R-1</span>
-            <strong>ID sanitization</strong>
-            <span>A hyphenated id like <code>node-1</code> makes <code>{{#node-1.var#}}</code> silently fail at runtime; ids are rewritten and every reference is recursively updated.</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">R-2</span>
-            <strong>Variable reference reconciliation</strong>
-            <span>Each reference is checked against the source node’s declared outputs; unambiguous mismatches are rewritten, missing start variables are auto-declared.</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">R-3</span>
-            <strong>Layout and defaults</strong>
-            <span>Topological sort sets X positions (320px steps) with stacked branch lanes; ReactFlow wrappers, edge handles, dedup, and edge ids are all filled by code.</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">R-4</span>
-            <strong>Fail-closed structural validation</strong>
-            <span>The last gate: machine-readable codes like <code>MISSING_START</code>, <code>GRAPH_CYCLE</code>, <code>DANGLING_EDGE</code>, <code>UNKNOWN_TOOL</code> — each locatable to a specific node.</span>
-          </div>
-        </div>
-        <div class="foot-line">
-          <span>runner.py · _postprocess_graph / _validate_structure</span>
-          <a class="pr-chip" href="https://github.com/langgenius/dify/pull/32130"><small>langgenius/dify</small>PR #32130</a>
-        </div>
-        <aside class="notes">13:30–15:30. The repair/validate boundary is a deliberate design decision: only fix what can be inferred safely and uniquely (e.g. a wrong reference where the source node exposes exactly one output); anything ambiguous fails rather than guessing. The ID sanitization example lands best — the runtime variable regex only accepts word characters, so a single hyphen silently kills the whole chain, and no prompt instruction reliably prevents that class of error.</aside>
-      </section>
+    <!-- 09 -->
+    <section data-slide-id="s09-plan-to-graph">
+      <div class="eyebrow">Step 2 · Plan to runnable graph</div><h2>Models fill semantic intent.<br>Code owns the structure that must be correct.</h2>
+      <div class="graph-stage">
+        <div class="ownership-band semantic"><b>MODEL</b><span>prompt · tool parameters · variables · branch meaning</span></div>
+        <div class="graph-canvas fragment fade-up" data-fragment-index="0"><div class="g-node g1"><small>START</small><b>Inputs</b></div><i class="edge e1"></i><div class="g-node g2"><small>TOOL</small><b>Account</b></div><i class="edge e2"></i><div class="g-node g3"><small>LLM</small><b>Urgency</b></div><i class="edge e3"></i><div class="g-node g4"><small>IF / ELSE</small><b>Risk</b></div><i class="edge e4"></i><i class="edge e5"></i><div class="g-node g5"><small>LLM</small><b>Draft</b></div><div class="g-node g6"><small>REVIEW</small><b>Escalate</b></div><i class="edge e6"></i><i class="edge e7"></i><div class="g-node g7"><small>ANSWER</small><b>Deliver</b></div></div>
+        <div class="ownership-band deterministic fragment fade-up" data-fragment-index="1"><b>CODE</b><span>IDs · positions · wrappers · edge handles · references · defaults</span></div>
+      </div>
+      <aside class="notes">Time 15:00–17:00. Core delivery: each Builder answers a narrow semantic question for one node. The assembly layer creates canonical IDs, positions, wrappers, references, and handles. This boundary is the talk's engineering thesis. Term: semantic configuration describes what a node should do; structural configuration lets the platform load and execute it. Transition: a useful generator must also preserve user work during refinement. Evidence boundary: the visual graph is a teaching rendering, not a screenshot of the production canvas.</aside>
+    </section>
 
-      <!-- 10 · Problem 3: too slow → PR #38975 -->
-      <section data-background-image="../agent-plugin-governance/assets/atmos-rainbow-sean-sinclair.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">08</span>Problem 3 · Single-Shot Generation Was Slow</div>
-        <h2 class="slide-title">Split into parallel node builds — one concurrent wave.</h2>
-        <div class="stat-band">
-          <div class="stat">
-            <div class="value">76.6<small>%</small></div>
-            <div class="label">system prompt reduction · 10,913 → ≤2,559 chars</div>
-          </div>
-          <div class="stat">
-            <div class="value">6</div>
-            <div class="label">default workers · a 3–6 node plan builds in one wave</div>
-          </div>
-          <div class="stat">
-            <div class="value">-1</div>
-            <div class="label">one serial call removed · mode classification folded into the Planner</div>
-          </div>
-        </div>
-        <div class="grid-2 card-row">
-          <div class="glass">
-            <div class="num">CONCURRENCY</div>
-            <h3>Thread pool + fail-fast</h3>
-            <p><code>ThreadPoolExecutor</code>, workers capped by node count; one failed build cancels everything still queued, wasting no calls. Concurrency is tunable at runtime via an env var.</p>
-          </div>
-          <div class="glass">
-            <div class="num">FIELD NOTE</div>
-            <h3>A bug worth sharing</h3>
-            <p>Under gevent without monkey-patching, a blocking LLM call pins the only OS thread and freezes the whole API process. The fix: patch first thing in the <code>__main__</code> entry point.</p>
-          </div>
-        </div>
-        <div class="foot-line">
-          <span>WORKFLOW_GENERATOR_NODE_BUILDER_MAX_WORKERS=6</span>
-          <a class="pr-chip" href="https://github.com/langgenius/dify/pull/38975"><small>langgenius/dify</small>PR #38975</a>
-        </div>
-        <aside class="notes">15:30–17:00. The performance win comes from two places: smaller prompts (faster TTFT and completion) and a critical path that goes from N serial calls to one parallel wave. Mention fail-fast saves tokens, not just time. The gevent pitfall is practical information for anyone self-hosting Dify.</aside>
-      </section>
+    <!-- 10 -->
+    <section data-slide-id="s10-refine">
+      <div class="eyebrow">Step 3 · Refine without starting over</div><h2>One change should not regenerate the entire system.</h2>
+      <div class="refine-command">/refine <span>“Add a compliance check before drafting. Keep everything else unchanged.”</span></div>
+      <div class="refine-stage"><div class="refine-before"><small>EXISTING GRAPH</small><div class="mini-flow"><b>Account</b><i>→</i><b>Urgency</b><i>→</i><b>Risk</b><i>→</i><b>Draft</b></div></div><div class="refine-diff fragment fade-up" data-fragment-index="0"><span>KEEP</span><span>KEEP</span><span>KEEP</span><strong>+ COMPLIANCE</strong><span>UPDATE</span></div><div class="refine-after fragment fade-up" data-fragment-index="1"><small>REFINED GRAPH</small><div class="mini-flow"><b>Account</b><i>→</i><b>Urgency</b><i>→</i><b>Risk</b><i>→</i><b class="new">Compliance</b><i>→</i><b>Draft</b></div></div></div>
+      <div class="refine-rule">Keep nodes are deep-copied. Update nodes carry their existing configuration into a bounded prompt.</div>
+      <aside class="notes">Time 17:00–19:00. Core delivery: refinement is a product capability, not just another generation call. Explicit keep and update semantics protect existing wiring and reduce cost. Term: deep copy means preserved nodes bypass the model entirely. Transition: the walkthrough looks simple because the system hides a difficult fact—the output is not text but an executable structured artifact. Evidence boundary: the command and diff are static illustrations of implemented behavior.</aside>
+    </section>
 
-      <!-- 11 · Differentiation -->
-      <section data-background-image="../agent-plugin-governance/assets/bg-glass-joshua-gandara.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">09</span>Versus Other DSL Generators</div>
-        <h2 class="slide-title">The difference isn’t whether it generates — it’s what happens after.</h2>
-        <div class="grid-2 card-row" style="gap:22px;">
-          <div class="glass">
-            <div class="num">A</div>
-            <h3>A loadable draft, not a blob of text</h3>
-            <p>Most approaches stop at “here’s some YAML/JSON”. Here, structural correctness is guaranteed by the deterministic assembly layer — the output lands on the canvas wired, runnable, and editable.</p>
-          </div>
-          <div class="glass">
-            <div class="num">B</div>
-            <h3>Workspace-aware</h3>
-            <p>Only references tools that are actually installed; identity and parameter schemas come from the server-side catalogue, so it can’t hallucinate tools or misspell their names.</p>
-          </div>
-          <div class="glass">
-            <div class="num">C</div>
-            <h3>Refine is incremental</h3>
-            <p>Clear keep/update semantics preserve existing wiring, container relationships, and branch handles. One change doesn’t mean regenerating from scratch — the line between “generate again” and “keep editing”.</p>
-          </div>
-          <div class="glass">
-            <div class="num">D</div>
-            <h3>Failures are explainable</h3>
-            <p>Machine-readable error codes point at specific nodes so the frontend can highlight exactly what’s wrong — instead of “generation failed, please retry”.</p>
-          </div>
-        </div>
-        <aside class="notes">17:00–19:00. Converge on differentiation. All four points trace back to the architecture: the deterministic assembly layer makes output loadable; routing plus hydration makes it workspace-aware; the plan as topology source of truth makes refine incremental; fail-closed validation makes failures explainable.</aside>
-      </section>
+    <!-- 11 -->
+    <section data-slide-id="s11-problem-shape">
+      <div class="eyebrow">The Problem Shape · Structured output</div><h2>The graph must survive three different systems.</h2>
+      <div class="survival-stack"><div class="survival-layer fragment fade-up" data-fragment-index="0"><b>01</b><strong>Schema</strong><span>Every node type expects a different <code>data</code> shape.</span><em>Wrong field → draft will not load</em></div><div class="survival-layer fragment fade-up" data-fragment-index="1"><b>02</b><strong>Canvas</strong><span>ReactFlow edges depend on source and target handles.</span><em>Wrong handle → dangling edge</em></div><div class="survival-layer fragment fade-up" data-fragment-index="2"><b>03</b><strong>Runtime</strong><span>Variables address outputs across the entire graph.</span><em>Broken reference → literal placeholder text</em></div></div>
+      <div class="survival-verdict">Generation is probabilistic. Loadability cannot be.</div>
+      <aside class="notes">Time 19:00–21:00. Core delivery: workflow DSL is consumed by schema validation, a visual canvas, and the execution runtime. Quiet failure modes are more dangerous than obvious parse errors. Term: handle is the named connection point an edge uses on a node. Transition: the architecture separates semantic uncertainty from structural guarantees. Evidence boundary: examples describe Dify's workflow graph constraints and should not be generalized to every DSL.</aside>
+    </section>
 
-      <!-- 12 · Closing statement -->
-      <section class="closing-slide" data-background-image="../agent-plugin-governance/assets/atmos-pastel-codioful.jpg" data-background-size="cover">
-        <div class="eyebrow">Closing</div>
-        <h2>Let the model answer only semantic questions.<br><span class="blue">Structure, context, and failure belong to engineering.</span></h2>
-        <p class="slide-lead">Inject context on demand, backstop results deterministically, make errors machine-readable. None of this is specific to workflow generation — it applies to any system where an LLM produces structured artifacts.</p>
-        <div class="foot-line"><span>github.com/langgenius/dify · come argue in the PRs</span><span>Q&amp;A</span></div>
-        <aside class="notes">19:00–19:40. One-sentence summary of the method, widen it to all structured-generation systems, and hand over to Q&amp;A.</aside>
-      </section>
+    <!-- 12 -->
+    <section data-slide-id="s12-system-pipeline">
+      <div class="eyebrow">System Pipeline · One request, five responsibilities</div><h2>Each stage owns one kind of uncertainty.</h2>
+      <div class="system-pipeline"><div class="pipe-step p0 fragment fade-up" data-fragment-index="0"><small>OPTIONAL</small><b>Tool Router</b><span>Which installed tools matter?</span></div><div class="pipe-link"></div><div class="pipe-step p1 fragment fade-up" data-fragment-index="0"><small>STAGE 1</small><b>Planner</b><span>What exists and how does it connect?</span></div><div class="pipe-link"></div><div class="pipe-step p2 fragment fade-up" data-fragment-index="1"><small>PARALLEL</small><b>Node Builders</b><span>What should each node do?</span></div><div class="pipe-link"></div><div class="pipe-step p3 fragment fade-up" data-fragment-index="2"><small>DETERMINISTIC</small><b>Assembler</b><span>How is the graph represented?</span></div><div class="pipe-link"></div><div class="pipe-step p4 fragment fade-up" data-fragment-index="2"><small>FINAL GATE</small><b>Validator</b><span>Can it safely load and run?</span></div></div>
+      <div class="pipeline-events"><span>SSE · PLAN EVENT</span><i></i><span>SSE · RESULT EVENT</span></div>
+      <div class="source-bar"><a href="https://github.com/langgenius/dify/tree/main/api/core/workflow" target="_blank" rel="noopener">api/core/workflow/</a><span>LLM OWNS SEMANTICS · CODE OWNS STRUCTURE</span></div>
+      <aside class="notes">Time 21:00–23:30. Core delivery: the Router narrows context, the Planner fixes topology, Builders create semantic configurations, the Assembler constructs the graph, and the Validator blocks unsafe output. A plan event can stream before the final result. Term: SSE is server-sent events, used to deliver progressive output. Transition: this separation was learned through an earlier, simpler architecture. Evidence boundary: package paths may evolve; the responsibility split is the durable lesson.</aside>
+    </section>
 
-      <!-- 13 · Thanks (style shared with the two latest decks) -->
-      <section class="thanks-slide">
-        <div class="thanks-layout" aria-label="Photo credits">
-          <span class="credit-word credit-01">Ruido 98</span>
-          <span class="credit-word credit-02">Reinhart Julian</span>
-          <span class="credit-word credit-03">Pawel Czerwinski</span>
-          <span class="credit-word credit-04">Jakub Żerdzicki</span>
-          <span class="credit-word credit-05">Richard Horvath</span>
-          <span class="credit-word credit-06">Darkhan Basshybayev</span>
-          <span class="credit-word credit-07">Sean Sinclair</span>
-          <span class="credit-word credit-08">Kevin Ache</span>
-          <span class="credit-word credit-09">Asif Aether</span>
-          <span class="credit-word credit-10">Joshua Gandara</span>
-          <span class="credit-word credit-11">Codioful</span>
-          <div class="thanks-message">
-            <div class="thanks-kicker">DIFY × STRIPE · WORKFLOW GENERATOR</div>
-            <h1>Thank You</h1>
-            <p>Questions welcome</p>
-            <div class="thanks-brand-logos" aria-label="Dify">
-              <img src="../assets/logo.svg" alt="Dify">
-            </div>
-            <div class="thanks-contact">Zheng Li · banana@dify.ai · github.com/langgenius/dify</div>
-          </div>
-        </div>
-        <aside class="notes">19:40–20:00. Thanks everyone. Backgrounds are Unsplash photos; all photographers are credited on this page. Happy to keep talking pipeline internals after the session.</aside>
-      </section>
+    <!-- 13 -->
+    <section data-slide-id="s13-v1">
+      <div class="eyebrow">Origin · The useful prototype</div>
+      <div class="v1-layout"><div class="v1-monolith"><small>VERSION ONE</small><strong>ONE<br>CALL</strong><span>sentence → complete graph JSON</span></div><div class="v1-consequences"><h2>It proved the experience—and concentrated every failure.</h2><div class="debt fragment fade-up" data-fragment-index="0"><b>Prompt debt</b><span>A full inventory of node schemas entered every request.</span></div><div class="debt fragment fade-up" data-fragment-index="1"><b>Quality ceiling</b><span>More nodes meant more chances for one malformed configuration.</span></div><div class="debt fragment fade-up" data-fragment-index="2"><b>Latency path</b><span>One large completion sat on the critical path.</span></div></div></div>
+      <div class="source-bar"><a href="https://github.com/langgenius/dify/pull/31944" target="_blank" rel="noopener">PR #31944 · early implementation</a><span>PROTOTYPE → RESPONSIBILITY SPLIT</span></div>
+      <aside class="notes">Time 23:30–25:30. Core delivery: version one should not be framed as a mistake. It validated the command experience, generator package, service boundary, and plan-to-result stream. Its limits exposed three distinct debts: context size, error concentration, and latency. Term: critical path is the sequence that determines end-to-end completion time. Transition: the Planner removes topology from the full-graph gamble. Evidence boundary: the slide summarizes repository history; it is not a benchmark comparison.</aside>
+    </section>
 
-    </div>
-  </div>
+    <!-- 14 -->
+    <section data-slide-id="s14-planner">
+      <div class="eyebrow">Planner · Topology before detail</div><h2>The plan is the single source of truth for what exists and how it connects.</h2>
+      <div class="planner-anatomy"><div class="planner-input"><small>INSTRUCTION</small><p>Intent, constraints, existing graph</p></div><div class="planner-core"><b>PLANNER</b><span>node type · id · purpose · tool binding</span><span>edges · start inputs · app mode</span></div><div class="planner-output"><div class="po fragment fade-up" data-fragment-index="0"><b>Schema check</b><span>Unknown nodes and invalid edges fail early</span></div><div class="po fragment fade-up" data-fragment-index="1"><b>Targeted retry</b><span>One re-ask carries the concrete error</span></div><div class="po fragment fade-up" data-fragment-index="2"><b>Early plan event</b><span>Frontend shows progress before full assembly</span></div></div></div>
+      <div class="planner-rule">A second invalid plan is an explicit error—not an invitation to guess again.</div>
+      <aside class="notes">Time 25:30–27:30. Core delivery: the Planner decides node existence, topology, inputs, tool binding, and app mode, but not detailed node configuration. Validation plus one targeted retry keeps recovery bounded. Term: targeted retry includes the exact schema error rather than repeating the same prompt. Transition: once topology is fixed, node work can be narrow and parallel. Evidence boundary: token limits and prompt details are implementation choices, not universal defaults.</aside>
+    </section>
 
+    <!-- 15 -->
+    <section data-slide-id="s15-builder">
+      <div class="eyebrow">Node Builder · One bounded semantic task</div><h2>One node. One focused call.<br>One small contract.</h2>
+      <div class="builder-boundary"><div class="builder-allowed"><small>MODEL MAY WRITE</small><strong>{ "config": { … } }</strong><span>prompt · code · variables · tool parameters</span></div><div class="builder-divider">BOUNDARY</div><div class="builder-denied fragment fade-up" data-fragment-index="0"><small>MODEL MAY NOT WRITE</small><p>id</p><p>position</p><p>edges</p><p>viewport</p><p>wrapper fields</p></div></div>
+      <div class="builder-context fragment fade-up" data-fragment-index="1"><b>Prompt context</b><span>Only this node type's schema + node purpose + full plan for valid references</span></div>
+      <aside class="notes">Time 27:30–29:30. Core delivery: a Builder receives only the relevant node schema, its purpose, and the full plan needed for cross-references. Structural fields are explicitly forbidden. Term: output contract is the smallest JSON shape accepted from the model. Transition: tool nodes add another problem—the workspace may contain hundreds of installed tools. Evidence boundary: narrower prompts improve controllability; they do not guarantee semantic correctness by themselves.</aside>
+    </section>
+
+    <!-- 16 -->
+    <section data-slide-id="s16-tool-context">
+      <div class="eyebrow">Tool Context · Inject what is real and relevant</div><h2>Do not ask the model to search an unbounded catalogue inside its prompt.</h2>
+      <div class="tool-funnel"><div class="catalogue"><small>WORKSPACE</small><strong>Hundreds of installed tools</strong><span>Names · descriptions · schemas</span></div><div class="funnel-neck fragment fade-up" data-fragment-index="0"><b>&gt; 24?</b><span>256-token routing call → local deterministic ranking</span></div><div class="candidate-set fragment fade-up" data-fragment-index="1"><small>CANDIDATES</small><strong>≤ 16</strong><span>Named and already-used tools remain pinned</span></div><div class="hydration fragment fade-up" data-fragment-index="2"><small>TRUST BOUNDARY</small><strong>Hydrate from catalogue</strong><span>Server overwrites identity and parameter schema last</span></div></div>
+      <div class="tool-rule">The model chooses bindings. The workspace catalogue defines what actually exists.</div>
+      <div class="source-bar"><a href="https://github.com/langgenius/dify/pull/40611" target="_blank" rel="noopener">PR #40611 · dynamic tool injection</a><span>ROUTE → RANK → HYDRATE</span></div>
+      <aside class="notes">Time 29:30–32:00. Core delivery: small catalogues are injected directly. Large catalogues use a tiny routing call followed by local ranking; explicitly named and existing refine tools are pinned. Hydration is the trust boundary because identity and schema come from the server catalogue, not generated text. Term: hydration replaces a lightweight reference with authoritative server-side metadata. Transition: even correct tools cannot rescue a structurally invalid graph. Evidence boundary: thresholds and caps describe this implementation and may be tuned later.</aside>
+    </section>
+
+    <!-- 17 -->
+    <section data-slide-id="s17-validator">
+      <div class="eyebrow">Validator · Repair only what is safe</div><h2>Deterministic does not mean “fix everything.”<br>It means knowing when not to guess.</h2>
+      <div class="validation-boundary"><div class="repair-side"><small>AUTO-REPAIR</small><div class="repair-item fragment fade-up" data-fragment-index="0"><b>ID sanitization</b><span>Rewrite invalid IDs and every reference</span></div><div class="repair-item fragment fade-up" data-fragment-index="1"><b>Unambiguous reference</b><span>Source exposes exactly one valid output</span></div><div class="repair-item fragment fade-up" data-fragment-index="1"><b>Defaults and layout</b><span>Wrappers, edge IDs, positions, handles</span></div></div><div class="stop-line"><span>SAFE TO INFER?</span></div><div class="fail-side"><small>FAIL CLOSED</small><div class="error-code fragment fade-up" data-fragment-index="2"><b>GRAPH_CYCLE</b><span>Topology cannot execute</span></div><div class="error-code fragment fade-up" data-fragment-index="2"><b>DANGLING_EDGE</b><span>Target or handle is unresolved</span></div><div class="error-code fragment fade-up" data-fragment-index="2"><b>UNKNOWN_TOOL</b><span>Workspace cannot hydrate identity</span></div></div></div>
+      <div class="source-bar"><a href="https://github.com/langgenius/dify/pull/32130" target="_blank" rel="noopener">PR #32130 · postprocessor and validator</a><span>BROKEN GRAPHS NEVER REACH THE CANVAS</span></div>
+      <aside class="notes">Time 32:00–34:30. Core delivery: deterministic repair is appropriate only when a unique safe answer exists. Invalid IDs, obvious references, wrappers, and layout can be repaired; ambiguous topology or unknown tools must fail with locatable codes. Term: fail closed means unsafe output is blocked by default. Transition: once calls are smaller and structure is protected, the architecture can reduce latency with parallelism. Evidence boundary: error labels illustrate the validator contract; exact codes may evolve.</aside>
+    </section>
+
+    <!-- 18 -->
+    <section data-slide-id="s18-parallelism">
+      <div class="eyebrow">Performance · Shorter prompts, shorter critical path</div><h2>Split the graph into one parallel wave.</h2>
+      <div class="timing-comparison"><div class="timing-row serial"><b>SERIAL</b><span class="t-plan">PLAN</span><span class="t-build">NODE 1</span><span class="t-build">NODE 2</span><span class="t-build">NODE 3</span><span class="t-build">NODE 4</span><span class="t-validate">VALIDATE</span></div><div class="timing-row parallel fragment fade-up" data-fragment-index="0"><b>PARALLEL</b><span class="t-plan">PLAN</span><span class="parallel-wave"><i>NODE 1</i><i>NODE 2</i><i>NODE 3</i><i>NODE 4</i></span><span class="t-validate">VALIDATE</span></div></div>
+      <div class="performance-strip fragment fade-up" data-fragment-index="1"><strong>76.6%</strong><span>system-prompt reduction<br>10,913 → ≤ 2,559 characters</span><strong>6</strong><span>default workers<br>bounded by node count</span><strong>−1</strong><span>serial call<br>mode folded into Planner</span></div>
+      <div class="performance-note">Fail-fast cancels queued work when one node build fails.</div>
+      <div class="source-bar"><a href="https://github.com/langgenius/dify/pull/38975" target="_blank" rel="noopener">PR #38975 · parallel node building</a><span>METRICS ARE IMPLEMENTATION DISCLOSURES · NOT USER ROI</span></div>
+      <aside class="notes">Time 34:30–36:30. Core delivery: per-type prompts reduce time to first token and completion size, while a bounded worker pool turns N serial builds into one wave. Fail-fast saves calls as well as time. Mention the gevent field note only if the audience is deeply technical. Term: worker cap bounds concurrent model calls. Transition: return from the generator internals to the user-facing products those graphs can power. Evidence boundary: the figures are repository implementation disclosures, not independently audited business outcomes.</aside>
+    </section>
+
+    <!-- 19 -->
+    <section data-slide-id="s19-dify-packaging">
+      <div class="eyebrow">Dify Packaging · A platform is not a product form</div><h2>The same capabilities can ship as entirely different products.</h2>
+      <div class="packaging-layout"><div class="platform-core"><img src="../assets/logo.svg" alt="Dify"><span>Models · Knowledge · Tools · Orchestration</span></div><div class="delivery-index"><div><small>API / EMBED</small><b>Copilot</b><span>inside an existing action</span></div><div><small>AGENT APP</small><b>Workbench / Analyst</b><span>around a project or investigation</span></div><div><small>CHATFLOW + CHANNELS</small><b>Service Agent</b><span>conversation to resolution</span></div><div><small>WORKFLOW + API</small><b>Process Agent</b><span>case through states</span></div><div><small>TRIGGER + WORKFLOW</small><b>Monitoring Agent</b><span>signal to incident</span></div></div></div>
+      <div class="packaging-verdict">Choose the user-facing product before choosing Dify components.</div>
+      <div class="source-bar"><a href="https://docs.dify.ai/en/guides/application-orchestrate/creating-an-application" target="_blank" rel="noopener">Dify application orchestration docs</a><span>PRODUCT-DESIGN GUIDANCE · NOT AN OFFICIAL FIXED TAXONOMY</span></div>
+      <aside class="notes">Time 36:30–38:30. Core delivery: workflow generation is an enabling capability, not the final product. Dify models, knowledge, tools, orchestration, APIs, channels, and triggers can be packaged around different work units. Term: packaging is how shared platform capability becomes a product for one user and scenario. Transition: close by reconnecting product fit and engineering responsibility. Evidence boundary: the mapping is a design recommendation, not Dify's official product classification.</aside>
+    </section>
+
+    <!-- 20 -->
+    <section class="principle-slide" data-slide-id="s20-closing-principle">
+      <div class="eyebrow on-dark">Closing principle · Product and engineering reinforce each other</div><h2>Let the model answer semantic questions.<br><span>Let engineering own what must remain true.</span></h2>
+      <div class="principle-line"><div><small>MODEL</small><b>Meaning</b><span>intent · prompts · bindings</span></div><i></i><div><small>CODE</small><b>Structure</b><span>IDs · edges · references</span></div><i></i><div><small>SYSTEM</small><b>Context</b><span>installed tools · schemas · state</span></div><i></i><div><small>PRODUCT</small><b>Failure</b><span>repair · explain · stop</span></div></div>
+      <div class="principle-verdict">Scenario fit earns adoption. Engineering guarantees earn trust.</div>
+      <aside class="notes">Time 38:30–40:00. Core delivery: meaning can remain probabilistic, while structure, authoritative context, and failure behavior require explicit ownership. Connect the first half and second half: good product form earns use; dependable engineering earns repeated use. Term: guarantee is a property enforced by system design, not a prompt aspiration. Transition: invite the audience to apply the framework to their own scenario. Evidence boundary: this principle generalizes beyond workflow generation, but implementation details vary by system.</aside>
+    </section>
+
+    <!-- 21 -->
+    <section class="qa-slide" data-slide-id="s21-qa">
+      <img class="photo-bg" src="../enterprise-agent-campus/assets/bg-geometric-facade-arlind.jpg" alt="Modern geometric building facade by Arlind Photography on Unsplash"><div class="qa-shade"></div>
+      <div class="qa-copy"><div class="eyebrow on-dark">Q&amp;A · Apply the framework</div><h2>Do not start with<br>“we need an agent.”</h2><div class="qa-path"><p class="fragment fade-up" data-fragment-index="0"><b>01</b><span>What is the smallest durable work object?</span></p><p class="fragment fade-up" data-fragment-index="1"><b>02</b><span>Which decisions are semantic, and which outputs must be guaranteed?</span></p><p class="fragment fade-up" data-fragment-index="2"><b>03</b><span>What should the system repair, explain, or refuse to guess?</span></p></div><div class="qa-meta">Zheng Li · Head of DevRel · Dify · <a href="mailto:banana@dify.ai">banana@dify.ai</a></div></div>
+      <aside class="notes">Time 40:00–44:30. Core delivery: use the three questions to move discussion from abstract agent ideas to product and system choices. If the room is quiet, ask for one recurring workflow from the audience and classify its work object, product form, semantic decisions, and guarantees. Term: durable means the object survives beyond one model response. Transition: close with contact details. Evidence boundary: audience examples are hypotheses, not validated product requirements.</aside>
+    </section>
+
+    <!-- 22 -->
+    <section class="thank-you-slide" data-slide-id="s22-thank-you">
+      <img class="photo-bg" src="../enterprise-agent-campus/assets/bg-geometric-facade-arlind.jpg" alt="Modern geometric building facade by Arlind Photography on Unsplash"><div class="thank-you-shade"></div>
+      <div class="thank-you-copy"><div class="thank-you-main"><div class="eyebrow on-dark">Stay in touch</div><h2>Thank You</h2></div><div class="thank-you-contact"><span class="thank-you-logo"><img src="../milvus/assets/dify-logo-dark-mode.svg" alt="Dify"></span><div><strong>Zheng Li</strong><span>Head of DevRel · Dify</span><a href="mailto:banana@dify.ai">banana@dify.ai</a></div></div></div>
+      <div class="thank-you-credit">Photos · Timothée Duran · Declan Sun · Arlind Photography / Unsplash</div>
+      <aside class="notes">Time 44:30–45:00. Core delivery: thank the audience and invite follow-up on agent product forms, workflow generation, and production engineering. Term: none. Transition: end of workshop. Evidence boundary: the email address is the speaker's public work contact.</aside>
+    </section>
+
+  </div></div>
   <script src="../agent-plugin-governance/assets/reveal/reveal.js"></script>
   <script src="../agent-plugin-governance/assets/reveal/plugin/notes/notes.js"></script>
   <script>
-    Reveal.initialize({
-      hash: true,
-      width: 1920,
-      height: 1080,
-      margin: 0,
-      minScale: 0.2,
-      maxScale: 1.5,
-      center: false,
-      display: 'flex',
-      controls: true,
-      progress: true,
-      slideNumber: 'c/t',
-      transition: 'fade',
-      backgroundTransition: 'fade',
-      plugins: [RevealNotes],
-    });
-    const syncChrome = (event) => {
-      const slide = (event && event.currentSlide) || Reveal.getCurrentSlide();
-      document.body.classList.toggle('chrome-thanks', Boolean(slide && slide.matches('.thanks-slide')));
-    };
-    Reveal.on('ready', syncChrome);
-    Reveal.on('slidechanged', syncChrome);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    Reveal.initialize({hash:true,width:1920,height:1080,margin:0,minScale:0.2,maxScale:1.5,center:false,controls:true,controlsTutorial:false,progress:true,slideNumber:'c/t',navigationMode:'linear',transition:reduceMotion?'none':'fade',transitionSpeed:'fast',backgroundTransition:reduceMotion?'none':'fade',pdfSeparateFragments:false,plugins:[RevealNotes]});
   </script>
 </body>
 </html>

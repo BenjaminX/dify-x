@@ -1,42 +1,57 @@
-# Dify × Stripe Workshop：Workflow Generator，从一句话到一张能跑的图
+# Dify × Stripe Workshop：From Scenario to System
 
-面向开发者的 20 分钟分享：拆开 Dify Workflow Generator（⌘K → `/create` / `/refine`）的实现——Planner、Builder、Validator 三层设计，以及把它从原型带到生产的三个问题。
+英文版是一场 45 分钟、面向产品与工程混合听众的 Workshop：先从工作单元、产品形态、交付物和使用节奏判断 Agent 应该成为怎样的产品，再用 Dify Workflow Generator 拆解如何把一句自然语言需求变成可检查的计划、可运行的图和可增量修改的系统。
 
-## 结构（20 分钟）
+## Title
 
-| 页 | 内容 | 时间 |
-|---|---|---|
-| 01 | 封面 · 郑立 · Head of DevRel @ Dify | 0:00–1:00 |
-| 02 | Workflow Generator 演示视频（占位，正式视频后补，约 2 分钟） | 1:00–3:00 |
-| 03 | 问题的形状：输出是一张要在画布上活下来的图 | 3:00–5:00 |
-| 04 | 四段流水线：Tool Router → Planner → Node Builders → Assembler + Validator | 5:00–7:00 |
-| 05 | 早期实现：单次全图生成（[PR #31944](https://github.com/langgenius/dify/pull/31944)） | 7:00–8:30 |
-| 06 | Planner：先出计划，plan 事件先行 | 8:30–10:00 |
-| 07 | Builder：每个节点一次专注调用 | 10:00–11:30 |
-| 08 | 问题一 · 工具太多 → 动态注入（[PR #40611](https://github.com/langgenius/dify/pull/40611)） | 11:30–13:30 |
-| 09 | 问题二 · 图必须正确展示 → Validator（[PR #32130](https://github.com/langgenius/dify/pull/32130)） | 13:30–15:30 |
-| 10 | 问题三 · 生成太慢 → 并行节点构建（[PR #38975](https://github.com/langgenius/dify/pull/38975)） | 15:30–17:00 |
-| 11 | 与其他自动生成 DSL 方案的差异 | 17:00–19:00 |
-| 12–13 | 结语 + Thank You（图片作者致谢） | 19:00–20:00 |
+**From Scenario to System**<br>
+**Designing Enterprise Agents That Actually Run**
 
-## 文件
+> Choose the product form. Generate the workflow. Engineer the guarantees.
 
-- `index.html`：中文演示稿。
-- `index_en.html`：英文演示稿。
-- `styles.css`：本 deck 的视觉样式（全覆盖 Unsplash 氛围背景 + 玻璃拟态排版）。
-- `starter/`：上一版动手 Workshop 保留的备用 Stripe Skill，与本次分享内容无关。
+## Topic Introduction
 
-## 视频占位
+Most enterprise-agent projects start with model capability. This session starts with the work: where users meet the system, what object persists, what outcome matters, and how often the work repeats. We then follow Dify Workflow Generator from a one-sentence request to a plan, a runnable graph, and an incremental refinement. Along the way, we unpack the production architecture behind reliable structured generation—planning, focused node building, dynamic context injection, deterministic assembly, validation, and parallel execution—and show how product form and engineering guarantees must reinforce each other.
 
-第 2 页当前是占位框。正式视频就绪后，把 `assets/workflow-generator-demo.mp4` 放入本目录的 `assets/` 文件夹，并按 `index.html` / `index_en.html` 中占位块旁的注释替换为 `<video>` 标签。
+## Audience Takeaways
 
-## 背景图片
+- Select an agent product form from the work unit, entry point, deliverable, and usage rhythm.
+- Turn a vague agent idea into a product brief and workflow topology.
+- Understand the responsibility split across Planner, Node Builders, Assembler, and Validator.
+- Decide what belongs to the model and what must remain deterministic.
+- Recognize production failure modes involving tools, graph structure, validation, refinement, and latency.
 
-背景图复用 `../agent-plugin-governance/assets/` 中的 Unsplash 图片（Ruido 98、Reinhart Julian、Pawel Czerwinski、Jakub Żerdzicki、Richard Horvath、Darkhan Basshybayev、Sean Sinclair、Kevin Ache、Asif Aether、Joshua Gandara、Codioful），作者统一列在 Thank You 页。
+## 结构与计时（45 分钟）
 
-## 参考 PR
+| 章节 | 页码 | 内容 | 时间 |
+|---|---:|---|---:|
+| Choose the Product | 01–06 | 工作主张、工作单元、六种产品形态、四个问题、Workflow 适用条件 | 12:00 |
+| Sentence to Graph | 07–10 | 静态教学任务、Prompt → Plan → Graph → Refine | 7:00 |
+| Engineer the Guarantees | 11–18 | 结构化输出、流水线、v1、Planner、Builder、工具上下文、Validator、并行构建 | 17:30 |
+| Return to the Product | 19–20 | Dify packaging 与最终工程原则 | 3:30 |
+| Q&A + Thank You | 21–22 | 讨论题、联系方式、图片署名 | 5:00 |
 
-- [PR #31944](https://github.com/langgenius/dify/pull/31944) — 功能早期实现（单次全图生成原型）
-- [PR #32130](https://github.com/langgenius/dify/pull/32130) — Validator / Postprocessor：保证生成的图能正确加载
-- [PR #38975](https://github.com/langgenius/dify/pull/38975) — 并行节点构建，改善生成性能
-- [PR #40611](https://github.com/langgenius/dify/pull/40611) — Tool Router：工具目录动态注入
+总计：40:00 主讲 + 4:30 Q&A + 0:30 Thank You。
+
+## 文件与版本边界
+
+- `index_en.html`：新的 22 页英文演示。
+- `editorial-en.css`：英文版独立编辑式视觉层，不影响中文版。
+- `source-map.md`：工程来源、证据边界、图片版权和计时映射。
+- `qa/contact-sheet-en.png`：22 页完整展开后的 4 × 6 视觉巡检图。
+- `index.html` 与 `styles.css`：保留原中文版和原视觉，不在本次改动范围内。
+- `starter/stripe-billing`：保留已有 Sandbox skill，不参与本次通用 Workflow 静态推演。
+
+## 演示与证据边界
+
+- 第 07–10 页为无网络依赖的通用静态教学推演，不是客户案例或产品录屏。
+- Dify × Stripe 仅表示活动联合品牌，不表示 Stripe 使用 Dify。
+- PR 中的工程数字只说明实现变化，不解释为业务 ROI 或客户效果。
+- 背景图来自 Unsplash，作者为 Timothée Duran、Declan Sun 与 Arlind Photography。
+
+## 参考工程来源
+
+- [PR #31944](https://github.com/langgenius/dify/pull/31944) — Workflow Generator 早期实现。
+- [PR #32130](https://github.com/langgenius/dify/pull/32130) — Graph postprocessor 与 Validator。
+- [PR #38975](https://github.com/langgenius/dify/pull/38975) — 并行 Node Builder。
+- [PR #40611](https://github.com/langgenius/dify/pull/40611) — 动态工具注入与工具路由。
