@@ -3,406 +3,249 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#070914">
-  <title>Workflow Generator：从一句话到一张能跑的图 — Dify × Stripe</title>
+  <meta name="theme-color" content="#081335">
+  <title>从场景到系统：设计真正跑得起来的企业 Agent — Dify × Stripe</title>
   <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../agent-plugin-governance/assets/reveal/reset.css">
   <link rel="stylesheet" href="../agent-plugin-governance/assets/reveal/reveal.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans+SC:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="editorial-en.css?v=20260827-scenario-system3">
+  <link rel="stylesheet" href="editorial-zh.css?v=20260827-zh1">
 </head>
 <body>
-  <div class="deck-logo">
-    <img src="../assets/logo.svg" alt="Dify">
-    <span>Dify × Stripe · Workflow Generator</span>
-  </div>
+  <div class="deck-brand"><img src="../assets/logo.svg" alt="Dify"><span>Dify × Stripe · 从场景到系统</span></div>
   <div class="lang-switch"><a class="active" href="index.html">中文</a><span>/</span><a href="index_en.html">EN</a></div>
 
-  <div class="reveal">
-    <div class="slides">
+  <div class="reveal"><div class="slides">
 
-      <!-- 01 · Cover -->
-      <section class="cover-slide" data-background-image="../agent-plugin-governance/assets/atmos-silk-ruido98.jpg" data-background-size="cover">
-        <div class="cover-head">
-          <span class="mono-tag">DIFY × STRIPE · AGENT WORKSHOP</span>
-          <span class="mono-tag">20 MIN · 2026</span>
-        </div>
-        <div>
-          <h1>Workflow Generator<br><span class="blue">从一句话到一张能跑的图</span></h1>
-          <p class="cover-sub">拆开 Dify 里自动生成 Workflow DSL 的实现：Planner、Builder、Validator，以及三个把它从原型带到生产的问题。</p>
-        </div>
-        <div class="cover-foot">
-          <div class="cover-author">
-            <div class="name">郑立</div>
-            <div class="role">Head of DevRel @ Dify</div>
-            <div class="mail">banana@dify.ai</div>
-          </div>
-          <div class="cover-meta">github.com/langgenius/dify<br>Engineering Notes · 面向开发者</div>
-        </div>
-        <aside class="notes">0:00–1:00。开场一句话：今天讲一个具体的工程问题——怎么把一句自然语言，变成一张能在画布上正确加载、正确运行的 Workflow。先看两分钟演示，再拆实现。</aside>
-      </section>
+    <!-- 01 -->
+    <section class="cover-slide" data-slide-id="s01-cover">
+      <img class="photo-bg" src="../enterprise-agent-campus/assets/bg-enterprise-grid-timothee-duran.jpg" alt="Timothée Duran 在 Unsplash 发布的深蓝天空与几何办公建筑">
+      <div class="cover-shade"></div>
+      <div class="cover-copy">
+        <div><div class="eyebrow on-dark">Dify × Stripe · Agent Workshop</div><h1>从场景<br><span>到系统</span></h1><p>设计真正跑得起来的企业 Agent</p></div>
+        <div class="cover-meta"><span>Zheng Li · Head of DevRel · Dify</span><span>先选产品形态，再生成工作流，最后把可靠性做进系统。</span><b>45 MIN</b></div>
+      </div>
+      <aside class="notes">时间 0:00–1:00。核心讲法：企业 Agent 要回答两个彼此关联的问题——这项工作应该被做成怎样的产品，以及怎样的工程保证才能让它稳定运行。本场分享会按这个顺序展开。术语解释：产品形态指用户看到的工作容器、入口、交付物和使用节奏。过渡句：先改变团队提出的第一个问题。证据边界：Dify × Stripe 仅表示活动联合品牌，不代表 Stripe 正在使用 Dify。</aside>
+    </section>
 
-      <!-- 02 · Demo video (placeholder) -->
-      <section class="video-slide" data-background-image="../agent-plugin-governance/assets/bg-tunnel-reinhart-julian.jpg" data-background-size="cover">
-        <div class="video-head">
-          <div>
-            <div class="eyebrow">Demo · Workflow Generator</div>
-            <h2 class="slide-title">⌘K → /create，看它把一句话变成一张图</h2>
-          </div>
-          <span class="runtime">RUNTIME ≈ 02:00</span>
-        </div>
-        <!-- 正式视频就绪后：删除 .video-frame 内的三个占位元素，换成
-             <video controls preload="metadata" src="assets/workflow-generator-demo.mp4"></video> -->
-        <div class="video-frame">
-          <div class="play-badge"></div>
-          <div class="video-placeholder-label">VIDEO PLACEHOLDER · 演示视频后补</div>
-          <div class="video-placeholder-sub">workflow-generator-demo.mp4 · 16:9 · ≈ 2 MIN</div>
-        </div>
-        <aside class="notes">1:00–3:00。播放视频（现为占位，正式视频后补）。视频内容：画布上 ⌘K 唤起 /create，输入一句话，先出计划，再生成整张图，最后 /refine 改一处。播完只强调一件事：产出直接落在画布上，能连线、能运行。</aside>
-      </section>
+    <!-- 02 -->
+    <section data-slide-id="s02-thesis">
+      <div class="eyebrow">核心判断 · 先看工作怎么发生</div>
+      <div class="thesis-stage">
+        <div class="thesis-side thesis-left"><small>别先问</small><strong>模型能做什么？</strong><p>这只能说明能力上限，解释不了用户为什么需要这个产品。</p></div>
+        <div class="thesis-arrow fragment fade-up" data-fragment-index="0">→</div>
+        <div class="thesis-side thesis-right fragment fade-up" data-fragment-index="0"><small>先问</small><strong>这项工作是怎么完成的？</strong><p>从哪里开始、围绕什么推进、什么结果最重要、何时才算完成？</p></div>
+      </div>
+      <div class="slide-verdict fragment fade-up" data-fragment-index="1">先设计工作的承载界面，再决定 Agent 具体做什么。</div>
+      <aside class="notes">时间 1:00–3:00。核心讲法：同一个模型可以成为嵌入式 Copilot、项目工作台，也可以成为持续运行的监测系统。模型能力并不会自动决定产品长什么样，真正决定形态的是工作本身。术语解释：工作界面是用户查看状态、证据和下一步动作的地方。过渡句：判断这个界面的最好线索，是用户会反复打开和交接的最小工作对象。证据边界：这是产品设计方法的综合判断，不是行业统一分类。</aside>
+    </section>
 
-      <!-- 03 · The problem -->
-      <section data-background-image="../agent-plugin-governance/assets/atmos-teal-pawel-czerwinski.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">01</span>问题的形状</div>
-        <h2 class="slide-title">输出不是一段文本，是一张要在画布上活下来的图。</h2>
-        <p class="slide-lead">Workflow DSL 描述节点、连线、变量引用和布局。它最终交给 ReactFlow 渲染、交给运行时执行——模型写错一个字段，画布直接加载失败，或者运行到一半吐出原样的占位符。</p>
-        <div class="grid-3 card-row">
-          <div class="glass">
-            <div class="num">SCHEMA</div>
-            <h3>每种节点各有一套结构</h3>
-            <p>LLM、代码、工具、分支、迭代……每种节点的 <code>data</code> 字段都不同，拼错即坏。</p>
-          </div>
-          <div class="glass">
-            <div class="num">EDGES</div>
-            <h3>连线还带句柄</h3>
-            <p>分支节点按 case 出边（<code>true</code> / <code>false</code>），句柄接错，线就悬在画布外。</p>
-          </div>
-          <div class="glass">
-            <div class="num">VARIABLES</div>
-            <h3>变量引用全图寻址</h3>
-            <p><code>{{#node_id.var#}}</code> 指向别的节点的输出，一处失效，静默变成字面文本。</p>
-          </div>
-        </div>
-        <div class="foot-line"><span>这决定了整个设计的底线：能交给确定性代码的，绝不交给模型。</span></div>
-        <aside class="notes">3:00–5:00。给开发者建立直觉：这不是「让模型写段 YAML」。三个失败模式都很隐蔽——schema 错了不加载，句柄错了线悬空，变量引用错了运行时静默失效。所以要害不在生成，在生成之后怎么保证正确。</aside>
-      </section>
+    <!-- 03 -->
+    <section data-slide-id="s03-work-unit">
+      <div class="eyebrow">工作单元 · 找到真正会留下来的对象</div><h2>找到工作的最小持久单元，<br>就找到了产品的容器。</h2>
+      <div class="work-unit-rail">
+        <div class="wu-head"><span>工作单元</span><span>产品形态</span><span>用户会反复打开什么</span></div>
+        <div class="wu-row fragment fade-up" data-fragment-index="0"><b>当前对象</b><strong>Copilot</strong><span>代码、记录、文档、表格</span></div>
+        <div class="wu-row fragment fade-up" data-fragment-index="0"><b>项目 / 材料集</b><strong>专家工作台</strong><span>材料、发现、决策、交付物</span></div>
+        <div class="wu-row fragment fade-up" data-fragment-index="1"><b>会话 / 诉求</b><strong>服务 Agent</strong><span>上下文、解决结果、后续动作</span></div>
+        <div class="wu-row fragment fade-up" data-fragment-index="1"><b>业务实例</b><strong>流程 Agent</strong><span>Case 状态、证据、下一步</span></div>
+        <div class="wu-row fragment fade-up" data-fragment-index="2"><b>信号流</b><strong>监测 Agent</strong><span>事件、阈值、异常</span></div>
+        <div class="wu-row fragment fade-up" data-fragment-index="2"><b>指标 / 问题</b><strong>分析 Agent</strong><span>调查过程、证据、决策材料</span></div>
+      </div>
+      <aside class="notes">时间 3:00–5:00。核心讲法：先问哪一个对象会持续积累状态，并跨越多次使用继续存在。聊天记录往往只是过程，真正的工作对象可能是一个 Case、一个项目、一条信号流或一次分析调查。术语解释：工作单元是用户能够重新打开、分配、度量并最终完成的最小持久对象。过渡句：六类工作单元，对应六种主要产品答案。证据边界：一个场景可以组合多种形态，这里只识别它的主形态。</aside>
+    </section>
 
-      <!-- 04 · Pipeline overview -->
-      <section data-background-image="../agent-plugin-governance/assets/bg-workflow-jakub-zerdzicki.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">02</span>总体设计</div>
-        <h2 class="slide-title">一条四段流水线：模型只回答语义问题。</h2>
-        <p class="slide-lead">SSE 流式返回：Planner 完成先推 <code>plan</code> 事件，全部装配完成再推 <code>result</code>。用户在等待时先看到计划，而不是转圈。</p>
-        <div class="pipeline">
-          <div class="flow-step">
-            <div class="stage">STAGE 0 · 可选</div>
-            <h3>Tool Router<span>tool_router_prompts.py</span></h3>
-            <p>工具太多时，先用一次小调用挑出这次真正相关的工具子集。</p>
-          </div>
-          <div class="flow-step">
-            <div class="stage">STAGE 1</div>
-            <h3>Planner<span>planner_prompts.py</span></h3>
-            <p>决定有哪些节点、怎么连、输入是什么、应用是哪种模式。</p>
-          </div>
-          <div class="flow-step">
-            <div class="stage">STAGE 2 · 并行</div>
-            <h3>Node Builders<span>node_builder_prompts.py</span></h3>
-            <p>每个节点一次专注调用，只产出这个节点的语义配置。</p>
-          </div>
-          <div class="flow-step">
-            <div class="stage">STAGE 3 · 确定性</div>
-            <h3>Assembler + Validator<span>runner.py</span></h3>
-            <p>代码负责拼图、布局、修复、校验——结构正确性不依赖模型。</p>
-          </div>
-        </div>
-        <div class="foot-line"><span>api/core/workflow/generator/ · 一个包，四段职责</span><span>LLM 管语义 / 代码管结构</span></div>
-        <aside class="notes">5:00–7:00。这页把架构讲完，后面每页展开一段。强调职责切分：模型回答「写什么提示词、用哪个工具、参数怎么绑」；id、坐标、连线、包装字段这些结构性工作全部由代码确定性完成。这条线是全场的主旋律。</aside>
-      </section>
+    <!-- 04 -->
+    <section class="atlas-slide" data-slide-id="s04-product-atlas">
+      <div class="eyebrow">产品地图 · 六种主形态</div><h2>这不是成熟度阶梯，<br>而是六种面向不同工作的产品答案。</h2>
+      <div class="atlas-map">
+        <div class="atlas-axis axis-y">↑ 持续运行</div><div class="atlas-axis axis-x">当前任务 → 跨系统业务</div>
+        <div class="atlas-node a1 fragment fade-up" data-fragment-index="0"><b>Copilot</b><span>嵌在已有动作旁边</span></div>
+        <div class="atlas-node a2 fragment fade-up" data-fragment-index="0"><b>专家工作台</b><span>围绕项目或材料集</span></div>
+        <div class="atlas-node a3 fragment fade-up" data-fragment-index="1"><b>服务 Agent</b><span>从会话走向解决</span></div>
+        <div class="atlas-node a4 fragment fade-up" data-fragment-index="1"><b>流程 Agent</b><span>推动 Case 穿过状态</span></div>
+        <div class="atlas-node a5 fragment fade-up" data-fragment-index="2"><b>监测 Agent</b><span>从信号走向异常事件</span></div>
+        <div class="atlas-node a6 fragment fade-up" data-fragment-index="2"><b>分析 Agent</b><span>从问题走向决策材料</span></div>
+      </div>
+      <div class="atlas-note">自治程度更高，不等于更成熟；场景匹配更好，才是真正成熟。</div>
+      <aside class="notes">时间 5:00–8:00。核心讲法：横轴表示工作范围从当前任务走向跨系统业务，纵轴表示运行节奏从按需使用走向持续运行。Copilot 与工作台通常由用户主动发起，监测 Agent 则持续观察。服务 Agent 和流程 Agent 可能调用相同工具，但面向用户呈现的状态完全不同。术语解释：主形态是用户首先感知到的产品界面。过渡句：接下来用四个问题，把这张地图变成选择工具。证据边界：位置是定性判断，不代表市场份额、成熟度评分或 ROI。</aside>
+    </section>
 
-      <!-- 05 · Early implementation PR #31944 -->
-      <section data-background-image="../agent-plugin-governance/assets/atmos-indigo-richard-horvath.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">03</span>起点 · 早期实现</div>
-        <h2 class="slide-title">第一版很直接：一次调用，吐出整张图。</h2>
-        <p class="slide-lead">内部代号 <code>vibe-wf</code>。⌘K 输入一句话，一个 LLM 调用直接生成完整的图 JSON。它证明了这条路走得通，也把三个代价一次性摆上了桌面。</p>
-        <div class="grid-3 card-row">
-          <div class="glass">
-            <div class="num">01 · 遗产</div>
-            <h3>定下了模块边界</h3>
-            <p>generator 包、service 层、SSE 的 plan → result 事件契约，都从这一版沿用至今。</p>
-          </div>
-          <div class="glass">
-            <div class="num">02 · 代价</div>
-            <h3>全量 cheatsheet</h3>
-            <p>约 550 行的节点 schema 说明书，不管这次用几种节点，整份塞进每个 prompt。</p>
-          </div>
-          <div class="glass">
-            <div class="num">03 · 上限</div>
-            <h3>一个调用背所有错</h3>
-            <p>让模型一口气写十几个合法节点配置，图越大错得越多，还慢。</p>
-          </div>
-        </div>
-        <div class="foot-line">
-          <span>后面三个 PR，各自解决它留下的一个问题。</span>
-          <a class="pr-chip" href="https://github.com/langgenius/dify/pull/31944"><small>langgenius/dify</small>PR #31944</a>
-        </div>
-        <aside class="notes">7:00–8:30。别把第一版讲成失败——它是原型，验证了 UX 和管线形状。但单发全图生成有三个结构性问题：prompt 恒定超大、错误率随图规模上升、延迟不可接受。这三个问题正好对应后面三页。</aside>
-      </section>
+    <!-- 05 -->
+    <section data-slide-id="s05-four-questions">
+      <div class="eyebrow">四个问题 · 从场景走向产品</div><h2>别从功能清单开始。<br>先回答四个产品问题。</h2>
+      <div class="question-route">
+        <div class="route-stop fragment fade-up" data-fragment-index="0"><i>01</i><b>入口</b><p>用户会在哪里遇到它？</p><span>IDE · 邮箱 · 看板 · 告警</span></div><div class="route-line"></div>
+        <div class="route-stop fragment fade-up" data-fragment-index="1"><i>02</i><b>工作对象</b><p>工作围绕什么持续积累？</p><span>文档 · 项目 · Case · 指标</span></div><div class="route-line"></div>
+        <div class="route-stop fragment fade-up" data-fragment-index="2"><i>03</i><b>交付物</b><p>用户最终带走什么？</p><span>草稿 · 解决结果 · 决策 · 动作</span></div><div class="route-line"></div>
+        <div class="route-stop fragment fade-up" data-fragment-index="3"><i>04</i><b>节奏</b><p>这项工作多久发生一次？</p><span>按需 · 每个项目 · 持续运行</span></div>
+      </div>
+      <aside class="notes">时间 8:00–10:00。核心讲法：入口决定分发方式，工作对象决定状态如何沉淀，交付物定义业务价值，节奏决定产品是等待用户还是主动观察。术语解释：节奏指业务工作的自然发生频率，不是模型响应延迟。过渡句：这四个问题也能判断，什么时候聊天回复已经不足以承载产品价值。证据边界：它们支持产品探索，但不能替代用户研究和流程梳理。</aside>
+    </section>
 
-      <!-- 06 · Planner -->
-      <section data-background-image="../agent-plugin-governance/assets/atmos-prism-darkhan-basshybayev.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">04</span>Planner</div>
-        <h2 class="slide-title">先出计划，再动手：Planner 只决定「有什么、怎么连」。</h2>
-        <div class="spec-list">
-          <div class="spec-row">
-            <span class="num">P-1</span>
-            <strong>产出一份节点计划</strong>
-            <span>每个节点的类型、id、用途描述、工具绑定；外加边拓扑、<code>start_inputs</code> 和应用模式。</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">P-2</span>
-            <strong>plan 事件先行</strong>
-            <span>计划一出就推给前端，用户先审阅节点清单，不用等整张图。</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">P-3</span>
-            <strong>schema 校验 + 一次重试</strong>
-            <span>计划结构不合法（边指向不存在的节点等），带着具体错误提示重问一次，再失败就明确报错。</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">P-4</span>
-            <strong>模式判定折叠进来</strong>
-            <span>chatflow 还是 workflow 不再单独调用一次模型分类，由 Planner 顺带输出，终端节点类型兜底。</span>
-          </div>
-        </div>
-        <div class="foot-line"><span>planner_prompts.py · max_tokens 4096</span><span>计划是唯一的拓扑事实来源</span></div>
-        <aside class="notes">8:30–10:00。Planner 的关键角色：它输出的 plan 是后面所有阶段的拓扑事实来源——Builder 按它分工，Assembler 按它连线。重试是「带错误信息的定向重问」，不是盲目重试。JSON 解析失败的纠正信息用追加 user 消息而不是 system 消息，因为部分供应商会丢弃后置的 system 消息。</aside>
-      </section>
+    <!-- 06 -->
+    <section data-slide-id="s06-workflow-fit">
+      <div class="eyebrow">Workflow 适配 · 什么时候聊天太轻了</div><h2>当价值取决于到达一个可验证的终点，Workflow 本身就是产品。</h2>
+      <div class="workflow-gates">
+        <div class="gate-start"><small>一次请求</small><strong>“这件事能帮我办完吗？”</strong></div>
+        <div class="gate fragment fade-up" data-fragment-index="0"><b>状态</b><span>工作必须跨越一次回答继续存在</span></div>
+        <div class="gate fragment fade-up" data-fragment-index="1"><b>系统</b><span>多个工具或业务记录需要达成一致</span></div>
+        <div class="gate fragment fade-up" data-fragment-index="2"><b>分支</b><span>不同条件会改变后续路径</span></div>
+        <div class="gate fragment fade-up" data-fragment-index="3"><b>终点</b><span>结果能够被检查，也能够被交接</span></div>
+        <div class="gate-end"><small>产品</small><strong>可运行的 Workflow</strong></div>
+      </div>
+      <div class="workflow-fit-rule">对话可以是入口，Workflow 才是对结果的承诺。</div>
+      <aside class="notes">时间 10:00–12:00。核心讲法：用户购买的是进展而不是文字时，就需要 Workflow。状态要能够持续，多个系统要协同，分支要明确，完成条件要可验证。术语解释：终点是机器或人能够检查的完成条件。过渡句：现在用一个通用客户支持任务，观察它如何从一句话变成一张图。证据边界：不是所有多步 Prompt 都需要 Workflow，应当选择能够交付结果的最轻产品形态。</aside>
+    </section>
 
-      <!-- 07 · Builder -->
-      <section data-background-image="../agent-plugin-governance/assets/atmos-flare-sean-sinclair.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">05</span>Builder</div>
-        <h2 class="slide-title">每个节点，一次专注的调用。</h2>
-        <p class="slide-lead">Builder 只写语义配置：提示词、代码、变量、参数、工具绑定，返回 <code>{"config": {...}}</code>。id、坐标、连线、包装字段一概不碰——那些轮不到模型。</p>
-        <div class="grid-3 card-row">
-          <div class="glass">
-            <div class="num">PROMPT</div>
-            <h3>按节点类型裁剪</h3>
-            <p>system prompt 只带这个类型的 schema 片段；user prompt 带节点身份、用户指令和完整计划，供跨节点引用。</p>
-          </div>
-          <div class="glass">
-            <div class="num">SCOPE</div>
-            <h3>输出边界收紧</h3>
-            <p>明确禁止输出 <code>id</code>、<code>position</code>、edges、viewport——结构字段全部由装配层补。</p>
-          </div>
-          <div class="glass">
-            <div class="num">REFINE</div>
-            <h3>keep 节点不打模型</h3>
-            <p>增量修改时，计划标记为 keep 的节点直接深拷贝现有配置；update 节点带着旧配置进 prompt，只改指令涉及的部分。</p>
-          </div>
-        </div>
-        <div class="foot-line"><span>node_builder_prompts.py · get_node_builder_system_prompt(node_type)</span></div>
-        <aside class="notes">10:00–11:30。给开发者的要点：把「一个什么都要写对的大调用」换成「N 个只需写对一小块的小调用」，单个调用的任务窄了，质量和延迟同时改善。refine 的 keep/update 语义是保证增量修改不破坏现有图的关键。</aside>
-      </section>
+    <!-- 07 -->
+    <section class="case-cover" data-slide-id="s07-case-brief">
+      <img class="photo-bg" src="../enterprise-agent-campus/assets/bg-architecture-shadow-declan-sun.jpg" alt="Declan Sun 在 Unsplash 发布的建筑光影"><div class="case-shade"></div>
+      <div class="case-copy"><div class="eyebrow on-dark">静态推演 · 无需网络</div><h2>“读取客户工单，查询账户信息，判断紧急程度，起草回复；高风险工单转人工复核。”</h2><p>一句请求，五项职责；生成后，这张图还必须能够继续编辑。</p></div>
+      <div class="case-label">教学场景 · 合成案例</div>
+      <aside class="notes">时间 12:00–13:00。核心讲法：这是一个合成的通用任务，包含查询、判断、分支、生成和升级五种典型动作。接下来三页是静态推演，不是现场 Demo。术语解释：高风险的具体定义被有意留空，因此 Plan 必须把这个假设暴露出来。过渡句：第一步不是直接生成图，而是先产出一份可以检查的拓扑。证据边界：这里不包含客户数据、业务效果数据，也不代表 Stripe 的生产场景。</aside>
+    </section>
 
-      <!-- 08 · Problem 1: too many tools → PR #40611 -->
-      <section data-background-image="../agent-plugin-governance/assets/bg-server-kevin-ache.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">06</span>问题一 · 工作空间装了几百个工具</div>
-        <h2 class="slide-title">全塞塞不下，砍前 80 个又砍错：那就动态注入。</h2>
-        <p class="slide-lead">旧做法是固定截取安装列表的前 80 个工具进 prompt。装得越多，真正相关的工具越可能不在切片里——模型于是开始编造工具名。</p>
-        <div class="spec-list">
-          <div class="spec-row">
-            <span class="num">≤ 24</span>
-            <strong>直接注入</strong>
-            <span>工具少就不折腾，完整目录进 prompt，零额外调用。</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">&gt; 24</span>
-            <strong>Tool Router 路由</strong>
-            <span>一次 256 token 的小调用把指令翻成能力查询；本地按短语命中、词面重叠、模糊匹配确定性打分，每个查询取前 3，全局最多 16 个候选。</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">PIN</span>
-            <strong>点名的永不丢</strong>
-            <span>指令里写明的 <code>provider/tool</code>、refine 图里已经在用的工具，不受任何上限约束。</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">TRUST</span>
-            <strong>身份最后统一覆盖</strong>
-            <span>不管模型输出什么，工具的身份字段和参数 schema 都在装配时用服务端目录重写——幻觉参数直接被过滤。</span>
-          </div>
-        </div>
-        <div class="foot-line">
-          <span>tool_catalogue.py · 路由失败回退旧 80 切片</span>
-          <a class="pr-chip" href="https://github.com/langgenius/dify/pull/40611"><small>langgenius/dify</small>PR #40611</a>
-        </div>
-        <aside class="notes">11:30–13:30。两层设计值得展开：一，路由调用极便宜（256 token、temperature 0），真正的排序在服务端本地做，确定性、可复现；二，hydration 是信任边界——LLM 只贡献参数绑定，工具身份和 schema 永远以服务端目录为准。这就是「装了什么用什么」的保证。</aside>
-      </section>
+    <!-- 08 -->
+    <section data-slide-id="s08-sentence-to-plan">
+      <div class="eyebrow">第一步 · 从一句话到 Plan</div><h2>第一份有用的产物不是图，<br>而是一份所有人都能检查的拓扑计划。</h2>
+      <div class="plan-layout">
+        <div class="prompt-pane"><small>用户请求</small><p>读取客户工单，查询账户信息，判断紧急程度，起草回复；高风险工单转人工复核。</p><span>自然语言表达的是意图，不会提供节点 ID、Handle 或画布布局。</span></div><div class="plan-arrow">→</div>
+        <div class="plan-sheet fragment fade-up" data-fragment-index="0"><div class="plan-head"><b>PLAN</b><span>workflow · 7 nodes · 7 edges</span></div><ol><li><b>start</b><span>工单文本、账户 ID</span></li><li><b>account_lookup</b><span>工具 · 查询账户</span></li><li><b>classify_urgency</b><span>LLM · 低 / 中 / 高</span></li><li><b>risk_branch</b><span>条件分支 · urgency == high</span></li><li><b>draft_response</b><span>LLM · 基于事实起草回复</span></li><li><b>human_review</b><span>输出 · 复核材料</span></li><li><b>end</b><span>输出 · 最终回复</span></li></ol></div>
+      </div>
+      <div class="plan-verdict fragment fade-up" data-fragment-index="1">Plan 是产品意图与图构建之间的合同。</div>
+      <aside class="notes">时间 13:00–15:00。核心讲法：Planner 从需求中提取拓扑、节点职责、输入和应用模式。Plan 可以提前流式返回，让用户在复杂节点仍在构建时先看到可理解的进度。术语解释：拓扑只描述有哪些节点、怎样连接，不包含视觉坐标。过渡句：有了 Plan，系统就能把语义生成与确定性组装分开。证据边界：节点名称和数量属于合成案例，但职责划分对应真实实现。</aside>
+    </section>
 
-      <!-- 09 · Problem 2: graph must render → PR #32130 -->
-      <section data-background-image="../agent-plugin-governance/assets/atmos-ember-asif-aether.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">07</span>问题二 · 图必须能正确展示</div>
-        <h2 class="slide-title">模型负责生成，Validator 负责让图在画布上活下来。</h2>
-        <p class="slide-lead">生成结果先过一条确定性的修复流水线：可以安全推断的错误就地修掉，修不了的带着错误码失败——绝不把坏图交给画布。</p>
-        <div class="spec-list">
-          <div class="spec-row">
-            <span class="num">R-1</span>
-            <strong>ID 消毒</strong>
-            <span><code>node-1</code> 这类带连字符的 id 会让 <code>{{#node-1.var#}}</code> 在运行时静默失效；统一改写 id 并递归同步所有引用。</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">R-2</span>
-            <strong>变量引用对账</strong>
-            <span>逐一核对引用的源节点是否真的声明了那个输出变量；能唯一推断就改写，起点变量缺失就自动补声明。</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">R-3</span>
-            <strong>布局与默认值</strong>
-            <span>拓扑排序定 X 轴（320px 步进），分支车道分层；ReactFlow 包装字段、边句柄、去重和边 id 全部由代码补齐。</span>
-          </div>
-          <div class="spec-row">
-            <span class="num">R-4</span>
-            <strong>fail-closed 结构校验</strong>
-            <span>最后一道闸：<code>MISSING_START</code>、<code>GRAPH_CYCLE</code>、<code>DANGLING_EDGE</code>、<code>UNKNOWN_TOOL</code> 等机器可读错误码，可定位到具体节点。</span>
-          </div>
-        </div>
-        <div class="foot-line">
-          <span>runner.py · _postprocess_graph / _validate_structure</span>
-          <a class="pr-chip" href="https://github.com/langgenius/dify/pull/32130"><small>langgenius/dify</small>PR #32130</a>
-        </div>
-        <aside class="notes">13:30–15:30。修复和校验的分界是明确的设计决策：只修「可以安全唯一推断」的错误（比如引用错但源节点只有一个输出变量）；有歧义的宁可失败，也不猜。举 ID 消毒的例子最有感染力——运行时变量正则只认字母数字下划线，一个连字符就让整条链路静默失效，这类错误靠提示词永远防不完。</aside>
-      </section>
+    <!-- 09 -->
+    <section data-slide-id="s09-plan-to-graph">
+      <div class="eyebrow">第二步 · 从 Plan 到可运行的图</div><h2>模型负责理解语义，<br>代码负责保证结构正确。</h2>
+      <div class="graph-stage">
+        <div class="ownership-band semantic"><b>MODEL</b><span>Prompt · 工具参数 · 变量 · 分支含义</span></div>
+        <div class="graph-canvas fragment fade-up" data-fragment-index="0"><div class="g-node g1"><small>START</small><b>输入</b></div><i class="edge e1"></i><div class="g-node g2"><small>TOOL</small><b>账户</b></div><i class="edge e2"></i><div class="g-node g3"><small>LLM</small><b>紧急度</b></div><i class="edge e3"></i><div class="g-node g4"><small>IF / ELSE</small><b>风险</b></div><i class="edge e4"></i><i class="edge e5"></i><div class="g-node g5"><small>LLM</small><b>草稿</b></div><div class="g-node g6"><small>REVIEW</small><b>升级</b></div><i class="edge e6"></i><i class="edge e7"></i><div class="g-node g7"><small>ANSWER</small><b>交付</b></div></div>
+        <div class="ownership-band deterministic fragment fade-up" data-fragment-index="1"><b>CODE</b><span>ID · 坐标 · Wrapper · Edge Handle · 引用 · 默认值</span></div>
+      </div>
+      <aside class="notes">时间 15:00–17:00。核心讲法：每个 Builder 只回答一个节点的窄语义问题；组装层负责生成规范 ID、坐标、Wrapper、引用和 Handle。这条边界是本场分享最重要的工程判断。术语解释：语义配置描述节点要做什么，结构配置保证平台能够加载并运行它。过渡句：一个真正好用的生成器，还必须在修改时保护用户已经完成的工作。证据边界：图形是教学渲染，不是生产画布截图。</aside>
+    </section>
 
-      <!-- 10 · Problem 3: too slow → PR #38975 -->
-      <section data-background-image="../agent-plugin-governance/assets/atmos-rainbow-sean-sinclair.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">08</span>问题三 · 单发全图生成太慢</div>
-        <h2 class="slide-title">拆成并行的节点构建，一波并发出结果。</h2>
-        <div class="stat-band">
-          <div class="stat">
-            <div class="value">76.6<small>%</small></div>
-            <div class="label">system prompt 缩减 · 10,913 → ≤2,559 字符</div>
-          </div>
-          <div class="stat">
-            <div class="value">6</div>
-            <div class="label">默认并发 worker · 3–6 节点一波跑完</div>
-          </div>
-          <div class="stat">
-            <div class="value">-1</div>
-            <div class="label">省掉一次串行调用 · 模式分类折进 Planner</div>
-          </div>
-        </div>
-        <div class="grid-2 card-row">
-          <div class="glass">
-            <div class="num">CONCURRENCY</div>
-            <h3>线程池 + fail-fast</h3>
-            <p><code>ThreadPoolExecutor</code> 按节点数收敛 worker；任何一个节点构建失败，立即取消还在排队的任务，不浪费调用。并发度用环境变量运行时可调。</p>
-          </div>
-          <div class="glass">
-            <div class="num">FIELD NOTE</div>
-            <h3>一个踩过的坑</h3>
-            <p>gevent 部署下忘了 monkey-patch：阻塞的 LLM 调用把唯一的 OS 线程钉死，整个 API 进程冻结。修复是在 <code>__main__</code> 入口最先打补丁。</p>
-          </div>
-        </div>
-        <div class="foot-line">
-          <span>WORKFLOW_GENERATOR_NODE_BUILDER_MAX_WORKERS=6</span>
-          <a class="pr-chip" href="https://github.com/langgenius/dify/pull/38975"><small>langgenius/dify</small>PR #38975</a>
-        </div>
-        <aside class="notes">15:30–17:00。性能收益来自两处：prompt 变小（TTFT 和补全都快），加上关键路径从 N 次串行变成一波并行。fail-fast 语义讲一句：省的不只是时间，还有 token。gevent 的坑对自托管 Dify 的开发者是实用信息。</aside>
-      </section>
+    <!-- 10 -->
+    <section data-slide-id="s10-refine">
+      <div class="eyebrow">第三步 · 增量修改，不从头再来</div><h2>一次修改，不该让整个系统重新生成。</h2>
+      <div class="refine-command">/refine <span>“在起草回复前增加合规检查，其余部分保持不变。”</span></div>
+      <div class="refine-stage"><div class="refine-before"><small>现有 Workflow</small><div class="mini-flow"><b>账户</b><i>→</i><b>紧急度</b><i>→</i><b>风险</b><i>→</i><b>草稿</b></div></div><div class="refine-diff fragment fade-up" data-fragment-index="0"><span>保留</span><span>保留</span><span>保留</span><strong>+ 合规检查</strong><span>更新</span></div><div class="refine-after fragment fade-up" data-fragment-index="1"><small>修改后的 Workflow</small><div class="mini-flow"><b>账户</b><i>→</i><b>紧急度</b><i>→</i><b>风险</b><i>→</i><b class="new">合规</b><i>→</i><b>草稿</b></div></div></div>
+      <div class="refine-rule">保留节点直接深拷贝；更新节点把现有配置带进一个边界明确的 Prompt。</div>
+      <aside class="notes">时间 17:00–19:00。核心讲法：增量修改是一项产品能力，不只是重新调用一次生成接口。明确的 Keep 与 Update 语义既保护现有连线，也降低成本。术语解释：深拷贝意味着被保留的节点完全绕过模型。过渡句：这段推演看起来简单，是因为系统隐藏了一个困难事实——输出不是文字，而是可执行的结构化产物。证据边界：命令和差异展示是对已实现行为的静态说明。</aside>
+    </section>
 
-      <!-- 11 · Differentiation -->
-      <section data-background-image="../agent-plugin-governance/assets/bg-glass-joshua-gandara.jpg" data-background-size="cover">
-        <div class="eyebrow"><span class="idx">09</span>与其他自动生成 DSL 的差别</div>
-        <h2 class="slide-title">差别不在会不会生成，在生成之后发生什么。</h2>
-        <div class="grid-2 card-row" style="gap:22px;">
-          <div class="glass">
-            <div class="num">A</div>
-            <h3>产出是能加载的草稿，不是一段文本</h3>
-            <p>多数方案到「输出一份 YAML/JSON」为止；这里结构正确性由确定性装配层保证，产出直接落进画布，能连线、能运行、能继续编辑。</p>
-          </div>
-          <div class="glass">
-            <div class="num">B</div>
-            <h3>工作区感知</h3>
-            <p>只引用你真正安装了的工具；身份与参数 schema 由服务端目录覆盖，不会幻觉出不存在的工具，也不会把工具名拼错。</p>
-          </div>
-          <div class="glass">
-            <div class="num">C</div>
-            <h3>Refine 是增量的</h3>
-            <p>keep / update 分明，保留既有连线、容器关系和分支句柄。改一处不用推倒重来，这是「二次生成」和「持续编辑」的分水岭。</p>
-          </div>
-          <div class="glass">
-            <div class="num">D</div>
-            <h3>失败是可解释的</h3>
-            <p>机器可读错误码定位到节点，前端可以高亮出错位置——而不是一句「生成失败，请重试」。</p>
-          </div>
-        </div>
-        <aside class="notes">17:00–19:00。收束到差异化。四点的共同来源就是架构本身：因为有确定性装配层，产出才可加载；因为有路由和 hydration，才有工作区感知；因为 plan 是拓扑事实来源，refine 才能增量；因为 fail-closed，失败才可解释。</aside>
-      </section>
+    <!-- 11 -->
+    <section data-slide-id="s11-problem-shape">
+      <div class="eyebrow">问题本质 · 生成结构化产物</div><h2>这张图必须同时经得住三套系统的检验。</h2>
+      <div class="survival-stack"><div class="survival-layer fragment fade-up" data-fragment-index="0"><b>01</b><strong>Schema</strong><span>每种节点都要求不同的 <code>data</code> 结构。</span><em>字段错误 → 草稿无法加载</em></div><div class="survival-layer fragment fade-up" data-fragment-index="1"><b>02</b><strong>Canvas</strong><span>ReactFlow 的边依赖 Source 与 Target Handle。</span><em>Handle 错误 → 出现悬空边</em></div><div class="survival-layer fragment fade-up" data-fragment-index="2"><b>03</b><strong>Runtime</strong><span>变量需要跨越整张图引用节点输出。</span><em>引用失效 → 运行时输出占位文本</em></div></div>
+      <div class="survival-verdict">生成可以是概率性的，但“能不能加载”不可以。</div>
+      <aside class="notes">时间 19:00–21:00。核心讲法：Workflow DSL 会被三套系统消费：Schema 校验、视觉画布和执行运行时。悄悄产生错误的情况，往往比直接解析失败更危险。术语解释：Handle 是一条边连接节点时使用的命名连接点。过渡句：因此架构必须把语义不确定性与结构保证分开。证据边界：这些例子描述 Dify Workflow 图的约束，不能直接推广到所有 DSL。</aside>
+    </section>
 
-      <!-- 12 · Closing statement -->
-      <section class="closing-slide" data-background-image="../agent-plugin-governance/assets/atmos-pastel-codioful.jpg" data-background-size="cover">
-        <div class="eyebrow">Closing</div>
-        <h2>让模型只回答语义问题，<br><span class="blue">结构、上下文和失败，都交给工程。</span></h2>
-        <p class="slide-lead">上下文按需注入，结果确定性兜底，错误机器可读。这套办法不只属于 Workflow 生成——任何「LLM 产出结构化产物」的系统都用得上。</p>
-        <div class="foot-line"><span>github.com/langgenius/dify · 欢迎来 PR 里对线</span><span>Q&amp;A</span></div>
-        <aside class="notes">19:00–19:40。一句话总结方法论，把话题打开到所有结构化生成场景，自然过渡到 Q&amp;A。</aside>
-      </section>
+    <!-- 12 -->
+    <section data-slide-id="s12-system-pipeline">
+      <div class="eyebrow">系统流水线 · 一次请求，五项职责</div><h2>每一层，只负责一种不确定性。</h2>
+      <div class="system-pipeline"><div class="pipe-step p0 fragment fade-up" data-fragment-index="0"><small>可选</small><b>Tool Router</b><span>哪些已安装工具与当前任务有关？</span></div><div class="pipe-link"></div><div class="pipe-step p1 fragment fade-up" data-fragment-index="0"><small>第一阶段</small><b>Planner</b><span>有哪些节点，它们如何连接？</span></div><div class="pipe-link"></div><div class="pipe-step p2 fragment fade-up" data-fragment-index="1"><small>并行</small><b>Node Builders</b><span>每个节点具体应该做什么？</span></div><div class="pipe-link"></div><div class="pipe-step p3 fragment fade-up" data-fragment-index="2"><small>确定性</small><b>Assembler</b><span>这张图应该怎样被准确表示？</span></div><div class="pipe-link"></div><div class="pipe-step p4 fragment fade-up" data-fragment-index="2"><small>最后闸门</small><b>Validator</b><span>它能否安全加载并运行？</span></div></div>
+      <div class="pipeline-events"><span>SSE · PLAN EVENT</span><i></i><span>SSE · RESULT EVENT</span></div>
+      <div class="source-bar"><a href="https://github.com/langgenius/dify/tree/main/api/core/workflow" target="_blank" rel="noopener">api/core/workflow/</a><span>LLM 负责语义 · 代码负责结构</span></div>
+      <aside class="notes">时间 21:00–23:30。核心讲法：Router 缩小上下文，Planner 固定拓扑，Builders 生成语义配置，Assembler 构建图，Validator 阻止不安全结果进入画布。Plan 事件可以先于最终结果流式返回。术语解释：SSE 是 Server-Sent Events，用来逐步交付生成进度。过渡句：这种职责拆分，来自对早期单体架构的真实演进。证据边界：代码路径可能变化，长期有效的是职责划分。</aside>
+    </section>
 
-      <!-- 13 · Thanks (style shared with the two latest decks) -->
-      <section class="thanks-slide">
-        <div class="thanks-layout" aria-label="图片作者致谢">
-          <span class="credit-word credit-01">Ruido 98</span>
-          <span class="credit-word credit-02">Reinhart Julian</span>
-          <span class="credit-word credit-03">Pawel Czerwinski</span>
-          <span class="credit-word credit-04">Jakub Żerdzicki</span>
-          <span class="credit-word credit-05">Richard Horvath</span>
-          <span class="credit-word credit-06">Darkhan Basshybayev</span>
-          <span class="credit-word credit-07">Sean Sinclair</span>
-          <span class="credit-word credit-08">Kevin Ache</span>
-          <span class="credit-word credit-09">Asif Aether</span>
-          <span class="credit-word credit-10">Joshua Gandara</span>
-          <span class="credit-word credit-11">Codioful</span>
-          <div class="thanks-message">
-            <div class="thanks-kicker">DIFY × STRIPE · WORKFLOW GENERATOR</div>
-            <h1>Thank You</h1>
-            <p>谢谢 · 欢迎交流</p>
-            <div class="thanks-brand-logos" aria-label="Dify">
-              <img src="../assets/logo.svg" alt="Dify">
-            </div>
-            <div class="thanks-contact">郑立 · banana@dify.ai · github.com/langgenius/dify</div>
-          </div>
-        </div>
-        <aside class="notes">19:40–20:00。感谢大家。背景图片来自 Unsplash，作者统一列在这一页。欢迎会后继续聊生成管线的实现细节。</aside>
-      </section>
+    <!-- 13 -->
+    <section data-slide-id="s13-v1">
+      <div class="eyebrow">起点 · 有价值的第一版</div>
+      <div class="v1-layout"><div class="v1-monolith"><small>VERSION ONE</small><strong>ONE<br>CALL</strong><span>一句话 → 完整 Workflow JSON</span></div><div class="v1-consequences"><h2>它证明了体验可行，<br>也把所有失败集中在一个调用里。</h2><div class="debt fragment fade-up" data-fragment-index="0"><b>Prompt 负债</b><span>每次请求都要带上全部节点 Schema。</span></div><div class="debt fragment fade-up" data-fragment-index="1"><b>质量上限</b><span>节点越多，出现错误配置的机会越多。</span></div><div class="debt fragment fade-up" data-fragment-index="2"><b>延迟路径</b><span>一次大型补全占据了整个关键路径。</span></div></div></div>
+      <div class="source-bar"><a href="https://github.com/langgenius/dify/pull/31944" target="_blank" rel="noopener">PR #31944 · 早期实现</a><span>原型 → 职责拆分</span></div>
+      <aside class="notes">时间 23:30–25:30。核心讲法：第一版不是错误，它验证了命令体验、生成器包、服务边界以及从 Plan 到 Result 的事件流。它的上限暴露出三类不同问题：上下文规模、错误集中和延迟。术语解释：关键路径是决定端到端完成时间的那条串行链。过渡句：Planner 把拓扑从一次性生成的赌博中抽离出来。证据边界：这一页总结代码仓库演进，不是性能基准对比。</aside>
+    </section>
 
-    </div>
-  </div>
+    <!-- 14 -->
+    <section data-slide-id="s14-planner">
+      <div class="eyebrow">Planner · 先定拓扑，再补细节</div><h2>Plan 是“有哪些节点、怎样连接”的唯一事实来源。</h2>
+      <div class="planner-anatomy"><div class="planner-input"><small>输入指令</small><p>目标、约束、现有 Workflow</p></div><div class="planner-core"><b>PLANNER</b><span>节点类型 · ID · 职责 · 工具绑定</span><span>边 · 开始节点输入 · 应用模式</span></div><div class="planner-output"><div class="po fragment fade-up" data-fragment-index="0"><b>Schema 检查</b><span>未知节点与非法边提前失败</span></div><div class="po fragment fade-up" data-fragment-index="1"><b>定向重试</b><span>只重试一次，并带上具体错误</span></div><div class="po fragment fade-up" data-fragment-index="2"><b>提前返回 Plan</b><span>完整组装前，前端先展示进度</span></div></div></div>
+      <div class="planner-rule">第二次仍然非法，就明确报错；不要邀请模型继续猜。</div>
+      <aside class="notes">时间 25:30–27:30。核心讲法：Planner 决定节点是否存在、拓扑、输入、工具绑定和应用模式，但不负责详细节点配置。校验加一次定向重试，把恢复行为控制在明确边界内。术语解释：定向重试会把具体 Schema 错误交给模型，而不是原样重复 Prompt。过渡句：拓扑固定之后，节点构建就可以变窄并行。证据边界：Token 上限和 Prompt 细节属于当前实现选择，不是普适默认值。</aside>
+    </section>
 
+    <!-- 15 -->
+    <section data-slide-id="s15-builder">
+      <div class="eyebrow">Node Builder · 一次只解决一个语义任务</div><h2>一个节点，一次聚焦调用，<br>一份足够小的契约。</h2>
+      <div class="builder-boundary"><div class="builder-allowed"><small>模型可以写</small><strong>{ "config": { … } }</strong><span>Prompt · 代码 · 变量 · 工具参数</span></div><div class="builder-divider">边界</div><div class="builder-denied fragment fade-up" data-fragment-index="0"><small>模型不可以写</small><p>id</p><p>position</p><p>edges</p><p>viewport</p><p>wrapper fields</p></div></div>
+      <div class="builder-context fragment fade-up" data-fragment-index="1"><b>Prompt 上下文</b><span>只提供当前节点类型的 Schema、节点职责，以及用于合法引用的完整 Plan</span></div>
+      <aside class="notes">时间 27:30–29:30。核心讲法：Builder 只接收当前节点需要的 Schema、节点职责，以及处理跨节点引用所需的完整 Plan。结构字段被明确禁止。术语解释：输出契约是系统允许模型返回的最小 JSON 形状。过渡句：工具节点还会带来另一个问题——一个 Workspace 里可能安装了数百个工具。证据边界：Prompt 变窄能提升可控性，但不能单独保证语义正确。</aside>
+    </section>
+
+    <!-- 16 -->
+    <section data-slide-id="s16-tool-context">
+      <div class="eyebrow">工具上下文 · 只注入真实且相关的内容</div><h2>不要让模型在 Prompt 里搜索一个无限增长的工具目录。</h2>
+      <div class="tool-funnel"><div class="catalogue"><small>WORKSPACE</small><strong>数百个已安装工具</strong><span>名称 · 描述 · Schema</span></div><div class="funnel-neck fragment fade-up" data-fragment-index="0"><b>&gt; 24?</b><span>256 Token 路由调用 → 本地确定性排序</span></div><div class="candidate-set fragment fade-up" data-fragment-index="1"><small>候选工具</small><strong>≤ 16</strong><span>明确点名和已在使用的工具始终保留</span></div><div class="hydration fragment fade-up" data-fragment-index="2"><small>信任边界</small><strong>从目录 Hydrate</strong><span>最后由服务端覆盖工具身份与参数 Schema</span></div></div>
+      <div class="tool-rule">模型决定绑定谁；Workspace 工具目录决定谁真实存在。</div>
+      <div class="source-bar"><a href="https://github.com/langgenius/dify/pull/40611" target="_blank" rel="noopener">PR #40611 · 动态工具注入</a><span>ROUTE → RANK → HYDRATE</span></div>
+      <aside class="notes">时间 29:30–32:00。核心讲法：小目录可以直接注入；大目录先用一个很小的路由调用，再由本地算法排序。用户明确点名以及 Refine 中已经存在的工具必须保留。Hydration 是信任边界，因为最终身份和 Schema 来自服务端目录，不来自生成文本。术语解释：Hydration 是用权威服务端元数据补全轻量引用。过渡句：工具即使正确，也救不了一张结构非法的图。证据边界：阈值与候选上限描述当前实现，未来可以调整。</aside>
+    </section>
+
+    <!-- 17 -->
+    <section data-slide-id="s17-validator">
+      <div class="eyebrow">Validator · 只修复确定安全的部分</div><h2>确定性不是“什么都修”，<br>而是知道什么时候不能猜。</h2>
+      <div class="validation-boundary"><div class="repair-side"><small>自动修复</small><div class="repair-item fragment fade-up" data-fragment-index="0"><b>ID 规范化</b><span>重写非法 ID 以及所有关联引用</span></div><div class="repair-item fragment fade-up" data-fragment-index="1"><b>唯一明确的引用</b><span>来源节点只有一个合法输出</span></div><div class="repair-item fragment fade-up" data-fragment-index="1"><b>默认值与布局</b><span>Wrapper、Edge ID、坐标、Handle</span></div></div><div class="stop-line"><span>能够安全推断吗？</span></div><div class="fail-side"><small>失败关闭</small><div class="error-code fragment fade-up" data-fragment-index="2"><b>GRAPH_CYCLE</b><span>拓扑无法执行</span></div><div class="error-code fragment fade-up" data-fragment-index="2"><b>DANGLING_EDGE</b><span>目标节点或 Handle 无法解析</span></div><div class="error-code fragment fade-up" data-fragment-index="2"><b>UNKNOWN_TOOL</b><span>Workspace 无法补全工具身份</span></div></div></div>
+      <div class="source-bar"><a href="https://github.com/langgenius/dify/pull/32130" target="_blank" rel="noopener">PR #32130 · 后处理与校验</a><span>损坏的图绝不进入画布</span></div>
+      <aside class="notes">时间 32:00–34:30。核心讲法：只有存在唯一安全答案时，系统才应该自动修复。非法 ID、明确引用、Wrapper 和布局可以处理；有歧义的拓扑或未知工具必须明确失败，并给出可定位错误。术语解释：失败关闭表示默认阻止不安全输出继续流转。过渡句：当调用变小、结构受到保护后，架构就能用并行降低延迟。证据边界：错误名称用于说明校验契约，具体 Code 未来可能变化。</aside>
+    </section>
+
+    <!-- 18 -->
+    <section data-slide-id="s18-parallelism">
+      <div class="eyebrow">性能 · 更短的 Prompt，更短的关键路径</div><h2>把节点构建放进同一个并行波次。</h2>
+      <div class="timing-comparison"><div class="timing-row serial"><b>串行</b><span class="t-plan">PLAN</span><span class="t-build">节点 1</span><span class="t-build">节点 2</span><span class="t-build">节点 3</span><span class="t-build">节点 4</span><span class="t-validate">校验</span></div><div class="timing-row parallel fragment fade-up" data-fragment-index="0"><b>并行</b><span class="t-plan">PLAN</span><span class="parallel-wave"><i>节点 1</i><i>节点 2</i><i>节点 3</i><i>节点 4</i></span><span class="t-validate">校验</span></div></div>
+      <div class="performance-strip fragment fade-up" data-fragment-index="1"><strong>76.6%</strong><span>System Prompt 缩减<br>10,913 → ≤ 2,559 字符</span><strong>6</strong><span>默认 Worker 数<br>不超过节点总数</span><strong>−1</strong><span>减少一次串行调用<br>模式判断并入 Planner</span></div>
+      <div class="performance-note">任何一个节点构建失败，Fail-fast 会取消尚未开始的排队任务。</div>
+      <div class="source-bar"><a href="https://github.com/langgenius/dify/pull/38975" target="_blank" rel="noopener">PR #38975 · 并行 Node Builder</a><span>工程实现披露 · 不等同于用户 ROI</span></div>
+      <aside class="notes">时间 34:30–36:30。核心讲法：按节点类型拆分 Prompt，既能缩短首 Token 时间，也能减少补全长度；有限 Worker Pool 把 N 次串行构建压缩成一个并行波次。Fail-fast 节省的不只是时间，也包括无效调用。术语解释：Worker 上限控制同时发生的模型调用数。过渡句：现在回到产品层，看看这些生成能力最终能支撑怎样的用户产品。证据边界：这些数字来自代码仓库的工程实现披露，不是经独立审计的业务效果。</aside>
+    </section>
+
+    <!-- 19 -->
+    <section data-slide-id="s19-dify-packaging">
+      <div class="eyebrow">Dify Packaging · 平台能力不等于产品形态</div><h2>同一套底层能力，可以交付成完全不同的产品。</h2>
+      <div class="packaging-layout"><div class="platform-core"><img src="../assets/logo.svg" alt="Dify"><span>Models · Knowledge · Tools · Orchestration</span></div><div class="delivery-index"><div><small>API / EMBED</small><b>Copilot</b><span>嵌入已有动作</span></div><div><small>AGENT APP</small><b>工作台 / 分析 Agent</b><span>围绕项目或调查过程</span></div><div><small>CHATFLOW + CHANNELS</small><b>服务 Agent</b><span>从会话走向解决</span></div><div><small>WORKFLOW + API</small><b>流程 Agent</b><span>推动 Case 穿过状态</span></div><div><small>TRIGGER + WORKFLOW</small><b>监测 Agent</b><span>从信号走向异常事件</span></div></div></div>
+      <div class="packaging-verdict">先确定用户看到的产品，再选择 Dify 组件。</div>
+      <div class="source-bar"><a href="https://docs.dify.ai/en/guides/application-orchestrate/creating-an-application" target="_blank" rel="noopener">Dify 应用编排文档</a><span>产品设计建议 · 不是官方固定分类</span></div>
+      <aside class="notes">时间 36:30–38:30。核心讲法：Workflow Generator 是支撑能力，不是最终产品。Dify 的模型、知识、工具、编排、API、渠道与触发器，可以围绕不同工作单元被组合成不同产品。术语解释：Packaging 是把共享平台能力包装成面向一个用户和场景的产品。过渡句：最后把产品匹配与工程责任重新连接起来。证据边界：映射关系是设计建议，不是 Dify 官方产品分类。</aside>
+    </section>
+
+    <!-- 20 -->
+    <section class="principle-slide" data-slide-id="s20-closing-principle">
+      <div class="eyebrow on-dark">结论 · 产品设计与工程保证必须彼此加强</div><h2>语义问题交给模型。<br><span>必须成立的条件交给工程。</span></h2>
+      <div class="principle-line"><div><small>MODEL</small><b>语义</b><span>意图 · Prompt · 绑定</span></div><i></i><div><small>CODE</small><b>结构</b><span>ID · 边 · 引用</span></div><i></i><div><small>SYSTEM</small><b>上下文</b><span>已安装工具 · Schema · 状态</span></div><i></i><div><small>PRODUCT</small><b>失败行为</b><span>修复 · 解释 · 停止</span></div></div>
+      <div class="principle-verdict">场景匹配带来采用，工程保证赢得信任。</div>
+      <aside class="notes">时间 38:30–40:00。核心讲法：语义可以保留概率性，但结构、权威上下文和失败行为必须有明确责任人。把前后两部分连接起来：好的产品形态让用户愿意开始使用，可靠的工程保证让用户愿意持续使用。术语解释：工程保证是系统设计强制维持的属性，不是写在 Prompt 里的愿望。过渡句：邀请现场观众用三个问题分析自己的场景。证据边界：原则可以推广到 Workflow Generator 之外，但具体实现会随系统不同而变化。</aside>
+    </section>
+
+    <!-- 21 -->
+    <section class="qa-slide" data-slide-id="s21-qa">
+      <img class="photo-bg" src="../enterprise-agent-campus/assets/bg-geometric-facade-arlind.jpg" alt="Arlind Photography 在 Unsplash 发布的现代几何建筑立面"><div class="qa-shade"></div>
+      <div class="qa-copy"><div class="eyebrow on-dark">Q&amp;A · 用这套框架分析你的场景</div><h2>别从<br>“我们需要一个 Agent”开始。</h2><div class="qa-path"><p class="fragment fade-up" data-fragment-index="0"><b>01</b><span>最小的持久工作对象是什么？</span></p><p class="fragment fade-up" data-fragment-index="1"><b>02</b><span>哪些判断属于语义，哪些输出必须得到保证？</span></p><p class="fragment fade-up" data-fragment-index="2"><b>03</b><span>系统应该修复什么、解释什么，又必须拒绝猜什么？</span></p></div><div class="qa-meta">Zheng Li · Head of DevRel · Dify · <a href="mailto:banana@dify.ai">banana@dify.ai</a></div></div>
+      <aside class="notes">时间 40:00–44:30。核心讲法：用这三个问题把讨论从抽象的 Agent 想法，带回具体产品和系统选择。如果现场暂时没人提问，就请一位同学分享一项反复发生的工作，再一起判断工作对象、产品形态、语义决策和工程保证。术语解释：持久意味着对象不会随着一次模型回答结束而消失。过渡句：最后留下联系方式。证据边界：现场例子只能视为假设，不能当作已经验证的产品需求。</aside>
+    </section>
+
+    <!-- 22 -->
+    <section class="thank-you-slide" data-slide-id="s22-thank-you">
+      <img class="photo-bg" src="../enterprise-agent-campus/assets/bg-geometric-facade-arlind.jpg" alt="Arlind Photography 在 Unsplash 发布的现代几何建筑立面"><div class="thank-you-shade"></div>
+      <div class="thank-you-copy"><div class="thank-you-main"><div class="eyebrow on-dark">保持联系</div><h2>谢谢</h2></div><div class="thank-you-contact"><span class="thank-you-logo"><img src="../milvus/assets/dify-logo-dark-mode.svg" alt="Dify"></span><div><strong>Zheng Li</strong><span>Head of DevRel · Dify</span><a href="mailto:banana@dify.ai">banana@dify.ai</a></div></div></div>
+      <div class="thank-you-credit">图片 · Timothée Duran · Declan Sun · Arlind Photography / Unsplash</div>
+      <aside class="notes">时间 44:30–45:00。核心讲法：感谢听众，并邀请大家继续交流 Agent 产品形态、Workflow 生成和生产级工程实现。术语解释：无。过渡句：演讲结束。证据边界：邮箱是讲者公开工作联系方式。</aside>
+    </section>
+
+  </div></div>
   <script src="../agent-plugin-governance/assets/reveal/reveal.js"></script>
   <script src="../agent-plugin-governance/assets/reveal/plugin/notes/notes.js"></script>
   <script>
-    Reveal.initialize({
-      hash: true,
-      width: 1920,
-      height: 1080,
-      margin: 0,
-      minScale: 0.2,
-      maxScale: 1.5,
-      center: false,
-      display: 'flex',
-      controls: true,
-      progress: true,
-      slideNumber: 'c/t',
-      transition: 'fade',
-      backgroundTransition: 'fade',
-      plugins: [RevealNotes],
-    });
-    const syncChrome = (event) => {
-      const slide = (event && event.currentSlide) || Reveal.getCurrentSlide();
-      document.body.classList.toggle('chrome-thanks', Boolean(slide && slide.matches('.thanks-slide')));
-    };
-    Reveal.on('ready', syncChrome);
-    Reveal.on('slidechanged', syncChrome);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    Reveal.initialize({hash:true,width:1920,height:1080,margin:0,minScale:0.2,maxScale:1.5,center:false,controls:true,controlsTutorial:false,progress:true,slideNumber:'c/t',navigationMode:'linear',transition:reduceMotion?'none':'fade',transitionSpeed:'fast',backgroundTransition:reduceMotion?'none':'fade',pdfSeparateFragments:false,plugins:[RevealNotes]});
   </script>
 </body>
 </html>

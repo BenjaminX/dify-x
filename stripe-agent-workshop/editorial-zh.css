@@ -1,0 +1,102 @@
+:root{
+  --sans:"Inter","Noto Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+}
+
+html[lang="zh-CN"] .reveal h1,
+html[lang="zh-CN"] .reveal h2,
+html[lang="zh-CN"] .reveal h3{
+  letter-spacing:-.055em;
+  text-wrap:balance;
+}
+
+html[lang="zh-CN"] .reveal h2{font-size:64px;line-height:1.08}
+html[lang="zh-CN"] .reveal p{text-wrap:pretty}
+html[lang="zh-CN"] .eyebrow{letter-spacing:.09em}
+html[lang="zh-CN"] .source-bar{font-size:11px;letter-spacing:.025em}
+
+/* 01 — 中文封面节奏 */
+html[lang="zh-CN"] .cover-copy h1{font-size:98px;line-height:.94;letter-spacing:-.07em}
+html[lang="zh-CN"] .cover-copy p{max-width:720px;font-size:31px}
+html[lang="zh-CN"] .cover-meta{grid-template-columns:1fr 1.6fr auto;gap:26px;font-size:12px}
+
+/* 02 — 为转折箭头保留独立留白 */
+html[lang="zh-CN"] .thesis-side strong{font-size:54px;line-height:1.1}
+html[lang="zh-CN"] .thesis-side p{max-width:620px;font-size:24px}
+html[lang="zh-CN"] .thesis-right{padding-left:144px}
+html[lang="zh-CN"] .thesis-arrow{left:calc(44% + 42px)}
+html[lang="zh-CN"] .slide-verdict{font-size:27px}
+
+/* 03 — 中文表格使用略短的列名 */
+html[lang="zh-CN"] .wu-head,
+html[lang="zh-CN"] .wu-row{grid-template-columns:250px 320px 1fr}
+html[lang="zh-CN"] .wu-row{font-size:21px}
+
+/* 04 — 纵轴标题保持正常横排，避免中文倒置 */
+html[lang="zh-CN"] .axis-y{left:18px;top:18px;writing-mode:horizontal-tb;transform:none;white-space:nowrap}
+html[lang="zh-CN"] .atlas-node{width:230px}
+html[lang="zh-CN"] .atlas-node b{font-size:24px}
+html[lang="zh-CN"] .atlas-node span{font-size:16px}
+html[lang="zh-CN"] .atlas-note{font-size:19px}
+
+/* 05–06 — 产品问题与 Workflow 阶段门 */
+html[lang="zh-CN"] .route-stop b{font-size:29px}
+html[lang="zh-CN"] .route-stop p{font-size:22px;line-height:1.5}
+html[lang="zh-CN"] [data-slide-id="s06-workflow-fit"] h2{max-width:1500px;font-size:61px}
+html[lang="zh-CN"] .gate-start strong,
+html[lang="zh-CN"] .gate-end strong{font-size:25px;line-height:1.35}
+html[lang="zh-CN"] .gate span{font-size:20px;line-height:1.5}
+html[lang="zh-CN"] .workflow-fit-rule{font-size:26px}
+
+/* 07–10 — 静态案例推演 */
+html[lang="zh-CN"] .case-copy{width:60%}
+html[lang="zh-CN"] .case-copy h2{font-size:58px;line-height:1.12}
+html[lang="zh-CN"] .case-copy p{font-size:24px}
+html[lang="zh-CN"] [data-slide-id="s08-sentence-to-plan"] h2{font-size:61px}
+html[lang="zh-CN"] .prompt-pane p{font-size:28px;line-height:1.5}
+html[lang="zh-CN"] .prompt-pane span{font-size:17px}
+html[lang="zh-CN"] .plan-sheet li{font-size:17px}
+html[lang="zh-CN"] .plan-verdict{font-size:23px}
+html[lang="zh-CN"] .ownership-band span{font-size:16px}
+html[lang="zh-CN"] .refine-command{font-size:18px}
+html[lang="zh-CN"] .refine-rule{font-size:22px}
+
+/* 11–14 — 系统责任与 Planner */
+html[lang="zh-CN"] .survival-layer{grid-template-columns:80px 210px 1fr 390px}
+html[lang="zh-CN"] .survival-layer span{font-size:20px}
+html[lang="zh-CN"] .survival-layer em{font-size:14px}
+html[lang="zh-CN"] .pipe-step b{font-size:25px}
+html[lang="zh-CN"] .pipe-step span{font-size:17px;line-height:1.5}
+html[lang="zh-CN"] .v1-consequences h2{font-size:48px;line-height:1.12}
+html[lang="zh-CN"] .debt{grid-template-columns:190px 1fr}
+html[lang="zh-CN"] .debt span{font-size:18px}
+html[lang="zh-CN"] [data-slide-id="s14-planner"] h2{font-size:61px}
+html[lang="zh-CN"] .po{grid-template-columns:180px 1fr}
+html[lang="zh-CN"] .planner-rule{font-size:22px}
+
+/* 15–18 — 构建、工具、校验和并行 */
+html[lang="zh-CN"] .builder-divider{writing-mode:vertical-rl;transform:none}
+html[lang="zh-CN"] .builder-context{grid-template-columns:210px 1fr;font-size:19px}
+html[lang="zh-CN"] [data-slide-id="s16-tool-context"] h2{font-size:60px}
+html[lang="zh-CN"] .tool-funnel strong{font-size:27px}
+html[lang="zh-CN"] .tool-funnel span{font-size:16px}
+html[lang="zh-CN"] .tool-rule{font-size:22px}
+html[lang="zh-CN"] .repair-item,
+html[lang="zh-CN"] .error-code{grid-template-columns:210px 1fr}
+html[lang="zh-CN"] .stop-line span{writing-mode:vertical-rl;transform:none;letter-spacing:.1em}
+html[lang="zh-CN"] .performance-strip span{font-size:15px}
+
+/* 19–22 — 产品回扣与收尾 */
+html[lang="zh-CN"] .delivery-index>div{grid-template-columns:220px 285px 1fr}
+html[lang="zh-CN"] .delivery-index b{font-size:21px}
+html[lang="zh-CN"] .delivery-index span{font-size:16px}
+html[lang="zh-CN"] .packaging-verdict{font-size:26px}
+html[lang="zh-CN"] .principle-slide h2{font-size:72px;line-height:1.08}
+html[lang="zh-CN"] .principle-line b{font-size:32px}
+html[lang="zh-CN"] .principle-line span{font-size:17px}
+html[lang="zh-CN"] .qa-copy h2{font-size:76px;line-height:1.05}
+html[lang="zh-CN"] .qa-path p{font-size:22px}
+html[lang="zh-CN"] .thank-you-main h2{font-size:118px}
+
+@media print{
+  html[lang="zh-CN"] .reveal .fragment{opacity:1!important;visibility:visible!important;transform:none!important}
+}

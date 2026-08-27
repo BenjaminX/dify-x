@@ -1,6 +1,8 @@
 # Dify × Stripe Workshop：From Scenario to System
 
-英文版是一场 45 分钟、面向产品与工程混合听众的 Workshop：先从工作单元、产品形态、交付物和使用节奏判断 Agent 应该成为怎样的产品，再用 Dify Workflow Generator 拆解如何把一句自然语言需求变成可检查的计划、可运行的图和可增量修改的系统。
+这是一套中英双语、45 分钟、面向产品与工程混合听众的 Workshop：先从工作单元、产品形态、交付物和使用节奏判断 Agent 应该成为怎样的产品，再用 Dify Workflow Generator 拆解如何把一句自然语言需求变成可检查的计划、可运行的图和可增量修改的系统。
+
+中文版不是英文版的逐字翻译，而是按中文演讲习惯重新断句、压缩标题和调整信息密度；两种语言共享同一套页序、证据、计时和 `data-slide-id`。
 
 ## Title
 
@@ -35,11 +37,14 @@ Most enterprise-agent projects start with model capability. This session starts 
 
 ## 文件与版本边界
 
-- `index_en.html`：新的 22 页英文演示。
-- `editorial-en.css`：英文版独立编辑式视觉层，不影响中文版。
+- `index.html`：22 页中文版演示。
+- `index_en.html`：22 页英文版演示。
+- `editorial-en.css`：中英文共享的编辑式网格与组件基础。
+- `editorial-zh.css`：只作用于中文版的断句、字号、间距与文字方向校准。
 - `source-map.md`：工程来源、证据边界、图片版权和计时映射。
 - `qa/contact-sheet-en.png`：22 页完整展开后的 4 × 6 视觉巡检图。
-- `index.html` 与 `styles.css`：保留原中文版和原视觉，不在本次改动范围内。
+- `qa/contact-sheet-zh.png`：中文版 22 页完整展开后的 4 × 6 视觉巡检图。
+- `styles.css`：旧版遗留样式，不再由新中英文演示加载。
 - `starter/stripe-billing`：保留已有 Sandbox skill，不参与本次通用 Workflow 静态推演。
 
 ## 演示与证据边界

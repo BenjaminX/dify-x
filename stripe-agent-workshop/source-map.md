@@ -2,7 +2,9 @@
 
 ## Deck Contract
 
-- English deck: 22 slides, 22 speaker-note blocks, 45:00 total.
+- Chinese and English decks: 22 slides each, 22 speaker-note blocks each, 45:00 total.
+- Both languages share the same `data-slide-id` order, timing, fragments, sources, and evidence boundaries.
+- Chinese copy is localized for spoken delivery rather than translated word for word.
 - Product framing: slides `s01`–`s06`, 12:00.
 - Static synthetic walkthrough: slides `s07`–`s10`, 7:00.
 - Engineering architecture: slides `s11`–`s18`, 17:30.
