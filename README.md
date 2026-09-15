@@ -54,7 +54,7 @@ Online:
 - English versions live in each folder's `index_en.html`, except `agent-systems-sg/` which is English-only.
 
 ## Tech & design
-- Slides: Reveal.js 4.5.0 (5.x in `ctrip/`, `dentsply/`, `paypal/`; `milvus/` uses 5.x with theme switching). The runtime is loaded from CDN except in `agent-plugin-governance/` and `stripe-agent-workshop/`, which reuse the vendored copy at `agent-plugin-governance/assets/reveal/`.
+- Slides: Reveal.js 4.5.0 across most decks; `ctrip/`, `dentsply/`, and `paypal/` use 5.0.4 and `milvus/` uses 5.x with theme switching. The runtime comes from a CDN except in `agent-plugin-governance/` and `stripe-agent-workshop/`, which reuse the vendored copy at `agent-plugin-governance/assets/reveal/`.
 - Design systems: Nordic (`agent-systems/styles.css`), editorial grid (`enterprise-agent-campus/editorial.css` + `editorial-zh.css`, reused by `stripe-agent-workshop/editorial-*.css`), Milvus three-theme set (`milvus/styles/`), Pop Art (`aispeech/styles/`).
 - Brand: `#0033ff` (Dify Blue); logo in `assets/logo.svg`.
 - Fonts: prefer Söhne / Söhne Mono; fallbacks Inter, JetBrains Mono, Mi Sans / Noto Sans SC / Noto Sans Mono SC.
