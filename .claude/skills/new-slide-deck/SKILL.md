@@ -5,7 +5,9 @@ description: Create a new reveal.js slide deck for dify-x and register it on the
 
 # New Slide Deck
 
-Creates a new reveal.js presentation in `/Users/minibanana/Program/dify-x/` and wires it into the navigation index.
+Creates a new reveal.js presentation in `/Users/banana/Work/dify-x/` and wires it into the navigation index.
+
+The repository currently holds 15 decks. Always re-read the directory listing before writing — new decks land frequently and the inventory in `README.md` may lag by a commit or two.
 
 ---
 
@@ -17,20 +19,36 @@ Ask (or infer from context) before writing any files:
 |---|---|
 | `DECK_DIR` | `acme` (lowercase, kebab-case) |
 | `PILL_LABEL` | `Dify × Acme` |
-| `THEME` | `nordic` · `milvus` · `popart` _(see §Themes)_ |
-| ZH title + one-line description | for `index.html` card |
+| `THEME` | `editorial` · `nordic` · `milvus` · `popart` _(see §Themes)_ |
+| ZH title + one-line description | for `index_zh.html` card |
 | EN title + one-line description | for `index_en.html` card |
 | Slide content outline | titles, bullets, speaker notes per slide |
+
+Default to a **bilingual** deck: `index.html` (zh-CN) + `index_en.html` (en) that share slide order, `data-slide-id`s, timing, and speaker notes.
 
 ---
 
 ## Step 2 — Choose a theme
 
-### Theme A · Nordic (default) — `agent-systems` / `hongkong-oss` / `pupu`
+### Theme A · Editorial (default) — `enterprise-agent-campus` / `stripe-agent-workshop`
+
+Newest and most polished. Reference-page aesthetic: 3px Dify Blue top rule, white top bar, hairline rules, single-column editorial grid. Best for lectures, workshops, and product-form talks.
+
+- **CSS**: copy `../enterprise-agent-campus/editorial.css` as your base, plus `../enterprise-agent-campus/editorial-zh.css` for the Chinese page only
+- **Reveal version**: `4.5.0`, vendored at `../agent-plugin-governance/assets/reveal/` (`reset.css`, `reveal.css`, `reveal.js`, `plugin/notes/notes.js`)
+- **Fonts**: Inter + Noto Sans SC + JetBrains Mono (Google Fonts)
+- **Canvas**: 1920 × 1080, `margin: 0.04`
+- **Structure**: `<div class="deck-brand">` for the top bar, `<div class="lang-switch">` for CN/EN, then `<div class="reveal"><div class="slides">`
+- **Classes**: `.cover-slide` / `.photo-bg` / `.cover-shade` / `.cover-copy` / `.cover-meta`, `.eyebrow`, `[data-slide-id]` on every section
+- **Cache-busting**: version the CSS links (`editorial.css?v=YYYYMMDD-n`)
+- **Also ship**: `README.md`, `source-map.md`, and `qa/contact-sheet-{zh,en}.png`
+
+### Theme B · Nordic — `agent-systems` / `hongkong-oss` / `pupu` / `agent-last-mile`
+
 Clean, grid-based, Dify Blue on white. Best for technical deep-dives.
 
 - **CSS**: reference `../agent-systems/styles.css`
-- **Reveal version**: `4.5.0`
+- **Reveal version**: `4.5.0` from CDN
 - **Fonts**: Inter + Noto Sans SC + JetBrains Mono (Google Fonts)
 - **Icons**: RemixIcon `remixicon@3.5.0`
 - **Extra**: Tailwind CDN for utility classes
@@ -38,10 +56,11 @@ Clean, grid-based, Dify Blue on white. Best for technical deep-dives.
 - **Default bg**: `data-background-color="#fafafa"` (light) or `"#0033ff"` (brand)
 - **Cover layout**: `.slide-hero` with `.author-block` (name / role / email)
 
-### Theme B · Milvus — `milvus`
-Three switchable sub-themes (Swiss / Atelier / Ukiyo) via keyboard `1`/`2`/`3`.
+### Theme C · Milvus — `milvus`
 
-- **CSS**: `styles/dify-theme.css` + `styles/base.css` + `styles/theme-swiss.css` (default)
+Three switchable sub-themes (Swiss / Atelier / Ukiyo) via keyboard `1` / `2` / `3`.
+
+- **CSS**: `../milvus/styles/dify-theme.css` + `../milvus/styles/base.css` + `../milvus/styles/theme-swiss.css` (default)
 - **Reveal version**: `5`
 - **Fonts**: Söhne (fallback: Inter) + Noto Sans SC
 - **`width × height`**: `1920 × 1080`
@@ -51,7 +70,8 @@ Three switchable sub-themes (Swiss / Atelier / Ukiyo) via keyboard `1`/`2`/`3`.
   - `theme-atelier.css` — richer gradient, warmer, expressive
   - `theme-ukiyo.css` — washi paper texture, indigo brush underline on h2
 
-### Theme C · Pop Art — `aispeech`
+### Theme D · Pop Art — `aispeech`
+
 Bold, comic-strip aesthetics. Best for high-energy keynote-style talks.
 
 - **CSS**: `../aispeech/styles/nordic.css` + `../aispeech/styles/popart.css`
@@ -60,11 +80,85 @@ Bold, comic-strip aesthetics. Best for high-energy keynote-style talks.
 - **Hard shadows**: `8px 8px 0 #000` — zero border-radius
 - **Icons**: Font Awesome `@6.5.2`
 
+### Bundled runtime
+
+`agent-plugin-governance/assets/reveal/` holds a vendored reveal.js **4.5.0**. Reuse it via `../agent-plugin-governance/assets/reveal/...` rather than adding another copy. Only `ctrip/`, `dentsply/`, `paypal/`, and `milvus/` use CDN 5.x; everything else uses 4.5.0.
+
 ---
 
 ## Step 3 — Create the deck files
 
-### Nordic HTML skeleton
+### Editorial skeleton (default)
+
+```html
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>{ZH_TITLE} — {PILL_LABEL}</title>
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../agent-plugin-governance/assets/reveal/reset.css">
+  <link rel="stylesheet" href="../agent-plugin-governance/assets/reveal/reveal.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../enterprise-agent-campus/editorial.css?v=1">
+  <link rel="stylesheet" href="../enterprise-agent-campus/editorial-zh.css?v=1">
+</head>
+<body>
+  <div class="deck-brand"><img src="../assets/logo.svg" alt="Dify"><span>{PILL_LABEL} · {SHORT_TITLE}</span></div>
+  <div class="lang-switch"><a class="active" href="index.html">中文</a><span>/</span><a href="index_en.html">EN</a></div>
+
+  <div class="reveal"><div class="slides">
+
+    <!-- 01 · VISUAL_SLOT: cover -->
+    <section class="cover-slide" data-slide-id="s01-cover">
+      <div class="cover-copy">
+        <div>
+          <div class="eyebrow on-dark">{PILL_LABEL}</div>
+          <h1>{ZH_TITLE}</h1>
+          <p>{ZH_SUBTITLE}</p>
+        </div>
+        <div class="cover-meta">
+          <span>crazywoola（Banana） · Head of DevRel · Dify</span>
+          <b>45 MIN</b>
+        </div>
+      </div>
+      <aside class="notes">Speaker notes here.</aside>
+    </section>
+
+    <!-- 02 -->
+    <section data-slide-id="s02-section">
+      <div class="eyebrow">Section · Label</div>
+      <h2>Slide headline that carries the conclusion.</h2>
+      <aside class="notes">Speaker notes here.</aside>
+    </section>
+
+    <!-- Add more slides ══ -->
+
+  </div></div>
+
+  <script src="../agent-plugin-governance/assets/reveal/reveal.js"></script>
+  <script src="../agent-plugin-governance/assets/reveal/plugin/notes/notes.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      width: 1920,
+      height: 1080,
+      margin: 0.04,
+      transition: 'fade',
+      backgroundTransition: 'fade',
+      plugins: [RevealNotes],
+    });
+  </script>
+</body>
+</html>
+```
+
+For `index_en.html`: `lang="en"`, drop `editorial-zh.css`, swap `editorial.css` for the English variant if the deck ships one (see `stripe-agent-workshop/editorial-en.css`), and flip the `.lang-switch` active class. Keep `data-slide-id`s identical between languages.
+
+### Nordic skeleton
 
 ```html
 <!doctype html>
@@ -131,7 +225,7 @@ Bold, comic-strip aesthetics. Best for high-energy keynote-style talks.
 </html>
 ```
 
-### Milvus HTML skeleton (with theme switcher)
+### Milvus skeleton (with theme switcher)
 
 ```html
 <!doctype html>
@@ -153,14 +247,8 @@ Bold, comic-strip aesthetics. Best for high-energy keynote-style talks.
         <a href="index_en.html">EN</a>
     </div>
     <div class="brand"><img src="../assets/logo.svg" alt="Dify"></div>
-    <div id="bg-shapes">
-        <div class="shape s1" style="width:900px;height:700px;top:-10%;left:-8%;"></div>
-        <div class="shape s2" style="width:700px;height:600px;top:5%;right:-6%;"></div>
-        <div class="shape s3" style="width:600px;height:500px;bottom:-12%;left:30%;"></div>
-    </div>
     <div class="reveal">
         <div class="slides">
-
             <!-- ══ Slide 1 · Cover ══ -->
             <section>
                 <h1 class="title-big">{ZH_TITLE}</h1>
@@ -168,59 +256,37 @@ Bold, comic-strip aesthetics. Best for high-energy keynote-style talks.
                 <p class="meta">crazywoola（Banana） · Developer Relations @ Dify · banana@dify.ai</p>
                 <aside class="notes">Speaker notes here.</aside>
             </section>
-
-            <!-- ══ Add more slides ══ -->
-
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/notes/notes.js"></script>
     <script>
-        Reveal.initialize({
-            hash: true,
-            width: 1920,
-            height: 1080,
-            margin: 0.04,
-            controls: true,
-            progress: true,
-            slideNumber: 'c/t',
-            transition: 'fade',
-            plugins: [RevealNotes],
-        });
-        // Theme switcher: press 1 = Swiss, 2 = Atelier, 3 = Ukiyo
+        Reveal.initialize({ hash: true, width: 1920, height: 1080, margin: 0.04, slideNumber: 'c/t', transition: 'fade', plugins: [RevealNotes] });
         const themeLink = document.getElementById('theme-variant');
-        const indicator = document.createElement('div');
-        indicator.style.cssText = 'position:fixed;right:20px;top:20px;padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.5);color:#fff;font:14px/1.2 system-ui;z-index:999;opacity:0;transition:opacity .2s;';
-        document.body.appendChild(indicator);
-        const showIndicator = (t) => { indicator.textContent = t; indicator.style.opacity='1'; clearTimeout(showIndicator._t); showIndicator._t=setTimeout(()=>indicator.style.opacity='0',1200); };
-        const setTheme = (n) => { themeLink.href=`../milvus/styles/${n}.css`; showIndicator('Theme: '+n.replace('theme-','')); };
+        const setTheme = (n) => { themeLink.href = `../milvus/styles/${n}.css`; };
         window.addEventListener('keydown', (e) => {
-            if (e.key==='1') setTheme('theme-swiss');
-            if (e.key==='2') setTheme('theme-atelier');
-            if (e.key==='3') setTheme('theme-ukiyo');
+            if (e.key === '1') setTheme('theme-swiss');
+            if (e.key === '2') setTheme('theme-atelier');
+            if (e.key === '3') setTheme('theme-ukiyo');
         });
     </script>
 </body>
 </html>
 ```
 
-### Pop Art HTML skeleton
+### Pop Art skeleton
 
 ```html
 <!doctype html>
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{ZH_TITLE} — Dify</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reset.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css" id="theme">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/monokai.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../aispeech/styles/nordic.css">
     <link rel="stylesheet" href="../aispeech/styles/popart.css">
@@ -233,8 +299,6 @@ Bold, comic-strip aesthetics. Best for high-energy keynote-style talks.
     </div>
     <div class="reveal">
         <div class="slides">
-
-            <!-- ══ Slide 1 · Cover ══ -->
             <section data-background-color="#FFE900">
                 <div style="border:3px solid #000;padding:48px;box-shadow:12px 12px 0 #000;max-width:900px;">
                     <div style="font-size:1rem;font-weight:900;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;">{PILL_LABEL}</div>
@@ -244,27 +308,17 @@ Bold, comic-strip aesthetics. Best for high-energy keynote-style talks.
                 </div>
                 <aside class="notes">Speaker notes here.</aside>
             </section>
-
-            <!-- ══ Add more slides ══ -->
-
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/notes/notes.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.js"></script>
     <script>
-        Reveal.initialize({
-            hash: true,
-            transition: 'none',
-            backgroundTransition: 'none',
-            plugins: [RevealNotes, RevealHighlight],
-        });
+        Reveal.initialize({ hash: true, transition: 'none', backgroundTransition: 'none', plugins: [RevealNotes, RevealHighlight] });
     </script>
 </body>
 </html>
 ```
-
-Mirror the same structure for `index_en.html` with `lang="en"` and English content.
 
 ---
 
@@ -329,26 +383,57 @@ Mirror the same structure for `index_en.html` with `lang="en"` and English conte
 
 ## Step 5 — Register on index pages
 
-Append inside `<div class="deck-grid">` in both `/Users/minibanana/Program/dify-x/index.html` and `index_en.html`:
+The index is **not** a card grid. Both `index_zh.html` and `index_en.html` use a two-pane editorial layout: a fixed hero on the left and a scrollable `<section class="deck-list">` of `.deck-row` entries on the right.
+
+Append a new row as the **last** child of `<section class="deck-list">`, then renumber every `row-num` so the sequence stays contiguous from `00`:
 
 ```html
-        <a class="card" href="{DECK_DIR}/index.html">
-          <div class="pill-wrapper"><span class="pill">{PILL_LABEL}</span></div>
-          <h3>{ZH_TITLE}</h3>
-          <p>{ZH_DESCRIPTION}</p>
-          <div class="card-footer">Start Presentation<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></div>
+        <a class="deck-row" href="{DECK_DIR}/index.html">
+          <span class="row-num">{NN}</span>
+          <div class="row-body">
+            <div class="row-label">{ZH_LABEL}</div>
+            <div class="row-title">{ZH_TITLE}</div>
+            <div class="row-desc">{ZH_DESCRIPTION}</div>
+          </div>
+          <span class="row-arrow">→</span>
         </a>
 ```
 
-Use `{DECK_DIR}/index_en.html` + EN text for `index_en.html`.
+Then update, in both pages:
+
+1. **The counter** in the index bar: `<span class="index-bar-label">{N} Presentations</span>`.
+2. **`index_zh.html`** — use `href="{DECK_DIR}/index.html"` and Chinese copy.
+3. **`index_en.html`** — use `href="{DECK_DIR}/index_en.html"` and English copy.
+4. **`README.md`** — add the deck to both `Repo map` and `Decks`.
+
+Note: `index.html` at the repo root is only a redirect stub to `index_en.html`; do not edit it.
 
 ---
 
-## Step 6 — Verify
+## Step 6 — Companion docs
 
-- New directory and both HTML files exist.
-- Both index pages contain the new card.
-- Remind user to open the deck in a browser to check rendering.
+Recent decks ship a small, consistent doc set. Copy the pattern:
+
+| File | Purpose |
+|---|---|
+| `README.md` | title, audience, timing table, file inventory, evidence boundaries |
+| `source-map.md` | per-slide sources, engineering claims, image credits with Unsplash links |
+| `qa/contact-sheet-zh.png` | flattened visual review sheet for the CN deck |
+| `qa/contact-sheet-en.png` | flattened visual review sheet for the EN deck |
+
+Keep image credits honest: name the photographer and link the Unsplash original. State plainly where content is synthetic or where no customer claim is implied.
+
+---
+
+## Step 7 — Verify
+
+- New directory exists with both `index.html` and `index_en.html`.
+- Both index pages contain the new row, and `row-num` runs `00`…`{N-1}` with no gaps.
+- The "N Presentations" counter matches the row count.
+- Every local `href` / `src` in the new deck resolves — reveal runtime, logos, and background images.
+- `data-slide-id`s match one-to-one between the two languages, in the same order.
+- `README.md` lists the deck in both `Repo map` and `Decks`.
+- Remind the user to open the deck in a browser to check rendering.
 
 ---
 
@@ -357,7 +442,12 @@ Use `{DECK_DIR}/index_en.html` + EN text for `index_en.html`.
 | Path | Contents |
 |---|---|
 | `assets/logo.svg` | Dify logo (used in all decks) |
-| `agent-systems/styles.css` | Full Nordic design system (1300+ lines, vars + components) |
+| `agent-systems/styles.css` | Nordic design system (1300+ lines, vars + components) |
+| `agent-plugin-governance/assets/reveal/` | Vendored reveal.js 4.5.0 — reuse instead of re-bundling |
+| `enterprise-agent-campus/editorial.css` | Editorial grid + components (shared EN/CN base) |
+| `enterprise-agent-campus/editorial-zh.css` | Chinese-only line-break, size, and rhythm calibration |
+| `enterprise-agent-campus/assets/` | Localized Unsplash backgrounds, credited in `source-map.md` |
+| `stripe-agent-workshop/editorial-en.css` | English editorial variant |
 | `milvus/styles/dify-theme.css` | Milvus brand token overrides |
 | `milvus/styles/base.css` | Milvus base typography + layout utilities |
 | `milvus/styles/theme-swiss.css` | Sub-theme: Swiss minimal |

@@ -1,52 +1,67 @@
 # Dify X
+
 Reveal.js deck collection from the Dify team, covering production-grade agent systems, risk control, RAG evolution, low-/pro-code collaboration, and integration demos.
 
 Online:
-- CN home: https://crazywoola.github.io/dify-x/
+- CN home: https://crazywoola.github.io/dify-x/index_zh.html
 - EN home: https://crazywoola.github.io/dify-x/index_en.html
+- `index.html` redirects to the English home.
 
 ## Quick start
-- Entry point: open `index.html` or `index_en.html` for the card-based navigator.
-- Local preview: serve the repo root and visit `http://localhost:8000/index.html`:
+- Entry point: open `index.html` (redirects to EN), `index_zh.html`, or `index_en.html` for the card-based navigator.
+- Local preview: serve the repo root and visit `http://localhost:8000/index_zh.html`:
   ```bash
-  python -m http.server 8000
+  python3 -m http.server 8000
   ```
-- Single decks: open each directory’s `index.html` (CN) or `index_en.html` (EN).
+- Single decks: open each directory's `index.html` (CN) or `index_en.html` (EN).
 
 ## Repo map
 - `assets/`: brand assets (`logo.svg`, `bilibili.png`, `xiaohongshu.png`).
+- `agent-plugin-governance/`: 29-slide bilingual Enterprise Agent deck on plugin governance and the Dify 1.15 → 1.16.0 → 1.16.1 production path. Also bundles a vendored reveal.js 4.5.0 runtime under `assets/reveal/` that other decks reuse.
+- `agent-systems/`: production-grade agent systems deck (CN/EN) covering HITL placement and reviewer UX, explicit node deliverables, SOP-backed Agent × Skills, command-node / POSIX-style sandbox execution, and collaborative workflow development.
+- `agent-systems-sg/`: Singapore variant of the agent systems deck, rebuilt as a full-screen reveal.js image deck using 21 slide images and preserved speaker notes. English only.
+- `agent-last-mile/`: field-note deck on orchestration, governance, observability, HITL design, and AWS reference architecture. Slides are rendered from `deck.js`, so both `index.html` and `index_en.html` share one `shared.css`.
+- `amd-x-dify-hackathon/`: AMD AI DevMaster Hackathon Track 2 deck — orchestrating a private agent with Dify while running inference locally on AMD Radeon via Lemonade. Chinese and English speaker scripts in `speaker-notes.md` / `speaker-notes-en.md`, demo launch plan in `assets/demo-launch-plan-*.md`.
+- `aispeech/`: AI workflow solutions for AISPEECH (CN/EN) with vertical stacks and shared `styles/nordic.css` + `styles/popart.css`.
 - `ctrip/`: automated risk control deck (CN/EN) plus outline (`ctrip/README.md`).
 - `dentsply/`: digital dentistry deck (CN/EN) covering triage, ortho, lab, and claims.
+- `enterprise-agent-campus/`: 45-minute bilingual campus lecture on Agent product forms and scenario fit, built on an editorial grid. See `README.md` and `source-map.md`.
+- `hongkong-oss/`: Dify 101 workshop deck (CN/EN) split into two 30-min sessions, plus a hands-on `GUIDE.md`. Session 1 covers Dify platform overview (Visual Orchestration, Knowledge Base, Plugin Ecosystem, Observability, HITL, Skills, Triggers), Workflow core, Knowledge/RAG, and production essentials; Session 2 covers Code Node, low-code vs pro-code, plugin ecosystem deep dive, optional advanced topics (RAG eval, Agent architecture, guardrails), and hands-on projects (Apple Watch workflow, GDPR chatbot). Schedule: 15:10–15:40 S1 / break / 15:50–16:20 S2.
+- `legalai/`: legal workflow samples (YAML in `legalai/demo/`). No deck of its own.
+- `milvus/`: RAG evolution + vector DB collaboration deck (CN/EN) with three switchable themes (Swiss / Atelier / Ukiyo) and notes in `AGENTS.md`, `context.md`, `target_audience.md`.
+- `oceanbase/`: Dify × Oceanbase integration guide and sample `docker-compose.yaml`.
+- `osmo-banana/`: 12-minute demo deck on a local-first Mac screen recording workbench.
 - `paypal/`: payment risk control deck (CN/EN) covering auth rate defense, ATO, and dispute-abuse playbooks.
 - `pupu/`: low-to-pro-code developer practice (CN/EN) with slide visuals.
-- `milvus/`: RAG evolution + vector DB collaboration deck, shared styles in `milvus/styles/` and notes (`AGENTS.md`, `context.md`, `target_audience.md`).
-- `aispeech/`: AI workflow solutions for AISPEECH (CN/EN) with 35-slide vertical stacks and shared `styles/nordic.css`.
-- `hongkong-oss/`: Dify 101 workshop deck (CN/EN) split into two 30-min sessions: Session 1 covers Dify platform overview (Visual Orchestration, Knowledge Base, Plugin Ecosystem, Observability, HITL, Skills, Triggers), Workflow core, Knowledge/RAG, and production essentials; Session 2 covers Code Node, low-code vs pro-code, plugin ecosystem deep dive, optional advanced topics (RAG eval, Agent architecture, guardrails), and hands-on projects (Apple Watch workflow, GDPR chatbot). Schedule: 15:10–15:40 S1 / break / 15:50–16:20 S2.
-- `agent-systems/`: Production-grade agent systems deck (CN/EN) covering HITL placement and reviewer UX, explicit node deliverables, SOP-backed Agent × Skills, command-node / POSIX-style sandbox execution, and collaborative workflow development.
-- `agent-plugin-governance/`: 29-slide bilingual Enterprise Agent deck covering plugin governance and the production path from Dify 1.15 to 1.16.0 and 1.16.1.
-- `agent-systems-sg/`: Singapore variant of the agent systems deck, rebuilt as a full-screen reveal.js image deck using 21 slide images and preserved speaker notes.
-- `oceanbase/`: Dify × Oceanbase integration guide and sample `docker-compose.yaml`.
-- `legalai/`: legal workflow samples (YAML in `legalai/demo/`).
+- `stripe-agent-workshop/`: bilingual 45-minute workshop "From Scenario to System" — Agent product forms plus the Dify Workflow Generator pipeline. See `README.md` and `source-map.md`; `starter/stripe-billing/` holds an unrelated Stripe Sandbox skill kept for reference.
 
 ## Decks
+- `agent-plugin-governance/index.html`: Enterprise Agents from plugin governance to production collaboration — L1/L2/L3 controls, Agent system architecture, sandbox security, observability, upgrade gates, and the Human × Agent × Workflow × Governance operating model.
+- `agent-systems/index.html`: production-grade agent systems — HITL review points, explicit deliverables, SOP-driven Skills, command-node / POSIX-style sandbox runtime, and collaborative workflow development.
+- `agent-systems-sg/index.html`: full-screen image-based agent systems deck variant for SG, with existing speaker notes retained for presenter mode. No English variant.
+- `agent-last-mile/index.html`: Agent deployment field notes — the orchestration, governance, observability, HITL, and AWS reference architecture that bridge demos to production.
+- `amd-x-dify-hackathon/index.html`: AMD AI DevMaster Hackathon Track 2 — Dify orchestration plus Lemonade / Radeon local inference, quick starts, live demo, and the agent build loop.
+- `aispeech/index.html`: cross-role AI workflows for AISPEECH (sync officer, auto analyst, legal QA, bug intake, meeting PMO, ROI).
 - `ctrip/index.html`: automated risk control and adversarial demos (layered defense, attribution, counter-strategy).
 - `dentsply/index.html`: digital dentistry (smart triage, ortho monitoring, lab automation, voice perio).
+- `enterprise-agent-campus/index.html`: Enterprise Agents: product forms and scenario fit — six product forms, the four questions, and one capability built three ways.
+- `hongkong-oss/index.html`: Dify 101 workshop — Session 1 (30 min): platform overview, Workflow, Knowledge/RAG, production essentials; Session 2 (30 min): Code Node, low-code vs pro-code, Plugin Ecosystem, optional deep dives, hands-on projects.
+- `milvus/index.html`: RAG evolution with vector DB practice (theme switching, context/role docs).
+- `osmo-banana/index.html`: a 12-minute demo on a local-first Mac screen recording workbench (local recording, polished exports, auto zoom, smoothed cursor, webcam cutout, annotations, batch export).
 - `paypal/index.html`: payment risk & auth-defense playbook (card testing, ATO, dispute/chargeback abuse mitigation).
 - `pupu/index.html`: building with Dify as a developer (plugin architecture, triggers, observability).
-- `milvus/index.html`: RAG evolution with vector DB practice (theme switching, context/role docs).
-- `aispeech/index.html`: cross-role AI workflows for AISPEECH (sync officer, auto analyst, legal QA, bug intake, meeting PMO, ROI).
-- `hongkong-oss/index.html`: Dify 101 workshop deck — Session 1 (30 min): platform overview, Workflow, Knowledge/RAG, production essentials; Session 2 (30 min): Code Node, low-code vs pro-code, Plugin Ecosystem, optional deep dives, hands-on projects.
-- `agent-systems/index.html`: production-grade agent systems — HITL review points, explicit deliverables, SOP-driven Skills, command-node / POSIX-style sandbox runtime, and collaborative workflow development.
-- `agent-plugin-governance/index.html`: Enterprise Agents from plugin governance to production collaboration — L1/L2/L3 controls, Agent system architecture, sandbox security, observability, upgrade gates, and the Human × Agent × Workflow × Governance operating model.
-- `agent-systems-sg/index.html`: full-screen image-based agent systems deck variant for SG, with existing speaker notes retained for presenter mode.
-- English versions live in each folder’s `index_en.html`.
+- `stripe-agent-workshop/index.html`: From Scenario to System — choosing the Agent product form from the work itself, then the Dify Workflow Generator path from one sentence to an inspectable plan and a runnable graph.
+- English versions live in each folder's `index_en.html`, except `agent-systems-sg/` which is English-only.
 
 ## Tech & design
-- Slides: Reveal.js with Tailwind/Highlight.js as needed.
+- Slides: Reveal.js 4.5.0 (5.x in `ctrip/`, `dentsply/`, `paypal/`; `milvus/` uses 5.x with theme switching). The runtime is loaded from CDN except in `agent-plugin-governance/` and `stripe-agent-workshop/`, which reuse the vendored copy at `agent-plugin-governance/assets/reveal/`.
+- Design systems: Nordic (`agent-systems/styles.css`), editorial grid (`enterprise-agent-campus/editorial.css` + `editorial-zh.css`, reused by `stripe-agent-workshop/editorial-*.css`), Milvus three-theme set (`milvus/styles/`), Pop Art (`aispeech/styles/`).
 - Brand: `#0033ff` (Dify Blue); logo in `assets/logo.svg`.
 - Fonts: prefer Söhne / Söhne Mono; fallbacks Inter, JetBrains Mono, Mi Sans / Noto Sans SC / Noto Sans Mono SC.
 - Hosting: GitHub Pages (https://crazywoola.github.io/dify-x/).
+- Every deck ships a Chinese and an English page that share slide order, `data-slide-id`s, timing, and speaker notes.
 
 ## Contribute & extend
+- Use the in-repo skill: `.claude/skills/new-slide-deck/SKILL.md` (mirrored at `.agents/skills/new-slide-deck/SKILL.md`) — it covers theme selection, deck skeletons, and index registration.
 - Copy any deck directory as a template; tweak theme variables in `milvus/styles/dify-theme.css`.
 - PRs and feedback welcome via `banana@dify.ai`.

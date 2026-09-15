@@ -1,4 +1,4 @@
-# Dify × Stripe Workshop：From Scenario to System
+# Dify × 复旦大学 Workshop：From Scenario to System
 
 这是一套中英双语、45 分钟、面向产品与工程混合听众的 Workshop：先从工作单元、产品形态、交付物和使用节奏判断 Agent 应该成为怎样的产品，再用 Dify Workflow Generator 拆解如何把一句自然语言需求变成可检查的计划、可运行的图和可增量修改的系统。
 
@@ -44,13 +44,13 @@ Most enterprise-agent projects start with model capability. This session starts 
 - `source-map.md`：工程来源、证据边界、图片版权和计时映射。
 - `qa/contact-sheet-en.png`：22 页完整展开后的 4 × 6 视觉巡检图。
 - `qa/contact-sheet-zh.png`：中文版 22 页完整展开后的 4 × 6 视觉巡检图。
-- `styles.css`：旧版遗留样式，不再由新中英文演示加载。
-- `starter/stripe-billing`：保留已有 Sandbox skill，不参与本次通用 Workflow 静态推演。
+- `starter/stripe-billing/`：保留的 Stripe Sandbox skill，不参与本次通用 Workflow 静态推演。
+- Reveal.js 资源复用 `../agent-plugin-governance/assets/reveal/`（`reset.css` / `reveal.css` / `reveal.js` / `plugin/notes/notes.js`），不在本目录重复打包。
 
 ## 演示与证据边界
 
 - 第 07–10 页为无网络依赖的通用静态教学推演，不是客户案例或产品录屏。
-- Dify × Stripe 仅表示活动联合品牌，不表示 Stripe 使用 Dify。
+- Dify × 复旦大学仅表示本次活动主题，不表示复旦大学正在使用或为 Dify 背书。
 - PR 中的工程数字只说明实现变化，不解释为业务 ROI 或客户效果。
 - 背景图来自 Unsplash，作者为 Timothée Duran、Declan Sun 与 Arlind Photography。
 

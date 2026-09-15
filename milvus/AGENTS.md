@@ -1,6 +1,6 @@
 # AGENTS: Project Guide and Directives
 
-Scope: Applies to the entire repository (slides/, docs/, assets/).
+Scope: Applies to the `milvus/` deck directory inside this repository.
 
 ## Slides Framework & Format
 - Framework: Reveal.js.
@@ -15,11 +15,11 @@ Scope: Applies to the entire repository (slides/, docs/, assets/).
 - Fonts: English Söhne / Söhne Mono; Chinese/Japanese Mi Sans (fallbacks allowed if not installed). Use larger type than default.
 
 ## Assets
-- Logo: use `assets/dify-design-kit/dify-logo/dify-logo.svg` in slides.
+- Logo: use `../assets/logo.svg` in slides (a shared `milvus/assets/dify-*.svg` set is also available for dark/on-blue variants).
 - Provide alt text for images (e.g., Dify).
 
 ## Structure & Content
-- Base content source: `context.md` (optimize based on `interview.md`).
+- Base content source: `context.md` (optimize based on `assets/interview.md`).
 - Target audience: use `target_audience.md` to shape tone/content but do not mention audience explicitly in slides.
 - Core storyline: RAG spectrum — Naive → Advanced → Agentic; Knowledge Pipeline as the foundation; Dify × Milvus roles.
 - Duration: 30 minutes. Aim for ~15 slides for pacing.
@@ -36,7 +36,7 @@ Scope: Applies to the entire repository (slides/, docs/, assets/).
 
 ## Visual & Layout Requirements
 - Extract CSS to external files. Keep HTML lean.
-- Provide 3 theme variants and keyboard toggles: `1` Swiss, `2` Atelier (diffused gradient), `3` Night.
+- Provide 3 theme variants and keyboard toggles: `1` Swiss, `2` Atelier (diffused gradient), `3` Ukiyo.
 - Add card‑like slides: subtle 1px border, generous radius, layered “premium” shadows, glass‑like background.
 - Layout can be bold: increased type scale, generous spacing.
 - Use Dify Blue to emphasize key terms (e.g., via a reusable `.emph` class); bullet markers may inherit accent color.
@@ -52,13 +52,13 @@ Scope: Applies to the entire repository (slides/, docs/, assets/).
 - Closing slide: provide standalone final slide with logo + contact info (email/GitHub); remove Q&A mention from the summary slide when this is present.
 
 ## Hosting & Repo Structure
-- Primary working deck: `slides/` (source of truth during development).
-- GitHub Pages: serve from `docs/` with mirrored `index.html`, `styles/`, and minimal `assets/` (logo) to run standalone.
-- Provide `README.md` describing usage (open, theme toggles, speaker notes) and GitHub Pages setup instructions.
+- Primary working deck: this directory (`milvus/`) — `index.html` (CN) and `index_en.html` (EN).
+- Hosting: served as part of the dify-x GitHub Pages site at `/milvus/`; no separate Pages root or mirrored `docs/` tree.
+- Provide `README.md` describing usage (open, theme toggles, speaker notes) and the local-preview command.
 
 ## Implementation Conventions
-- Keep CSS extracted (`slides/styles/*.css`, mirrored in `docs/styles`).
-- Theme files: `theme-swiss.css`, `theme-atelier.css`, `theme-night.css`.
+- Keep CSS extracted (`styles/*.css`).
+- Theme files: `theme-swiss.css`, `theme-atelier.css`, `theme-ukiyo.css`.
 - Use `.accent` for slides that need stronger diffused gradients.
 - Keep performance in mind: limit random background shapes (~9), blur, throttle on resize.
 - Ensure Reveal notes plugin is enabled; maintain slide numbers and progress.
@@ -67,4 +67,5 @@ Scope: Applies to the entire repository (slides/, docs/, assets/).
 - Do not mention target audience explicitly in slide content.
 - Do not in‑line heavy CSS inside HTML except minimal utility or vendor links.
 - Do not change brand colors or logo without explicit instruction.
+- Do not reintroduce a separate `docs/` or `slides/` directory; the deck lives at this directory's root.
 

@@ -17,7 +17,7 @@ Slides `s02`–`s06` and `s19` adapt the work-unit, product-form, four-question,
 
 ## Static Walkthrough
 
-Slides `s07`–`s10` use a synthetic support workflow: ticket intake, account lookup, urgency classification, response drafting, and high-risk review. It contains no customer data, Stripe workflow, live product capture, or production performance claim.
+Slides `s07`–`s10` use a synthetic support workflow: ticket intake, account lookup, urgency classification, response drafting, and high-risk review. It contains no real user data, Fudan University workflow, live product capture, or production performance claim.
 
 ## Engineering Sources
 
