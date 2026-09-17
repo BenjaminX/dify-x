@@ -1,11 +1,1166 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=index_en.html">
-  <link rel="canonical" href="index_en.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dify X · Presentations</title>
-  <script>location.replace('index_en.html')</script>
+  <meta name="description" content="Presentation index for Dify X — agent systems, workflows, RAG, and industry case decks. Bilingual: language follows your system, toggle in the top bar.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..900;1,14..32,300..900&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       Dify X · Webzibition-style index
+       Single bilingual page (EN / 中文). Palette is unchanged:
+       ink / paper / rule / dim / ghost / blue / lift.
+       ═══════════════════════════════════════════════════════════ */
+
+    :root {
+      --ink:   #0d0d0d;
+      --paper: #ffffff;
+      --rule:  #e2e0d9;
+      --dim:   #6e6d66;
+      --ghost: #b0afa7;
+      --blue:  #0033ff;
+      --lift:  #f7f6f1;
+      --blue-04: rgba(0, 51, 255, 0.05);
+      --blue-12: rgba(0, 51, 255, 0.12);
+
+      --sans: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --mono: 'JetBrains Mono', 'SFMono-Regular', 'Menlo', monospace;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    html, body { min-height: 100%; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      padding-top: 52px; /* room for the fixed top bar */
+    }
+    ::selection { background: var(--blue); color: var(--paper); }
+    a { color: inherit; }
+    button { font: inherit; background: none; border: 0; color: inherit; }
+    :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+    /* ── Scroll progress ────────────────────────────────────── */
+    .prog {
+      position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 120;
+      background: var(--rule);
+    }
+    .prog i {
+      display: block; height: 100%; background: var(--blue);
+      transform: scaleX(0); transform-origin: 0 50%;
+    }
+
+    /* ── Grain overlay ──────────────────────────────────────── */
+    .grain {
+      position: fixed; inset: -100px; z-index: 110; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.045;
+    }
+
+    /* ── Custom cursor ──────────────────────────────────────── */
+    .cursor {
+      position: fixed; left: 0; top: 0; z-index: 300; display: none;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #fff; mix-blend-mode: difference;
+      pointer-events: none;
+      transition: width 0.32s var(--ease-out), height 0.32s var(--ease-out),
+                  background 0.3s, mix-blend-mode 0s;
+    }
+    .cursor-label {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 17px; color: var(--paper); opacity: 0; transition: opacity 0.2s;
+    }
+    .cursor.is-link { width: 42px; height: 42px; }
+    .cursor.is-deck {
+      width: 76px; height: 76px; background: var(--blue); mix-blend-mode: normal;
+    }
+    .cursor.is-deck .cursor-label { opacity: 1; }
+    @media (pointer: fine) {
+      .cursor { display: block; }
+      body.cursor-on, body.cursor-on * { cursor: none !important; }
+    }
+
+    /* ── Preloader ──────────────────────────────────────────── */
+    .loader {
+      position: fixed; inset: 0; z-index: 400; background: var(--paper);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 1.05s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+    .loader.done { transform: translateY(-101%); }
+    .loader.done .loader-inner { opacity: 0; transition: opacity 0.35s; }
+    .loader-inner {
+      display: flex; flex-direction: column; align-items: center; gap: 26px;
+      transition: opacity 0.35s;
+    }
+    .loader-logo { width: 132px; display: block; }
+    .loader-count {
+      font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em;
+      color: var(--ghost); display: flex; align-items: baseline; gap: 6px;
+    }
+    .loader-count b { font-size: 30px; font-weight: 500; color: var(--ink); letter-spacing: 0.02em; }
+    .loader-bar { width: 210px; height: 2px; background: var(--rule); overflow: hidden; }
+    .loader-bar i {
+      display: block; height: 100%; background: var(--blue);
+      transform: scaleX(0); transform-origin: 0 50%;
+    }
+    .loader-hint {
+      font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--ghost);
+    }
+    body.loading { overflow: hidden; }
+
+    /* ── Top bar ────────────────────────────────────────────── */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 52px;
+      background: rgba(255, 255, 255, 0.88);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+    }
+    .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .brand img { height: 21px; display: block; }
+    .brand-div { width: 1px; height: 14px; background: var(--rule); }
+    .brand-tag {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--ghost);
+    }
+
+    .langnav { position: relative; display: flex; padding: 3px; border: 1px solid var(--rule); border-radius: 999px; }
+    .langpill {
+      position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px);
+      background: var(--ink); border-radius: 999px;
+      transition: transform 0.4s var(--ease-out);
+    }
+    .langbtn {
+      position: relative; z-index: 1; flex: 1; min-width: 54px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
+      padding: 7px 14px; text-align: center; color: var(--dim);
+      transition: color 0.3s; border-radius: 999px;
+    }
+    .langbtn.on { color: var(--paper); }
+    .langbtn:hover:not(.on) { color: var(--ink); }
+
+    /* ── Hero ───────────────────────────────────────────────── */
+    .hero {
+      position: relative; min-height: 100vh; min-height: 100svh;
+      display: flex; flex-direction: column;
+      padding: 104px 48px 36px; overflow: hidden;
+    }
+    .hero-dots {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image: radial-gradient(circle, var(--blue) 2px, transparent 2.5px);
+      background-size: 20px 20px;
+      -webkit-mask-image: radial-gradient(ellipse 55% 46% at 84% 14%, black 0%, black 8%, transparent 62%);
+      mask-image: radial-gradient(ellipse 55% 46% at 84% 14%, black 0%, black 8%, transparent 62%);
+      opacity: 0.13;
+    }
+    .hero canvas { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; }
+    .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; flex: 1; }
+
+    .hero-kicker {
+      display: flex; align-items: baseline; justify-content: space-between;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ghost);
+    }
+    .hero-mid { margin: auto 0 72px; max-width: 1060px; }
+
+    .hero-title {
+      font-weight: 800;
+      font-size: clamp(56px, 9.6vw, 152px);
+      line-height: 1; letter-spacing: -0.04em; color: var(--ink);
+    }
+    .hero-title .ch { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+    .hero-title .ch > i {
+      display: inline-block; font-style: normal; transform: translateY(125%);
+      transition: transform 0.95s var(--ease-out);
+      transition-delay: calc(var(--i, 0) * 42ms);
+    }
+    .hero.in .hero-title .ch > i { transform: none; }
+
+    .hero-sub {
+      margin-top: 30px; max-width: 580px;
+      font-size: 15px; line-height: 1.85; color: var(--dim);
+    }
+    .hero-sub .wd { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+    .hero-sub .wd > i {
+      display: inline-block; font-style: normal; transform: translateY(120%);
+      transition: transform 0.85s var(--ease-out);
+      transition-delay: calc(var(--i, 0) * 22ms + 180ms);
+    }
+    .hero.in .hero-sub .wd > i { transform: none; }
+
+    .hero-meta {
+      margin-top: 38px; display: flex; flex-wrap: wrap; gap: 12px 30px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--ghost);
+    }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+    .hero-meta span::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--blue); }
+
+    .hero-foot { display: flex; align-items: flex-end; justify-content: space-between; }
+    .scroll-cue {
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--ghost);
+    }
+    .scroll-line { position: relative; width: 1px; height: 46px; background: var(--rule); overflow: hidden; }
+    .scroll-line::after {
+      content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 42%;
+      background: var(--blue); animation: cue 1.9s var(--ease-out) infinite;
+    }
+    @keyframes cue { 0% { transform: translateY(-105%); } 55%, 100% { transform: translateY(245%); } }
+
+    .hero-count { font-family: var(--mono); }
+    .hero-count b { font-size: 27px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; }
+    .hero-count span {
+      margin-left: 8px; font-size: 9.5px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--ghost);
+    }
+
+    .hero-asterisk {
+      position: absolute; z-index: 2; right: 7vw; top: 21%;
+      width: 84px; height: 84px; color: var(--blue);
+      opacity: 0; transition: opacity 0.9s var(--ease-out) 0.95s;
+      animation: spin 22s linear infinite; pointer-events: none;
+    }
+    .hero.in .hero-asterisk { opacity: 0.8; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* generic hero entrance for static blocks */
+    .fx { opacity: 0; transform: translateY(26px); transition: opacity 0.9s var(--ease-out) var(--fd, 0ms), transform 0.9s var(--ease-out) var(--fd, 0ms); }
+    .hero.in .fx { opacity: 1; transform: none; }
+    .hero-kicker { --fd: 80ms; }
+    .hero-meta { --fd: 680ms; }
+    .hero-foot { --fd: 840ms; }
+
+    /* ── Marquee ────────────────────────────────────────────── */
+    .marquee {
+      border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+      overflow: hidden; padding: 17px 0; background: var(--paper);
+    }
+    .mq-track { display: flex; width: max-content; animation: mq 34s linear infinite; }
+    .marquee:hover .mq-track { animation-play-state: paused; }
+    @keyframes mq { to { transform: translateX(-50%); } }
+    .mq-group { display: flex; align-items: center; }
+    .mq-i {
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--ink); white-space: nowrap;
+    }
+    .mq-i:not(:last-child)::after {
+      content: ''; display: inline-block; width: 6px; height: 6px;
+      background: var(--blue); transform: rotate(45deg);
+      margin: 0 26px; vertical-align: 2px;
+    }
+
+    /* ── Index section ──────────────────────────────────────── */
+    .index { padding: 104px 48px 120px; }
+    .index-head {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap; margin-bottom: 44px;
+    }
+    .sec-label {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--ghost); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sec-label::before { content: ''; width: 22px; height: 1px; background: var(--blue); }
+    .index-title {
+      font-size: clamp(40px, 4.6vw, 64px); font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1;
+    }
+    .index-count { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ghost); }
+    .index-count b { font-size: 24px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; margin-right: 8px; }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 44px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 11px 20px; border: 1px solid var(--rule); border-radius: 999px;
+      color: var(--dim); transition: color 0.25s, border-color 0.25s, background 0.25s;
+      white-space: nowrap;
+    }
+    .chip:hover { color: var(--ink); border-color: var(--ink); }
+    .chip.on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+    .chip-n { font-size: 9px; color: var(--ghost); transition: color 0.25s; }
+    .chip:hover .chip-n { color: var(--dim); }
+    .chip.on .chip-n { color: rgba(255, 255, 255, 0.55); }
+
+    .grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+      border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    }
+    .card {
+      position: relative; display: flex; flex-direction: column;
+      padding: 42px 40px 34px; min-height: 330px;
+      text-decoration: none; color: inherit; overflow: hidden;
+      background: var(--paper);
+      box-shadow: inset 1px 0 0 var(--rule), inset 0 1px 0 var(--rule);
+      transition: background 0.35s;
+    }
+    .card.is-hidden { display: none; }
+    .card::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), var(--blue-04), transparent 62%);
+      opacity: 0; transition: opacity 0.45s;
+    }
+    .card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--blue); transform: scaleX(0); transform-origin: 0 50%;
+      transition: transform 0.55s var(--ease-out);
+    }
+    .card:hover { background: var(--lift); }
+    .card:hover::before { opacity: 1; }
+    .card:hover::after { transform: scaleX(1); }
+
+    .card-num {
+      position: relative; z-index: 1;
+      font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; color: var(--ghost);
+      transition: color 0.25s;
+    }
+    .card:hover .card-num { color: var(--blue); }
+
+    .card-tag {
+      position: relative; z-index: 1; margin-top: 14px;
+      display: flex; align-items: center; gap: 9px;
+      font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--ghost);
+    }
+    .card-tag i { width: 5px; height: 5px; border-radius: 50%; background: var(--rule); flex-shrink: 0; transition: background 0.25s; }
+    .card:hover .card-tag i { background: var(--blue); }
+
+    .card-title {
+      position: relative; z-index: 1; margin-top: 18px; max-width: 30ch;
+      font-size: 21px; font-weight: 700; line-height: 1.32; letter-spacing: -0.01em;
+      transition: transform 0.4s var(--ease-out), color 0.3s;
+    }
+    .card:hover .card-title { color: var(--blue); transform: translateX(6px); }
+
+    .card-desc {
+      position: relative; z-index: 1; margin-top: 14px; max-width: 52ch;
+      font-size: 13px; line-height: 1.85; color: var(--dim);
+    }
+
+    .card-foot {
+      position: relative; z-index: 1; margin-top: auto; padding-top: 30px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--ghost); transition: color 0.25s;
+    }
+    .card:hover .card-foot { color: var(--ink); }
+    .card-arrow { font-size: 14px; transition: transform 0.35s var(--ease-out), color 0.25s; }
+    .card:hover .card-arrow { color: var(--blue); transform: translate(5px, -5px); }
+
+    .card-gnum {
+      position: absolute; z-index: 0; top: 10px; right: 22px;
+      font-size: 78px; font-weight: 800; line-height: 1; color: transparent;
+      -webkit-text-stroke: 1px var(--rule);
+      transition: transform 0.5s var(--ease-out), -webkit-text-stroke-color 0.4s;
+      pointer-events: none; user-select: none;
+    }
+    .card:hover .card-gnum { transform: translate(-9px, -9px); -webkit-text-stroke-color: var(--blue-12); }
+
+    /* scroll reveal (JS adds .rv) */
+    .js .card, .js [data-rv] { opacity: 0; transform: translateY(34px); }
+    .js .card.rv, .js [data-rv].rv {
+      opacity: 1; transform: none;
+      transition: opacity 0.85s var(--ease-out) var(--rd, 0ms),
+                  transform 0.85s var(--ease-out) var(--rd, 0ms);
+    }
+    .js .card.rv { transition-property: opacity, transform; }
+    .js .card { transition-property: background; }
+    .js .card.rv { transition-property: opacity, transform, background; }
+
+    /* language text swap */
+    @keyframes flipx { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .flipx { animation: flipx 0.5s var(--ease-out) both; }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    .footer { border-top: 1px solid var(--rule); padding: 88px 48px 0; overflow: hidden; }
+    .footer-mail {
+      display: inline-flex; align-items: center; gap: 20px;
+      font-size: clamp(38px, 5.6vw, 76px); font-weight: 800; letter-spacing: -0.03em;
+      text-decoration: none; color: var(--ink); padding-bottom: 12px;
+      background: linear-gradient(var(--blue), var(--blue)) left bottom / 0% 3px no-repeat;
+      transition: background-size 0.5s var(--ease-out), color 0.3s;
+    }
+    .footer-mail:hover { color: var(--blue); background-size: 100% 3px; }
+    .footer-mail .fm-arrow {
+      font-size: 0.42em; color: var(--ghost); transform: translateY(-0.15em);
+      transition: color 0.3s, transform 0.4s var(--ease-out);
+    }
+    .footer-mail:hover .fm-arrow { color: var(--blue); transform: translate(6px, -0.35em); }
+
+    .footer-links {
+      margin: 54px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; color: var(--ghost);
+    }
+    .footer-links a { text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-links .sep { color: var(--rule); }
+
+    .footer-big {
+      margin-top: 80px; line-height: 0.86; font-weight: 800;
+      font-size: clamp(84px, 19vw, 270px); letter-spacing: -0.03em;
+      color: transparent; -webkit-text-stroke: 1px var(--rule);
+      user-select: none; pointer-events: none; white-space: nowrap;
+    }
+
+    .noscript-note {
+      margin: 32px 48px 0; padding: 22px 26px; border: 1px solid var(--rule);
+      font-size: 13px; line-height: 2; color: var(--dim);
+    }
+    .noscript-note a { color: var(--blue); }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .card { min-height: 0; padding: 36px 28px 30px; }
+      .card-gnum { font-size: 58px; }
+    }
+    @media (max-width: 768px) {
+      body { padding-top: 48px; }
+      .topbar { padding: 0 20px; height: 48px; }
+      .hero { padding: 76px 22px 30px; }
+      .hero-mid { margin-bottom: 56px; }
+      .hero-sub { font-size: 14px; }
+      .hero-asterisk { display: none; }
+      .index { padding: 72px 22px 80px; }
+      .filters { flex-wrap: nowrap; overflow-x: auto; margin-left: -22px; margin-right: -22px; padding: 0 22px; -webkit-overflow-scrolling: touch; }
+      .footer { padding: 64px 22px 0; }
+      .footer-big { margin-top: 56px; }
+      .noscript-note { margin: 32px 22px 0; }
+    }
+
+    /* ── Reduced motion ─────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .mq-track { animation: none; }
+      .scroll-line::after { animation: none; }
+      .hero-asterisk { animation: none; }
+      .js .card, .js [data-rv] { opacity: 1; transform: none; }
+      .hero-title .ch > i, .hero-sub .wd > i { transform: none; }
+      .fx { opacity: 1; transform: none; }
+      .hero-asterisk { opacity: 0.8; }
+      .flipx { animation: none; }
+    }
+  </style>
 </head>
-<body></body>
+<body class="loading">
+
+  <!-- decorative layers -->
+  <div class="prog" aria-hidden="true"><i id="progressBar"></i></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-label">↗</span></div>
+
+  <!-- preloader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <img class="loader-logo" src="assets/logo.svg" alt="Dify">
+      <div class="loader-count"><b id="loaderNum">0</b><span>%</span></div>
+      <div class="loader-bar"><i id="loaderBar"></i></div>
+      <div class="loader-hint" data-i18n="loaderHint">Loading the archive</div>
+    </div>
+  </div>
+
+  <!-- top bar -->
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.svg" alt="Dify">
+      <span class="brand-div"></span>
+      <span class="brand-tag">Field Notes</span>
+    </a>
+    <nav class="langnav" aria-label="Language">
+      <span class="langpill" id="langPill" aria-hidden="true"></span>
+      <button type="button" class="langbtn" data-lang="zh" aria-pressed="false">中文</button>
+      <button type="button" class="langbtn" data-lang="en" aria-pressed="false">EN</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- hero -->
+    <section class="hero" id="hero">
+      <div class="hero-dots" aria-hidden="true"></div>
+      <canvas id="heroCanvas" aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <div class="hero-kicker fx">
+          <span>Dify · <span data-i18n="kicker">Presentations</span></span>
+          <span>2025–2026</span>
+        </div>
+        <div class="hero-mid">
+          <h1 class="hero-title" id="heroTitle">Presentations</h1>
+          <p class="hero-sub" id="heroSub">Production-grade Agent systems, Workflow architecture, and applied industry cases — drawn from real customer engagements and first-hand delivery experience.</p>
+          <div class="hero-meta fx">
+            <span>banana@dify.ai</span>
+            <span>Developer Relations @ Dify</span>
+          </div>
+        </div>
+        <div class="hero-foot fx">
+          <div class="scroll-cue"><span class="scroll-line"></span><span data-i18n="scrollCue">Scroll to explore</span></div>
+          <div class="hero-count"><b id="deckCount" data-to="15">0</b><span data-i18n="decksUnit">Decks</span></div>
+        </div>
+      </div>
+      <svg class="hero-asterisk" viewBox="-50 -50 100 100" aria-hidden="true">
+        <g stroke="currentColor" stroke-width="8" stroke-linecap="round">
+          <line x1="0" y1="-36" x2="0" y2="36"/>
+          <line x1="-31" y1="-18" x2="31" y2="18"/>
+          <line x1="-31" y1="18" x2="31" y2="-18"/>
+        </g>
+      </svg>
+    </section>
+
+    <!-- marquee -->
+    <div class="marquee" aria-hidden="true">
+      <div class="mq-track" id="marqueeTrack"></div>
+    </div>
+
+    <!-- deck index -->
+    <section class="index" id="index">
+      <div class="index-head" data-rv>
+        <div>
+          <p class="sec-label" data-i18n="secLabel">All decks · 2025–2026</p>
+          <h2 class="index-title" data-i18n="indexTitle">Index</h2>
+        </div>
+        <p class="index-count"><b id="deckCount2" data-to="15">0</b><span data-i18n="presentationsUnit">Presentations</span></p>
+      </div>
+
+      <div class="filters" id="filters" data-rv role="tablist" aria-label="Filter decks"></div>
+
+      <div class="grid" id="deckGrid"></div>
+
+      <noscript>
+        <div class="noscript-note">
+          This bilingual index needs JavaScript. Browse the decks directly:
+          <a href="agent-plugin-governance/index.html">00 Enterprise Agents</a> ·
+          <a href="agent-systems/index.html">02 Agent Systems</a> ·
+          <a href="hongkong-oss/index.html">03 Dify 101 Workshop</a> ·
+          <a href="dentsply/index.html">04 Dentsply</a> ·
+          <a href="aispeech/index.html">05 AISPEECH</a> ·
+          <a href="ctrip/index.html">06 Ctrip</a> ·
+          <a href="paypal/index.html">07 PayPal</a> ·
+          <a href="milvus/index.html">08 Milvus</a> ·
+          <a href="pupu/index.html">09 PUPU</a> ·
+          <a href="osmo-banana/index.html">10 Osmo Banana</a> ·
+          <a href="agent-last-mile/index.html">11 Last Mile</a> ·
+          <a href="amd-x-dify-hackathon/index.html">12 AMD Hackathon</a> ·
+          <a href="stripe-agent-workshop/index.html">13 Fudan Workshop</a> ·
+          <a href="enterprise-agent-campus/index.html">14 Campus Lecture</a>
+        </div>
+      </noscript>
+    </section>
+
+    <!-- footer -->
+    <footer class="footer">
+      <div data-rv>
+        <p class="sec-label" data-i18n="contactLabel">Get in touch</p>
+        <a class="footer-mail" href="mailto:banana@dify.ai">
+          banana@dify.ai
+          <span class="fm-arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <div class="footer-links" data-rv>
+        <a href="https://github.com/crazywoola" target="_blank" rel="noopener">@crazywoola</a>
+        <span class="sep">·</span>
+        <a href="https://github.com/crazywoola/dify-x" target="_blank" rel="noopener">dify-x</a>
+        <span class="sep">·</span>
+        <a href="https://crazywoola.github.io/dify-x/" target="_blank" rel="noopener" data-i18n="liveDemo">Live Demo</a>
+        <span class="sep">·</span>
+        <span>© 2026 LangGenius, Inc.</span>
+      </div>
+      <div class="footer-big" data-rv aria-hidden="true">DIFY·X</div>
+    </footer>
+  </main>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var $ = function (s, c) { return (c || document).querySelector(s); };
+    var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+    var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var FINE = window.matchMedia('(pointer: fine)').matches;
+    var raf = window.requestAnimationFrame || function (f) { return setTimeout(f, 16); };
+
+    /* ── deck data ─────────────────────────────────────────── */
+    var DECKS = [
+      { n: '00', f: 'platform',
+        hrefEn: 'agent-plugin-governance/index_en.html', hrefZh: 'agent-plugin-governance/index.html',
+        labelEn: 'Dify · Enterprise Agent Governance', labelZh: 'Dify · Enterprise Agent Governance',
+        tEn: 'Enterprise Agents: From Plugin Governance to Production Collaboration',
+        tZh: '企业 Agent：从插件治理到生产协作',
+        dEn: 'Eleven focused plugin-governance slides, followed by the Dify 1.15 → 1.16.0 → 1.16.1 path through Agent construction, runtime, security, observability, and production upgrade.',
+        dZh: '把插件治理压缩为 11 页核心方法，再沿 Dify 1.15 → 1.16.0 → 1.16.1 展开 Agent 构建、运行、安全、可观测与生产升级。' },
+      { n: '01', f: 'platform',
+        hrefEn: 'agent-systems-sg/index.html', hrefZh: 'agent-systems-sg/index.html',
+        labelEn: 'Dify · Agent Systems SG', labelZh: 'Dify · Agent Systems SG',
+        tEn: 'Agent Systems SG — Full-Screen Image Deck',
+        tZh: 'Agent Systems SG 全屏图像版',
+        dEn: 'A rebuilt reveal.js deck based on 21 full-screen visual slides, using full-bleed backgrounds while preserving speaker notes for presenter mode.',
+        dZh: '基于 21 张整屏视觉稿重建的 reveal.js 版本，支持全屏背景图浏览，并保留现有 speaker notes 作为演讲提词。' },
+      { n: '02', f: 'platform',
+        hrefEn: 'agent-systems/index_en.html', hrefZh: 'agent-systems/index.html',
+        labelEn: 'Dify · Agent Systems', labelZh: 'Dify · Agent 系统',
+        tEn: 'From Autonomous AI to Production-Grade Agent Systems',
+        tZh: '从自主 AI 到生产级 Agent 系统',
+        dEn: 'HITL placement and reviewer UX, explicit node deliverables, SOP-backed Agent × Skills, command-node / POSIX-style sandbox execution.',
+        dZh: '聚焦生产级 Agent 的完整链路：HITL 节点的放置与审核体验、节点显式交付物、SOP 驱动的 Agent × Skills，以及 Command 节点与 POSIX 风格沙箱运行时。' },
+      { n: '03', f: 'workshop',
+        hrefEn: 'hongkong-oss/index_en.html', hrefZh: 'hongkong-oss/index.html',
+        labelEn: 'Dify 101 Workshop', labelZh: 'Dify 101 Workshop',
+        tEn: 'Dify 101 Two-Session Workshop',
+        tZh: 'Dify GenAI 两节式实战训练营',
+        dEn: 'Two 30-min sessions: platform overview, Workflow, RAG, and production essentials — then Code Node, plugins, and hands-on projects (Apple Watch workflow, GDPR chatbot).',
+        dZh: '两节各 30 分钟：Session 1 涵盖平台全貌、Workflow、RAG 与生产化要点；Session 2 深入 Code Node、插件生态，含 Apple Watch / GDPR 实战项目。' },
+      { n: '04', f: 'customer',
+        hrefEn: 'dentsply/index_en.html', hrefZh: 'dentsply/index.html',
+        labelEn: 'Dify × Dentsply', labelZh: 'Dify × Dentsply',
+        tEn: 'Digital Dentistry: From Image to Decision',
+        tZh: '数字牙科：从影像到决策',
+        dEn: 'Full-spectrum AI transformation covering smart triage, ortho monitoring, lab automation, voice perio charting, and smart claims.',
+        dZh: '涵盖智能阅片、隐形正畸监控、技工端自动化质检、语音牙周检查与保险理赔核验的全链路 AI 改造。' },
+      { n: '05', f: 'customer',
+        hrefEn: 'aispeech/index_en.html', hrefZh: 'aispeech/index.html',
+        labelEn: 'Dify × AISPEECH', labelZh: 'Dify × AISPEECH',
+        tEn: 'Cross-role AI Workflow Playbook',
+        tZh: '跨岗位 AI Workflow 作战手册',
+        dEn: '35-slide vertical stacks covering sync, analytics, knowledge Q&amp;A, bug intake, and meeting PMO — with traceable KPIs and legal edge cases.',
+        dZh: '把同步、分析、问答、Bug Intake、会议 PMO 统一到 35 页纵向堆叠的 Workflow 里，附可追溯 KPI 与法务案例。' },
+      { n: '06', f: 'customer',
+        hrefEn: 'ctrip/index_en.html', hrefZh: 'ctrip/index.html',
+        labelEn: 'Dify × Ctrip', labelZh: 'Dify × Ctrip',
+        tEn: 'Automated Risk Control: Zero to Mastery',
+        tZh: '自动化风控：从入门到精通',
+        dEn: 'A hands-on "cat-and-mouse" playbook for layered defenses, attribution, and adversarial countermeasures built on Dify Workflow.',
+        dZh: '基于 Dify Workflow 的"猫鼠游戏"实战指南，涵盖分层防御、归因与对抗演示。深入了解企业级风控策略。' },
+      { n: '07', f: 'customer',
+        hrefEn: 'paypal/index_en.html', hrefZh: 'paypal/index.html',
+        labelEn: 'Dify × PayPal', labelZh: 'Dify × PayPal',
+        tEn: 'Payment Risk &amp; Auth Defense',
+        tZh: '跨境支付风控实战',
+        dEn: 'A Dify workflow playbook for card testing, auth-rate protection, account takeover response, and dispute-abuse mitigation.',
+        dZh: '支付授权率保卫战：卡测、账户接管、退款/纠纷滥用与黑五防刷，全部基于 Dify Workflow 的可视化调度。' },
+      { n: '08', f: 'customer',
+        hrefEn: 'milvus/index_en.html', hrefZh: 'milvus/index.html',
+        labelEn: 'Dify × Milvus', labelZh: 'Dify × Milvus',
+        tEn: 'Evolution of RAG',
+        tZh: 'RAG 的演进之路',
+        dEn: 'From Naive to Agentic RAG: knowledge pipelines, evaluation playbooks, and tight collaboration with vector databases.',
+        dZh: '从 Naive 到 Agentic RAG。探讨 Knowledge Pipeline 设计、RAG 评估方法论以及向量数据库的深度协同实践。' },
+      { n: '09', f: 'customer',
+        hrefEn: 'pupu/index_en.html', hrefZh: 'pupu/index.html',
+        labelEn: 'Dify × PUPU', labelZh: 'Dify × PUPU',
+        tEn: 'From Low-Code to Pro-Code',
+        tZh: '从 Low-Code 到 Pro-Code',
+        dEn: 'How developers wield Dify for LLM apps: paradigm shifts, code fusion, plugin ecosystem design, and automation triggers.',
+        dZh: '程序员如何驾驭 Dify 进行 LLM 应用开发：范式转换、代码融合、插件生态构建与自动化触发机制详解。' },
+      { n: '10', f: 'notes',
+        hrefEn: 'osmo-banana/index_en.html', hrefZh: 'osmo-banana/index.html',
+        labelEn: 'Osmo Banana', labelZh: 'Osmo Banana',
+        tEn: 'A Local Screen Recording Workbench for Mac',
+        tZh: '给 Mac 的本地录屏工作台',
+        dEn: 'A 12-minute demo deck covering subscription pain, local-first recording, polished exports, auto zoom, smoothed cursor, webcam cutout, annotations, music, and batch export.',
+        dZh: '12 分钟 demo deck：从订阅成本出发，演示本地化录屏、漂亮导出、自动 zoom、平滑 cursor、webcam cutout、标注音乐与批量导出。' },
+      { n: '11', f: 'notes',
+        hrefEn: 'agent-last-mile/index_en.html', hrefZh: 'agent-last-mile/index.html',
+        labelEn: 'Dify · Agentic AI', labelZh: 'Dify · Agentic AI',
+        tEn: 'The Last Mile of Agent Deployment',
+        tZh: 'Agent 落地的最后一层',
+        dEn: 'A field-note deck on the orchestration, governance, observability, HITL design, and AWS reference architecture that bridge demos to production.',
+        dZh: '基于一线交付判断，讲清 Agent 从 demo 到生产之间缺的编排、治理、可观测、HITL 与 AWS 参考架构。' },
+      { n: '12', f: 'customer',
+        hrefEn: 'amd-x-dify-hackathon/index_en.html', hrefZh: 'amd-x-dify-hackathon/index.html',
+        labelEn: 'Dify × AMD · Hackathon Track 2', labelZh: 'Dify × AMD · Hackathon Track 2',
+        tEn: 'From Prompt to Private Agent',
+        tZh: '从提示词到私有智能体',
+        dEn: 'A 15-minute Track 2 playbook: Dify owns workflow, knowledge, and tool orchestration while Lemonade runs inference locally on AMD Radeon — from four commands to a community-edition install, a private document agent demo, and the build loop judges score.',
+        dZh: '一套 15 分钟的 Track 2 实战指南：Dify 负责工作流、知识与工具编排，Lemonade 让模型在 AMD Radeon 上本地推理；从四条命令启动社区版到私有文档助手 Demo，并讲清评审要看完整的智能体闭环。' },
+      { n: '13', f: 'workshop',
+        hrefEn: 'stripe-agent-workshop/index_en.html', hrefZh: 'stripe-agent-workshop/index.html',
+        labelEn: 'Dify × Fudan University · Bilingual 45-Minute Agent Workshop',
+        labelZh: 'Dify × 复旦大学 · 中英双语 45 分钟 Agent Workshop',
+        tEn: 'From Scenario to System: Designing Enterprise Agents That Actually Run',
+        tZh: '从场景到系统：设计真正跑得起来的企业 Agent',
+        dEn: 'Start with the work and choose the right agent product form, then follow Dify Workflow Generator from one sentence to an inspectable plan, a runnable graph, and the production guarantees behind planning, tool context, deterministic assembly, validation, refinement, and parallel execution.',
+        dZh: '从工作本身出发选择合适的 Agent 产品形态，再沿着 Dify Workflow Generator 的完整链路，把一句需求变成可检查的计划、可运行的图，并理解规划、工具上下文、确定性组装、校验、增量修改与并行执行背后的生产级保证。' },
+      { n: '14', f: 'platform',
+        hrefEn: 'enterprise-agent-campus/index_en.html', hrefZh: 'enterprise-agent-campus/index.html',
+        labelEn: 'Dify · Enterprise Agent Campus Lecture', labelZh: 'Dify · Enterprise Agent Campus Lecture',
+        tEn: 'Enterprise Agents: Product Forms and Scenario Fit',
+        tZh: '企业 Agent：产品形态与场景选择',
+        dEn: 'A 45-minute lecture for first-year undergraduate and graduate students: compare embedded copilots, expert workbenches, service, process, monitoring, and analyst agents—and see one capability become three different products.',
+        dZh: '面向大一与研一新生的 45 分钟讲座：从工作单元出发，比较嵌入式 Copilot、专家工作台、服务、流程、监测与分析 Agent 分别适合哪些企业场景，并用同一能力演示三种产品化方式。' }
+    ];
+
+    /* ── i18n ───────────────────────────────────────────────── */
+    var T = {
+      en: {
+        docTitle: 'Dify X · Presentations',
+        kicker: 'Presentations',
+        heroTitle: 'Presentations',
+        heroSub: 'Production-grade Agent systems, Workflow architecture, and applied industry cases — drawn from real customer engagements and first-hand delivery experience.',
+        scrollCue: 'Scroll to explore',
+        decksUnit: 'Decks',
+        presentationsUnit: 'Presentations',
+        secLabel: 'All decks · 2025–2026',
+        indexTitle: 'Index',
+        openDeck: 'Open deck',
+        liveDemo: 'Live Demo',
+        loaderHint: 'Loading the archive',
+        contactLabel: 'Get in touch',
+        marquee: ['Presentations', 'Agent Systems', 'Workflow', 'RAG', 'Plugin Governance', 'HITL', 'Observability', 'Risk Control', 'Workshops', 'Field Notes'],
+        filters: { all: 'All', platform: 'Platform', customer: 'Customer', workshop: 'Workshop', notes: 'Notes' }
+      },
+      zh: {
+        docTitle: 'Dify X · 演讲资料',
+        kicker: '演讲资料',
+        heroTitle: '演讲资料',
+        heroSub: '聚焦生产级 Agent 系统、Workflow 架构与行业场景实践。每一篇都源自真实客户合作与一线交付经验。',
+        scrollCue: '滚动浏览',
+        decksUnit: '份演讲',
+        presentationsUnit: '份演讲',
+        secLabel: '全部演讲 · 2025–2026',
+        indexTitle: '索引',
+        openDeck: '打开演讲',
+        liveDemo: '在线演示',
+        loaderHint: '正在装载档案',
+        contactLabel: '联系方式',
+        marquee: ['演讲资料', 'Agent 系统', 'Workflow', 'RAG', '插件治理', '人机协同', '可观测性', '风控实战', '工作坊', '交付笔记'],
+        filters: { all: '全部', platform: '平台', customer: '客户', workshop: '工作坊', notes: '笔记' }
+      }
+    };
+
+    var FILTERS = [['all'], ['platform'], ['customer'], ['workshop'], ['notes']];
+
+    /* ── language detection ─────────────────────────────────── */
+    var lang = (function () {
+      try {
+        var p = new URLSearchParams(location.search).get('lang');
+        if (p === 'zh' || p === 'en') return p;
+        var s = localStorage.getItem('difyx.lang');
+        if (s === 'zh' || s === 'en') return s;
+      } catch (e) { /* private mode */ }
+      var ls = navigator.languages || [navigator.language || ''];
+      for (var i = 0; i < ls.length; i++) {
+        if (String(ls[i]).toLowerCase().indexOf('zh') === 0) return 'zh';
+      }
+      return 'en';
+    })();
+
+    /* ── helpers ────────────────────────────────────────────── */
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+      });
+    }
+
+    function splitChars(el, text) {
+      el.textContent = '';
+      var frag = document.createDocumentFragment();
+      var chars = Array.from(text);
+      chars.forEach(function (ch, i) {
+        var s = document.createElement('span');
+        s.className = 'ch';
+        s.style.setProperty('--i', i);
+        var inner = document.createElement('i');
+        inner.textContent = ch === ' ' ? '\u00A0' : ch;
+        s.appendChild(inner);
+        frag.appendChild(s);
+      });
+      el.appendChild(frag);
+    }
+
+    function splitWords(el, text) {
+      el.textContent = '';
+      var frag = document.createDocumentFragment();
+      text.split(/(\s+)/).forEach(function (w) {
+        if (/^\s+$/.test(w)) {
+          frag.appendChild(document.createTextNode(' '));
+          return;
+        }
+        var s = document.createElement('span');
+        s.className = 'wd';
+        var inner = document.createElement('i');
+        inner.textContent = w;
+        s.appendChild(inner);
+        frag.appendChild(s);
+      });
+      Array.prototype.forEach.call(el.querySelectorAll('.wd'), function (s, i) {
+        s.style.setProperty('--i', i);
+      });
+      el.appendChild(frag);
+    }
+
+    /* ── renderers ──────────────────────────────────────────── */
+    var gridEl = $('#deckGrid');
+    var filtersEl = $('#filters');
+    var mqTrack = $('#marqueeTrack');
+    var heroEl = $('#hero');
+    var activeF = 'all';
+    var firstRender = true;
+
+    function renderMarquee() {
+      var items = T[lang].marquee.map(function (w) {
+        return '<span class="mq-i">' + esc(w) + '</span>';
+      }).join('');
+      mqTrack.innerHTML = '<div class="mq-group">' + items + '</div><div class="mq-group">' + items + '</div>';
+    }
+
+    function renderChips() {
+      var counts = { all: DECKS.length };
+      FILTERS.slice(1).forEach(function (pair) {
+        counts[pair[0]] = DECKS.filter(function (d) { return d.f === pair[0]; }).length;
+      });
+      filtersEl.innerHTML = FILTERS.map(function (pair) {
+        var k = pair[0];
+        return '<button type="button" class="chip' + (activeF === k ? ' on' : '') + '" data-f="' + k +
+          '" role="tab" aria-selected="' + (activeF === k) + '">' + esc(T[lang].filters[k]) +
+          '<span class="chip-n">' + counts[k] + '</span></button>';
+      }).join('');
+    }
+
+    function renderDecks() {
+      var t = T[lang];
+      gridEl.innerHTML = DECKS.map(function (d, i) {
+        var href = lang === 'zh' ? d.hrefZh : d.hrefEn;
+        var title = lang === 'zh' ? d.tZh : d.tEn;
+        var label = lang === 'zh' ? d.labelZh : d.labelEn;
+        var desc = lang === 'zh' ? d.dZh : d.dEn;
+        return '<a class="card" data-f="' + d.f + '" href="' + href + '" style="--rd:' + (i * 55) + 'ms">' +
+          '<span class="card-gnum" aria-hidden="true">' + d.n + '</span>' +
+          '<span class="card-num">' + d.n + '</span>' +
+          '<span class="card-tag"><i></i>' + esc(label) + '</span>' +
+          '<h3 class="card-title">' + esc(title) + '</h3>' +
+          '<p class="card-desc">' + esc(desc) + '</p>' +
+          '<span class="card-foot"><span class="card-open">' + esc(t.openDeck) + '</span>' +
+          '<span class="card-arrow" aria-hidden="true">↗</span></span>' +
+          '</a>';
+      }).join('');
+      if (firstRender) {
+        firstRender = false;
+      } else {
+        /* re-render after a language switch: cards cascade in */
+        raf(function () {
+          $$('.card', gridEl).forEach(function (c) { c.classList.add('rv'); });
+        });
+      }
+    }
+
+    function splitHero(animate) {
+      splitChars($('#heroTitle'), T[lang].heroTitle);
+      splitWords($('#heroSub'), T[lang].heroSub);
+      if (animate) {
+        heroEl.classList.remove('in');
+        void heroEl.offsetWidth; /* restart the transitions */
+        heroEl.classList.add('in');
+      }
+    }
+
+    /* ── static i18n text (with flip animation) ─────────────── */
+    function setText(el, val) {
+      el.classList.remove('flipx');
+      void el.offsetWidth;
+      el.textContent = val;
+      el.classList.add('flipx');
+    }
+
+    function applyStatic() {
+      var t = T[lang];
+      $$('[data-i18n]').forEach(function (el) {
+        var v = t[el.getAttribute('data-i18n')];
+        if (v != null) setText(el, v);
+      });
+    }
+
+    function updateLangNav() {
+      $$('.langbtn').forEach(function (b) {
+        var on = b.getAttribute('data-lang') === lang;
+        b.classList.toggle('on', on);
+        b.setAttribute('aria-pressed', on);
+      });
+      $('#langPill').style.transform = lang === 'zh' ? 'translateX(0)' : 'translateX(100%)';
+    }
+
+    function setLang(l) {
+      if (l !== 'zh' && l !== 'en') return;
+      if (l === lang) return;
+      lang = l;
+      try { localStorage.setItem('difyx.lang', l); } catch (e) { /* private mode */ }
+      try {
+        var u = new URL(location.href);
+        u.searchParams.set('lang', l);
+        history.replaceState(null, '', u.toString());
+      } catch (e) { /* file:// */ }
+      document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
+      document.title = T[l].docTitle;
+      applyStatic();
+      splitHero(true);
+      renderMarquee();
+      renderChips();
+      renderDecks();
+      updateLangNav();
+    }
+
+    /* ── filtering with FLIP ────────────────────────────────── */
+    function applyFilter(f) {
+      activeF = f;
+      var cards = $$('.card', gridEl);
+      var visible = cards.filter(function (c) { return !c.classList.contains('is-hidden'); });
+      var first = new Map();
+      visible.forEach(function (c) { first.set(c, c.getBoundingClientRect()); });
+
+      cards.forEach(function (c) {
+        c.classList.toggle('is-hidden', f !== 'all' && c.getAttribute('data-f') !== f);
+      });
+
+      $$('.card', gridEl).forEach(function (c) {
+        if (c.classList.contains('is-hidden')) return;
+        if (first.has(c)) {
+          var f0 = first.get(c), f1 = c.getBoundingClientRect();
+          var dx = f0.left - f1.left, dy = f0.top - f1.top;
+          if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
+            c.animate(
+              [{ transform: 'translate(' + dx + 'px,' + dy + 'px)' }, { transform: 'none' }],
+              { duration: 480, easing: 'cubic-bezier(.16,1,.3,1)' }
+            );
+          }
+        } else if (c.classList.contains('rv')) {
+          c.animate(
+            [{ opacity: 0, transform: 'translateY(16px)' }, { opacity: 1, transform: 'none' }],
+            { duration: 420, easing: 'cubic-bezier(.16,1,.3,1)' }
+          );
+        }
+      });
+      $$('.chip', filtersEl).forEach(function (ch) {
+        var on = ch.getAttribute('data-f') === f;
+        ch.classList.toggle('on', on);
+        ch.setAttribute('aria-selected', on);
+      });
+    }
+
+    /* ── scroll reveal ──────────────────────────────────────── */
+    function initObservers() {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            en.target.classList.add('rv');
+            io.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+      $$('.card, [data-rv]').forEach(function (el) { io.observe(el); });
+    }
+
+    /* ── custom cursor ──────────────────────────────────────── */
+    function initCursor() {
+      if (!FINE) return;
+      var cur = $('#cursor');
+      var x = window.innerWidth / 2, y = window.innerHeight / 2;
+      var tx = x, ty = y;
+      document.body.classList.add('cursor-on');
+      window.addEventListener('mousemove', function (e) { tx = e.clientX; ty = e.clientY; }, { passive: true });
+      (function loop() {
+        x += (tx - x) * 0.18;
+        y += (ty - y) * 0.18;
+        cur.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0) translate(-50%,-50%)';
+        raf(loop);
+      })();
+      document.addEventListener('mouseover', function (e) {
+        var deck = e.target.closest ? e.target.closest('.card') : null;
+        var link = !deck && e.target.closest ? e.target.closest('a,button') : null;
+        cur.classList.toggle('is-deck', !!deck);
+        cur.classList.toggle('is-link', !!link);
+      });
+    }
+
+    /* ── scroll progress ────────────────────────────────────── */
+    function initProgress() {
+      var bar = $('#progressBar');
+      var onScroll = function () {
+        var h = document.documentElement;
+        var max = h.scrollHeight - window.innerHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, Math.max(0, h.scrollTop / max)) : 0) + ')';
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    /* ── hero canvas: drifting particle network ─────────────── */
+    function initCanvas() {
+      var cv = $('#heroCanvas');
+      var ctx = cv && cv.getContext ? cv.getContext('2d') : null;
+      if (!cv || !ctx || RM) return;
+      var W = 0, H = 0, parts = [], mouse = { x: -1e4, y: -1e4 };
+      var running = false, rafId = 0;
+      var LINK = 150, MLINK = 180;
+
+      function size() {
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = cv.clientWidth; H = cv.clientHeight;
+        cv.width = Math.round(W * dpr);
+        cv.height = Math.round(H * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        seed();
+      }
+      function seed() {
+        var n = Math.max(26, Math.min(62, Math.round(W * H / 24000)));
+        parts = [];
+        for (var i = 0; i < n; i++) {
+          parts.push({
+            x: Math.random() * W, y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.24, vy: (Math.random() - 0.5) * 0.24,
+            r: Math.random() * 1.5 + 0.7, ring: Math.random() < 0.14
+          });
+        }
+      }
+      function frame() {
+        ctx.clearRect(0, 0, W, H);
+        var i, j, a, b, dx, dy, d2, al;
+        for (i = 0; i < parts.length; i++) {
+          a = parts[i];
+          a.x += a.vx; a.y += a.vy;
+          if (a.x < -30) a.x = W + 30; if (a.x > W + 30) a.x = -30;
+          if (a.y < -30) a.y = H + 30; if (a.y > H + 30) a.y = -30;
+        }
+        ctx.lineWidth = 1;
+        for (i = 0; i < parts.length; i++) {
+          a = parts[i];
+          for (j = i + 1; j < parts.length; j++) {
+            b = parts[j];
+            dx = a.x - b.x; dy = a.y - b.y; d2 = dx * dx + dy * dy;
+            if (d2 < LINK * LINK) {
+              al = (1 - Math.sqrt(d2) / LINK) * 0.13;
+              ctx.strokeStyle = 'rgba(0,51,255,' + al.toFixed(3) + ')';
+              ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+            }
+          }
+          dx = a.x - mouse.x; dy = a.y - mouse.y; d2 = dx * dx + dy * dy;
+          if (d2 < MLINK * MLINK) {
+            al = (1 - Math.sqrt(d2) / MLINK) * 0.3;
+            ctx.strokeStyle = 'rgba(0,51,255,' + al.toFixed(3) + ')';
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+          }
+        }
+        for (i = 0; i < parts.length; i++) {
+          a = parts[i];
+          if (a.ring) {
+            ctx.strokeStyle = 'rgba(0,51,255,0.30)';
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.arc(a.x, a.y, a.r * 2.6, 0, 6.2832); ctx.stroke();
+          } else {
+            ctx.fillStyle = 'rgba(0,51,255,0.38)';
+            ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.2832); ctx.fill();
+          }
+        }
+        if (running) rafId = raf(frame);
+      }
+      heroEl.addEventListener('mousemove', function (e) {
+        var r = cv.getBoundingClientRect();
+        mouse.x = e.clientX - r.left;
+        mouse.y = e.clientY - r.top;
+      }, { passive: true });
+      heroEl.addEventListener('mouseleave', function () { mouse.x = -1e4; mouse.y = -1e4; });
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting && !running) { running = true; rafId = raf(frame); }
+          else if (!en.isIntersecting && running) { running = false; cancelAnimationFrame(rafId); }
+        });
+      }, { threshold: 0 }).observe(heroEl);
+      window.addEventListener('resize', size);
+      size();
+    }
+
+    /* ── number counters ────────────────────────────────────── */
+    function countTo(el) {
+      var to = parseInt(el.getAttribute('data-to'), 10) || 15;
+      if (RM) { el.textContent = to; return; }
+      var t0 = performance.now();
+      (function step(t) {
+        var k = Math.min(1, (t - t0) / 1200);
+        el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
+        if (k < 1) raf(step);
+      })(performance.now());
+    }
+
+    /* ── preloader & hero reveal ────────────────────────────── */
+    function revealHero() {
+      heroEl.classList.add('in');
+      countTo($('#deckCount'));
+      countTo($('#deckCount2'));
+    }
+
+    function startPreloader() {
+      var loader = $('#loader');
+      var finish = function () {
+        try { sessionStorage.setItem('difyx.seen', '1'); } catch (e) { /* private mode */ }
+        loader.classList.add('done');
+        document.body.classList.remove('loading');
+        revealHero();
+        setTimeout(function () { loader.style.display = 'none'; }, 1300);
+      };
+      if (RM) { finish(); return; }
+      var seen = false;
+      try { seen = sessionStorage.getItem('difyx.seen') === '1'; } catch (e) { /* private mode */ }
+      if (seen) { finish(); return; }
+
+      var num = $('#loaderNum'), bar = $('#loaderBar');
+      var t0 = performance.now(), dur = 1100;
+      (function step(t) {
+        var k = Math.min(1, (t - t0) / dur);
+        var p = Math.round(100 * (1 - Math.pow(1 - k, 2)));
+        num.textContent = p < 10 ? '0' + p : '' + p;
+        bar.style.transform = 'scaleX(' + k.toFixed(3) + ')';
+        if (k < 1) raf(step);
+        else finish();
+      })(performance.now());
+    }
+
+    /* ── interactions ───────────────────────────────────────── */
+    function initEvents() {
+      filtersEl.addEventListener('click', function (e) {
+        var chip = e.target.closest ? e.target.closest('.chip') : null;
+        if (chip) applyFilter(chip.getAttribute('data-f'));
+      });
+      $$('.langbtn').forEach(function (b) {
+        b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
+      });
+      gridEl.addEventListener('mousemove', function (e) {
+        var c = e.target.closest ? e.target.closest('.card') : null;
+        if (!c) return;
+        var r = c.getBoundingClientRect();
+        c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      }, { passive: true });
+    }
+
+    /* ── init ───────────────────────────────────────────────── */
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.title = T[lang].docTitle;
+    splitHero(false);
+    renderMarquee();
+    renderChips();
+    renderDecks();
+    applyStatic();
+    updateLangNav();
+    initObservers();
+    initCursor();
+    initProgress();
+    initCanvas();
+    initEvents();
+    startPreloader();
+  })();
+  </script>
+</body>
 </html>

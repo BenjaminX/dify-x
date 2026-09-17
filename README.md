@@ -3,19 +3,18 @@
 Reveal.js deck collection from the Dify team, covering production-grade agent systems, risk control, RAG evolution, low-/pro-code collaboration, and integration demos.
 
 Online:
-- CN home: https://crazywoola.github.io/dify-x/index_zh.html
-- EN home: https://crazywoola.github.io/dify-x/index_en.html
-- `index.html` redirects to the English home.
+- Home (bilingual): https://crazywoola.github.io/dify-x/index.html — language follows the visitor's system setting, with an EN / 中文 toggle in the top bar (`?lang=en` / `?lang=zh` override, choice is remembered in `localStorage`).
 
 ## Quick start
-- Entry point: open `index.html` (redirects to EN), `index_zh.html`, or `index_en.html` for the card-based navigator.
-- Local preview: serve the repo root and visit `http://localhost:8000/index_zh.html`:
+- Entry point: open `index.html` — the single bilingual navigator. Language is auto-detected from `navigator.languages` (zh → 中文, otherwise EN); the top-bar toggle switches instantly without a reload.
+- Local preview: serve the repo root and visit `http://localhost:8000/index.html`:
   ```bash
   python3 -m http.server 8000
   ```
 - Single decks: open each directory's `index.html` (CN) or `index_en.html` (EN).
 
 ## Repo map
+- `index.html`: single bilingual home page (EN / 中文) — JS i18n with system-language detection, FLIP-filtered deck grid, scroll-reveal animations, and the original ink/paper/blue palette. Decks live in the `DECKS` array in this file.
 - `assets/`: brand assets (`logo.svg`, `bilibili.png`, `xiaohongshu.png`).
 - `agent-plugin-governance/`: 29-slide bilingual Enterprise Agent deck on plugin governance and the Dify 1.15 → 1.16.0 → 1.16.1 production path. Also bundles a vendored reveal.js 4.5.0 runtime under `assets/reveal/` that other decks reuse.
 - `agent-systems/`: production-grade agent systems deck (CN/EN) covering HITL placement and reviewer UX, explicit node deliverables, SOP-backed Agent × Skills, command-node / POSIX-style sandbox execution, and collaborative workflow development.

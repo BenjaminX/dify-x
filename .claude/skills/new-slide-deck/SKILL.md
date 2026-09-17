@@ -1,6 +1,6 @@
 ---
 name: new-slide-deck
-description: Create a new reveal.js slide deck for dify-x and register it on the index pages. Use when asked to add a new presentation, create a new deck, or add slides for a new customer/event.
+description: Create a new reveal.js slide deck for dify-x and register it on the index page. Use when asked to add a new presentation, create a new deck, or add slides for a new customer/event.
 ---
 
 # New Slide Deck
@@ -20,8 +20,8 @@ Ask (or infer from context) before writing any files:
 | `DECK_DIR` | `acme` (lowercase, kebab-case) |
 | `PILL_LABEL` | `Dify × Acme` |
 | `THEME` | `editorial` · `nordic` · `milvus` · `popart` _(see §Themes)_ |
-| ZH title + one-line description | for `index_zh.html` card |
-| EN title + one-line description | for `index_en.html` card |
+| ZH title + one-line description | `tZh` / `dZh` on the `index.html` card |
+| EN title + one-line description | `tEn` / `dEn` on the `index.html` card |
 | Slide content outline | titles, bullets, speaker notes per slide |
 
 Default to a **bilingual** deck: `index.html` (zh-CN) + `index_en.html` (en) that share slide order, `data-slide-id`s, timing, and speaker notes.
@@ -381,32 +381,27 @@ For `index_en.html`: `lang="en"`, drop `editorial-zh.css`, swap `editorial.css` 
 
 ---
 
-## Step 5 — Register on index pages
+## Step 5 — Register on the index page
 
-The index is **not** a card grid. Both `index_zh.html` and `index_en.html` use a two-pane editorial layout: a fixed hero on the left and a scrollable `<section class="deck-list">` of `.deck-row` entries on the right.
+The root `index.html` is a **single bilingual page** (EN / 中文) with JS i18n. There is no `index_en.html` / `index_zh.html` anymore — the deck list lives in the `DECKS` array near the top of the inline `<script>` in `index.html`.
 
-Append a new row as the **last** child of `<section class="deck-list">`, then renumber every `row-num` so the sequence stays contiguous from `00`:
+Append a new entry as the **last** element of `DECKS`, keeping `n` contiguous (`00`…`{N-1}`) and one entry per deck:
 
-```html
-        <a class="deck-row" href="{DECK_DIR}/index.html">
-          <span class="row-num">{NN}</span>
-          <div class="row-body">
-            <div class="row-label">{ZH_LABEL}</div>
-            <div class="row-title">{ZH_TITLE}</div>
-            <div class="row-desc">{ZH_DESCRIPTION}</div>
-          </div>
-          <span class="row-arrow">→</span>
-        </a>
+```js
+      { n: '15', f: 'customer',
+        hrefEn: '{DECK_DIR}/index_en.html', hrefZh: '{DECK_DIR}/index.html',
+        labelEn: '{EN_LABEL}', labelZh: '{ZH_LABEL}',
+        tEn: '{EN_TITLE}', tZh: '{ZH_TITLE}',
+        dEn: '{EN_DESCRIPTION}', dZh: '{ZH_DESCRIPTION}' }
 ```
 
-Then update, in both pages:
+Rules:
 
-1. **The counter** in the index bar: `<span class="index-bar-label">{N} Presentations</span>`.
-2. **`index_zh.html`** — use `href="{DECK_DIR}/index.html"` and Chinese copy.
-3. **`index_en.html`** — use `href="{DECK_DIR}/index_en.html"` and English copy.
-4. **`README.md`** — add the deck to both `Repo map` and `Decks`.
-
-Note: `index.html` at the repo root is only a redirect stub to `index_en.html`; do not edit it.
+1. `f` is the filter bucket: `platform` (Dify 平台向) · `customer` (Dify × 客户) · `workshop` (培训/工作坊) · `notes` (独立项目/笔记).
+2. `hrefEn` / `hrefZh` point at the deck's English / Chinese page. English-only decks (like `agent-systems-sg`) set both to the same URL.
+3. English-only decks still ship both text fields — write the Chinese copy as the English title if no translation exists.
+4. The card counter, filter chip counts, and hero number are computed from `DECKS.length` — no manual counter to update.
+5. **`README.md`** — add the deck to both `Repo map` and `Decks`.
 
 ---
 
@@ -428,12 +423,12 @@ Keep image credits honest: name the photographer and link the Unsplash original.
 ## Step 7 — Verify
 
 - New directory exists with both `index.html` and `index_en.html`.
-- Both index pages contain the new row, and `row-num` runs `00`…`{N-1}` with no gaps.
-- The "N Presentations" counter matches the row count.
+- `index.html` contains the new entry in the `DECKS` array for both languages, and `n` runs `00`…`{N-1}` with no gaps.
+- The filter chip count for the chosen bucket increments by one, and the hero/index counters equal `DECKS.length`.
 - Every local `href` / `src` in the new deck resolves — reveal runtime, logos, and background images.
 - `data-slide-id`s match one-to-one between the two languages, in the same order.
 - `README.md` lists the deck in both `Repo map` and `Decks`.
-- Remind the user to open the deck in a browser to check rendering.
+- Remind the user to open `index.html` in a browser to check rendering in both languages.
 
 ---
 
