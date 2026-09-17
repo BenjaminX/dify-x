@@ -19,6 +19,8 @@
        Dify X · Webzibition-style index
        Single bilingual page (EN / 中文). Palette is unchanged:
        ink / paper / rule / dim / ghost / blue / lift.
+       Desktop: fixed two-pane shell — hero left, deck list
+       scrolls independently on the right. Mobile: stacked.
        ═══════════════════════════════════════════════════════════ */
 
     :root {
@@ -155,11 +157,12 @@
     .langbtn.on { color: var(--paper); }
     .langbtn:hover:not(.on) { color: var(--ink); }
 
-    /* ── Hero ───────────────────────────────────────────────── */
+    /* ── Left pane — hero (stacks on mobile) ────────────────── */
     .hero {
-      position: relative; min-height: 100vh; min-height: 100svh;
+      position: relative;
       display: flex; flex-direction: column;
-      padding: 104px 48px 36px; overflow: hidden;
+      padding: 72px 40px 0; overflow: hidden;
+      border-bottom: 1px solid var(--rule);
     }
     .hero-dots {
       position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -177,11 +180,11 @@
       font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
       text-transform: uppercase; color: var(--ghost);
     }
-    .hero-mid { margin: auto 0 72px; max-width: 1060px; }
+    .hero-mid { margin: 40px 0 46px; max-width: 1060px; }
 
     .hero-title {
       font-weight: 800;
-      font-size: clamp(56px, 9.6vw, 152px);
+      font-size: clamp(44px, 12vw, 64px);
       line-height: 1; letter-spacing: -0.04em; color: var(--ink);
     }
     .hero-title .ch { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.14em; margin-bottom: -0.14em; }
@@ -211,29 +214,13 @@
     .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
     .hero-meta span::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--blue); }
 
-    .hero-foot { display: flex; align-items: flex-end; justify-content: space-between; }
-    .scroll-cue {
-      display: flex; align-items: center; gap: 12px;
-      font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--ghost);
-    }
-    .scroll-line { position: relative; width: 1px; height: 46px; background: var(--rule); overflow: hidden; }
-    .scroll-line::after {
-      content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 42%;
-      background: var(--blue); animation: cue 1.9s var(--ease-out) infinite;
-    }
-    @keyframes cue { 0% { transform: translateY(-105%); } 55%, 100% { transform: translateY(245%); } }
-
-    .hero-count { font-family: var(--mono); }
-    .hero-count b { font-size: 27px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; }
-    .hero-count span {
-      margin-left: 8px; font-size: 9.5px; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--ghost);
-    }
+    .hero-count { font-family: var(--mono); display: inline-flex; align-items: baseline; gap: 7px; }
+    .hero-count b { font-size: 17px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; }
+    .hero-count span { font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ghost); }
 
     .hero-asterisk {
-      position: absolute; z-index: 2; right: 7vw; top: 21%;
-      width: 84px; height: 84px; color: var(--blue);
+      position: absolute; z-index: 2; right: 46px; top: 15%;
+      width: 70px; height: 70px; color: var(--blue);
       opacity: 0; transition: opacity 0.9s var(--ease-out) 0.95s;
       animation: spin 22s linear infinite; pointer-events: none;
     }
@@ -245,7 +232,6 @@
     .hero.in .fx { opacity: 1; transform: none; }
     .hero-kicker { --fd: 80ms; }
     .hero-meta { --fd: 680ms; }
-    .hero-foot { --fd: 840ms; }
 
     /* ── Marquee ────────────────────────────────────────────── */
     .marquee {
@@ -265,27 +251,29 @@
       background: var(--blue); transform: rotate(45deg);
       margin: 0 26px; vertical-align: 2px;
     }
+    /* marquee pinned to the bottom of the left pane, bleeding to its edges */
+    .hero .marquee { margin: 22px -40px 0; }
 
-    /* ── Index section ──────────────────────────────────────── */
-    .index { padding: 104px 48px 120px; }
-    .index-head {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      gap: 24px; flex-wrap: wrap; margin-bottom: 44px;
+    /* ── Sticky list bar (right pane / stacked page) ─────────── */
+    .list-bar {
+      position: sticky; top: 52px; z-index: 5; flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.92);
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
+      padding: 13px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px 20px; flex-wrap: wrap;
     }
-    .sec-label {
-      font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--ghost); margin-bottom: 16px;
-      display: flex; align-items: center; gap: 10px;
+    .list-bar-id { display: flex; align-items: baseline; gap: 14px; }
+    .list-bar-title { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+    .list-bar-count {
+      font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--ghost);
+      display: inline-flex; align-items: baseline; gap: 7px;
     }
-    .sec-label::before { content: ''; width: 22px; height: 1px; background: var(--blue); }
-    .index-title {
-      font-size: clamp(40px, 4.6vw, 64px); font-weight: 800;
-      letter-spacing: -0.03em; line-height: 1;
-    }
-    .index-count { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ghost); }
-    .index-count b { font-size: 24px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; margin-right: 8px; }
+    .list-bar-count b { font-size: 15px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; }
 
-    .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 44px; }
+    .filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
     .chip {
       display: inline-flex; align-items: center; gap: 9px;
       font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
@@ -299,42 +287,42 @@
     .chip:hover .chip-n { color: var(--dim); }
     .chip.on .chip-n { color: rgba(255, 255, 255, 0.55); }
 
-    .grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
-      border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
-    }
+    /* ── Deck rows ──────────────────────────────────────────── */
     .card {
-      position: relative; display: flex; flex-direction: column;
-      padding: 42px 40px 34px; min-height: 330px;
+      position: relative; display: grid;
+      grid-template-columns: 52px 1fr; gap: 0 22px; align-items: start;
+      padding: 26px 40px; min-height: 0;
       text-decoration: none; color: inherit; overflow: hidden;
       background: var(--paper);
-      box-shadow: inset 1px 0 0 var(--rule), inset 0 1px 0 var(--rule);
+      border-bottom: 1px solid var(--rule);
       transition: background 0.35s;
     }
     .card.is-hidden { display: none; }
     .card::before {
       content: ''; position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), var(--blue-04), transparent 62%);
+      background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--blue-04), transparent 62%);
       opacity: 0; transition: opacity 0.45s;
     }
     .card::after {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: var(--blue); transform: scaleX(0); transform-origin: 0 50%;
+      content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 2px;
+      background: var(--blue); transform: scaleY(0); transform-origin: 0 0;
       transition: transform 0.55s var(--ease-out);
     }
     .card:hover { background: var(--lift); }
     .card:hover::before { opacity: 1; }
-    .card:hover::after { transform: scaleX(1); }
+    .card:hover::after { transform: scaleY(1); }
+
+    .card-body { position: relative; z-index: 1; min-width: 0; }
 
     .card-num {
-      position: relative; z-index: 1;
+      position: relative; z-index: 1; padding-top: 2px;
       font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; color: var(--ghost);
       transition: color 0.25s;
     }
     .card:hover .card-num { color: var(--blue); }
 
     .card-tag {
-      position: relative; z-index: 1; margin-top: 14px;
+      position: relative; z-index: 1;
       display: flex; align-items: center; gap: 9px;
       font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.16em;
       text-transform: uppercase; color: var(--ghost);
@@ -343,35 +331,33 @@
     .card:hover .card-tag i { background: var(--blue); }
 
     .card-title {
-      position: relative; z-index: 1; margin-top: 18px; max-width: 30ch;
-      font-size: 21px; font-weight: 700; line-height: 1.32; letter-spacing: -0.01em;
+      position: relative; z-index: 1; margin-top: 10px; max-width: 58ch;
+      font-size: 19px; font-weight: 700; line-height: 1.32; letter-spacing: -0.01em;
       transition: transform 0.4s var(--ease-out), color 0.3s;
     }
     .card:hover .card-title { color: var(--blue); transform: translateX(6px); }
 
     .card-desc {
-      position: relative; z-index: 1; margin-top: 14px; max-width: 52ch;
+      position: relative; z-index: 1; margin-top: 9px; max-width: 78ch;
       font-size: 13px; line-height: 1.85; color: var(--dim);
     }
 
-    .card-foot {
-      position: relative; z-index: 1; margin-top: auto; padding-top: 30px;
-      display: flex; align-items: center; justify-content: space-between;
-      font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--ghost); transition: color 0.25s;
+    .card-arrow {
+      position: absolute; z-index: 1; right: 40px; top: 26px;
+      font-size: 15px; color: var(--ghost);
+      transition: transform 0.35s var(--ease-out), color 0.25s;
     }
-    .card:hover .card-foot { color: var(--ink); }
-    .card-arrow { font-size: 14px; transition: transform 0.35s var(--ease-out), color 0.25s; }
     .card:hover .card-arrow { color: var(--blue); transform: translate(5px, -5px); }
 
     .card-gnum {
-      position: absolute; z-index: 0; top: 10px; right: 22px;
-      font-size: 78px; font-weight: 800; line-height: 1; color: transparent;
+      position: absolute; z-index: 0; right: 92px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 62px; font-weight: 800; line-height: 1; color: transparent;
       -webkit-text-stroke: 1px var(--rule);
       transition: transform 0.5s var(--ease-out), -webkit-text-stroke-color 0.4s;
       pointer-events: none; user-select: none;
     }
-    .card:hover .card-gnum { transform: translate(-9px, -9px); -webkit-text-stroke-color: var(--blue-12); }
+    .card:hover .card-gnum { transform: translateY(-50%) translate(-9px, -9px); -webkit-text-stroke-color: var(--blue-12); }
 
     /* scroll reveal (JS adds .rv) */
     .js .card, .js [data-rv] { opacity: 0; transform: translateY(34px); }
@@ -389,7 +375,13 @@
     .flipx { animation: flipx 0.5s var(--ease-out) both; }
 
     /* ── Footer ─────────────────────────────────────────────── */
-    .footer { border-top: 1px solid var(--rule); padding: 88px 48px 0; overflow: hidden; }
+    .sec-label {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--ghost); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sec-label::before { content: ''; width: 22px; height: 1px; background: var(--blue); }
+    .footer { border-top: 1px solid var(--rule); padding: 64px 40px 32px; overflow: hidden; }
     .footer-mail {
       display: inline-flex; align-items: center; gap: 20px;
       font-size: clamp(38px, 5.6vw, 76px); font-weight: 800; letter-spacing: -0.03em;
@@ -420,36 +412,75 @@
     }
 
     .noscript-note {
-      margin: 32px 48px 0; padding: 22px 26px; border: 1px solid var(--rule);
+      margin: 24px 40px 32px; padding: 22px 26px; border: 1px solid var(--rule);
       font-size: 13px; line-height: 2; color: var(--dim);
     }
     .noscript-note a { color: var(--blue); }
 
+    /* ── Desktop: fixed two-pane shell ──────────────────────── */
+    @media (min-width: 901px) {
+      body {
+        height: 100vh; height: 100svh;
+        overflow: hidden;
+        display: flex; flex-direction: column;
+      }
+      .shell {
+        flex: 1; min-height: 0;
+        display: grid; grid-template-columns: 43% 1fr;
+        overflow: hidden;
+      }
+      .hero {
+        height: 100%; padding: 46px 48px 0;
+        border-right: 1px solid var(--rule); border-bottom: none;
+      }
+      .hero-mid { margin: auto 0 46px; }
+      .hero-title { font-size: clamp(48px, 6.4vw, 84px); }
+      .hero .marquee { margin: 26px -48px 0; }
+      .pane-right {
+        display: flex; flex-direction: column; min-height: 0;
+        overflow-y: auto; overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+      }
+      .grid { flex-shrink: 0; }
+      .list-bar { top: 0; padding: 13px 44px; }
+      .card { padding: 26px 44px; }
+      .card-arrow { right: 44px; }
+      .card-gnum { right: 96px; }
+      .footer { padding: 72px 44px 36px; }
+      .noscript-note { margin: 24px 44px 36px; }
+    }
+
     /* ── Responsive ─────────────────────────────────────────── */
     @media (max-width: 900px) {
-      .grid { grid-template-columns: 1fr; }
-      .card { min-height: 0; padding: 36px 28px 30px; }
-      .card-gnum { font-size: 58px; }
+      .card { grid-template-columns: 46px 1fr; padding: 24px 28px; gap: 0 18px; }
+      .card-gnum { display: none; }
+      .card-arrow { right: 28px; top: 24px; }
+      .list-bar { padding: 12px 28px; }
+      .footer { padding: 56px 28px 28px; }
+      .noscript-note { margin: 24px 28px 28px; }
     }
     @media (max-width: 768px) {
-      body { padding-top: 48px; }
+      body { padding-top: 48px; overflow-x: hidden; }
       .topbar { padding: 0 20px; height: 48px; }
-      .hero { padding: 76px 22px 30px; }
-      .hero-mid { margin-bottom: 56px; }
+      .hero { padding: 60px 22px 0; }
+      .hero .marquee { margin: 22px -22px 0; }
+      .hero-mid { margin: 36px 0 40px; }
       .hero-sub { font-size: 14px; }
       .hero-asterisk { display: none; }
-      .index { padding: 72px 22px 80px; }
-      .filters { flex-wrap: nowrap; overflow-x: auto; margin-left: -22px; margin-right: -22px; padding: 0 22px; -webkit-overflow-scrolling: touch; }
-      .footer { padding: 64px 22px 0; }
-      .footer-big { margin-top: 56px; }
-      .noscript-note { margin: 32px 22px 0; }
+      .hero canvas { display: none; }
+      .list-bar { top: 48px; padding: 12px 22px; }
+      .card { padding: 22px; grid-template-columns: 40px 1fr; gap: 0 16px; }
+      .card-arrow { right: 22px; top: 22px; }
+      .filters { flex-wrap: nowrap; overflow-x: auto; margin-right: -22px; padding-right: 22px; -webkit-overflow-scrolling: touch; }
+      .footer { padding: 48px 22px 24px; }
+      .footer-big { margin-top: 48px; }
+      .noscript-note { margin: 24px 22px 24px; }
     }
 
     /* ── Reduced motion ─────────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .mq-track { animation: none; }
-      .scroll-line::after { animation: none; }
       .hero-asterisk { animation: none; }
       .js .card, .js [data-rv] { opacity: 1; transform: none; }
       .hero-title .ch > i, .hero-sub .wd > i { transform: none; }
@@ -490,8 +521,8 @@
     </nav>
   </header>
 
-  <main>
-    <!-- hero -->
+  <main class="shell">
+    <!-- left pane: fixed hero -->
     <section class="hero" id="hero">
       <div class="hero-dots" aria-hidden="true"></div>
       <canvas id="heroCanvas" aria-hidden="true"></canvas>
@@ -506,11 +537,8 @@
           <div class="hero-meta fx">
             <span>banana@dify.ai</span>
             <span>Developer Relations @ Dify</span>
+            <span class="hero-count"><b id="deckCount" data-to="15">0</b><span data-i18n="decksUnit">Decks</span></span>
           </div>
-        </div>
-        <div class="hero-foot fx">
-          <div class="scroll-cue"><span class="scroll-line"></span><span data-i18n="scrollCue">Scroll to explore</span></div>
-          <div class="hero-count"><b id="deckCount" data-to="15">0</b><span data-i18n="decksUnit">Decks</span></div>
         </div>
       </div>
       <svg class="hero-asterisk" viewBox="-50 -50 100 100" aria-hidden="true">
@@ -520,24 +548,20 @@
           <line x1="-31" y1="18" x2="31" y2="-18"/>
         </g>
       </svg>
+      <div class="marquee" aria-hidden="true">
+        <div class="mq-track" id="marqueeTrack"></div>
+      </div>
     </section>
 
-    <!-- marquee -->
-    <div class="marquee" aria-hidden="true">
-      <div class="mq-track" id="marqueeTrack"></div>
-    </div>
-
-    <!-- deck index -->
-    <section class="index" id="index">
-      <div class="index-head" data-rv>
-        <div>
-          <p class="sec-label" data-i18n="secLabel">All decks · 2025–2026</p>
-          <h2 class="index-title" data-i18n="indexTitle">Index</h2>
+    <!-- right pane: scrollable deck list -->
+    <div class="pane-right" id="paneRight">
+      <div class="list-bar">
+        <div class="list-bar-id">
+          <span class="list-bar-title" data-i18n="indexTitle">Index</span>
+          <span class="list-bar-count"><b id="deckCount2" data-to="15">0</b><span data-i18n="presentationsUnit">Presentations</span></span>
         </div>
-        <p class="index-count"><b id="deckCount2" data-to="15">0</b><span data-i18n="presentationsUnit">Presentations</span></p>
+        <div class="filters" id="filters" role="tablist" aria-label="Filter decks"></div>
       </div>
-
-      <div class="filters" id="filters" data-rv role="tablist" aria-label="Filter decks"></div>
 
       <div class="grid" id="deckGrid"></div>
 
@@ -560,28 +584,27 @@
           <a href="enterprise-agent-campus/index.html">14 Campus Lecture</a>
         </div>
       </noscript>
-    </section>
 
-    <!-- footer -->
-    <footer class="footer">
-      <div data-rv>
-        <p class="sec-label" data-i18n="contactLabel">Get in touch</p>
-        <a class="footer-mail" href="mailto:banana@dify.ai">
-          banana@dify.ai
-          <span class="fm-arrow" aria-hidden="true">↗</span>
-        </a>
-      </div>
-      <div class="footer-links" data-rv>
-        <a href="https://github.com/crazywoola" target="_blank" rel="noopener">@crazywoola</a>
-        <span class="sep">·</span>
-        <a href="https://github.com/crazywoola/dify-x" target="_blank" rel="noopener">dify-x</a>
-        <span class="sep">·</span>
-        <a href="https://crazywoola.github.io/dify-x/" target="_blank" rel="noopener" data-i18n="liveDemo">Live Demo</a>
-        <span class="sep">·</span>
-        <span>© 2026 LangGenius, Inc.</span>
-      </div>
-      <div class="footer-big" data-rv aria-hidden="true">DIFY·X</div>
-    </footer>
+      <footer class="footer">
+        <div data-rv>
+          <p class="sec-label" data-i18n="contactLabel">Get in touch</p>
+          <a class="footer-mail" href="mailto:banana@dify.ai">
+            banana@dify.ai
+            <span class="fm-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div class="footer-links" data-rv>
+          <a href="https://github.com/crazywoola" target="_blank" rel="noopener">@crazywoola</a>
+          <span class="sep">·</span>
+          <a href="https://github.com/crazywoola/dify-x" target="_blank" rel="noopener">dify-x</a>
+          <span class="sep">·</span>
+          <a href="https://crazywoola.github.io/dify-x/" target="_blank" rel="noopener" data-i18n="liveDemo">Live Demo</a>
+          <span class="sep">·</span>
+          <span>© 2026 LangGenius, Inc.</span>
+        </div>
+        <div class="footer-big" data-rv aria-hidden="true">DIFY·X</div>
+      </footer>
+    </div>
   </main>
 
   <script>
@@ -711,12 +734,9 @@
         kicker: 'Presentations',
         heroTitle: 'Presentations',
         heroSub: 'Production-grade Agent systems, Workflow architecture, and applied industry cases — drawn from real customer engagements and first-hand delivery experience.',
-        scrollCue: 'Scroll to explore',
         decksUnit: 'Decks',
         presentationsUnit: 'Presentations',
-        secLabel: 'All decks · 2025–2026',
         indexTitle: 'Index',
-        openDeck: 'Open deck',
         liveDemo: 'Live Demo',
         loaderHint: 'Loading the archive',
         contactLabel: 'Get in touch',
@@ -728,12 +748,9 @@
         kicker: '演讲资料',
         heroTitle: '演讲资料',
         heroSub: '聚焦生产级 Agent 系统、Workflow 架构与行业场景实践。每一篇都源自真实客户合作与一线交付经验。',
-        scrollCue: '滚动浏览',
         decksUnit: '份演讲',
         presentationsUnit: '份演讲',
-        secLabel: '全部演讲 · 2025–2026',
         indexTitle: '索引',
-        openDeck: '打开演讲',
         liveDemo: '在线演示',
         loaderHint: '正在装载档案',
         contactLabel: '联系方式',
@@ -832,7 +849,6 @@
     }
 
     function renderDecks() {
-      var t = T[lang];
       gridEl.innerHTML = DECKS.map(function (d, i) {
         var href = lang === 'zh' ? d.hrefZh : d.hrefEn;
         var title = lang === 'zh' ? d.tZh : d.tEn;
@@ -841,11 +857,12 @@
         return '<a class="card" data-f="' + d.f + '" href="' + href + '" style="--rd:' + (i * 55) + 'ms">' +
           '<span class="card-gnum" aria-hidden="true">' + d.n + '</span>' +
           '<span class="card-num">' + d.n + '</span>' +
-          '<span class="card-tag"><i></i>' + esc(label) + '</span>' +
-          '<h3 class="card-title">' + esc(title) + '</h3>' +
-          '<p class="card-desc">' + esc(desc) + '</p>' +
-          '<span class="card-foot"><span class="card-open">' + esc(t.openDeck) + '</span>' +
-          '<span class="card-arrow" aria-hidden="true">↗</span></span>' +
+          '<div class="card-body">' +
+            '<span class="card-tag"><i></i>' + esc(label) + '</span>' +
+            '<h3 class="card-title">' + esc(title) + '</h3>' +
+            '<p class="card-desc">' + esc(desc) + '</p>' +
+          '</div>' +
+          '<span class="card-arrow" aria-hidden="true">↗</span>' +
           '</a>';
       }).join('');
       if (firstRender) {
@@ -950,8 +967,10 @@
       });
     }
 
-    /* ── scroll reveal ──────────────────────────────────────── */
+    /* ── scroll reveal (scoped to the right pane on desktop) ── */
     function initObservers() {
+      var pane = $('#paneRight');
+      var mq = window.matchMedia('(min-width: 901px)');
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
           if (en.isIntersecting) {
@@ -959,8 +978,14 @@
             io.unobserve(en.target);
           }
         });
-      }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+      }, { threshold: 0.12, root: mq.matches ? pane : null, rootMargin: '0px 0px -6% 0px' });
       $$('.card, [data-rv]').forEach(function (el) { io.observe(el); });
+      /* crossing the breakpoint: reveal everything so nothing stays invisible */
+      if (mq.addEventListener) {
+        mq.addEventListener('change', function () {
+          $$('.card, [data-rv]').forEach(function (el) { el.classList.add('rv'); });
+        });
+      }
     }
 
     /* ── custom cursor ──────────────────────────────────────── */
@@ -985,14 +1010,16 @@
       });
     }
 
-    /* ── scroll progress ────────────────────────────────────── */
+    /* ── scroll progress (right pane on desktop, page on mobile) ── */
     function initProgress() {
       var bar = $('#progressBar');
+      var pane = $('#paneRight');
       var onScroll = function () {
-        var h = document.documentElement;
-        var max = h.scrollHeight - window.innerHeight;
-        bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, Math.max(0, h.scrollTop / max)) : 0) + ')';
+        var el = pane.scrollHeight > pane.clientHeight + 4 ? pane : document.documentElement;
+        var max = el.scrollHeight - el.clientHeight;
+        bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, Math.max(0, el.scrollTop / max)) : 0) + ')';
       };
+      pane.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
     }
@@ -1001,7 +1028,7 @@
     function initCanvas() {
       var cv = $('#heroCanvas');
       var ctx = cv && cv.getContext ? cv.getContext('2d') : null;
-      if (!cv || !ctx || RM) return;
+      if (!cv || !ctx || RM || window.innerWidth <= 900) return;
       var W = 0, H = 0, parts = [], mouse = { x: -1e4, y: -1e4 };
       var running = false, rafId = 0;
       var LINK = 150, MLINK = 180;
