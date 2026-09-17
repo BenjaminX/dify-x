@@ -32,6 +32,7 @@
       --blue:  #0033ff;
       --lift:  #f7f6f1;
       --blue-04: rgba(0, 51, 255, 0.05);
+      --blue-06: rgba(0, 51, 255, 0.07);
       --blue-12: rgba(0, 51, 255, 0.12);
 
       --sans: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
@@ -55,6 +56,12 @@
     a { color: inherit; }
     button { font: inherit; background: none; border: 0; color: inherit; }
     :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+    /* language switch crossfade (View Transitions API) */
+    ::view-transition-old(root), ::view-transition-new(root) {
+      animation-duration: 0.45s;
+      animation-timing-function: var(--ease-out);
+    }
 
     /* ── Scroll progress ────────────────────────────────────── */
     .prog {
@@ -96,14 +103,49 @@
       body.cursor-on, body.cursor-on * { cursor: none !important; }
     }
 
+    /* deck page transition — ink panel with blue label.
+       Codrops "revealers": the panel wipes down while the label counter-moves
+       inside it, so the text stays visually put and gets cut off by the mask. */
+    .deck-trans { position: fixed; inset: 0; z-index: 500; pointer-events: none; visibility: hidden; }
+    .deck-trans .dt-move {
+      position: absolute; inset: 0; background: var(--ink); overflow: hidden;
+      transform: translateY(-101%);
+      transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+    .deck-trans .dt-inner {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      transform: translateY(101%);
+      transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+    .deck-trans .dt-label {
+      font-family: var(--mono); font-size: clamp(13px, 1.8vw, 19px);
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--blue);
+      white-space: nowrap;
+    }
+    .deck-trans.go { visibility: visible; pointer-events: auto; }
+    .deck-trans.go .dt-move { transform: translateY(0); }
+    .deck-trans.go .dt-inner { transform: translateY(0); }
+
     /* ── Preloader ──────────────────────────────────────────── */
     .loader {
-      position: fixed; inset: 0; z-index: 400; background: var(--paper);
+      position: fixed; inset: 0; z-index: 400; pointer-events: none;
+    }
+    /* two panels split along the 43%/57% pane seam — mirror the shell layout */
+    .loader-pane {
+      position: absolute; top: 0; bottom: 0; background: var(--paper);
       display: flex; align-items: center; justify-content: center;
       transition: transform 1.05s cubic-bezier(0.76, 0, 0.24, 1);
     }
-    .loader.done { transform: translateY(-101%); }
+    .loader-pane--left { left: 0; width: 43%; }
+    .loader-pane--right { right: 0; width: 57%; }
+    .loader.done .loader-pane--left { transform: translateY(-101%); }
+    .loader.done .loader-pane--right { transform: translateY(101%); transition-delay: 0.09s; }
     .loader.done .loader-inner { opacity: 0; transition: opacity 0.35s; }
+    @media (max-width: 900px) {
+      /* split only makes sense on the two-pane layout — full-width curtain on mobile */
+      .loader-pane--left { width: 100%; }
+      .loader-pane--right { display: none; }
+    }
     .loader-inner {
       display: flex; flex-direction: column; align-items: center; gap: 26px;
       transition: opacity 0.35s;
@@ -134,6 +176,9 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 48px;
     }
+    /* fade in after the preloader splits (JS only — no-JS keeps it visible) */
+    .js .topbar { opacity: 0; transition: opacity 0.6s var(--ease-out) 0.25s; }
+    html.booted .topbar { opacity: 1; }
     .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; }
     .brand img { height: 21px; display: block; }
     .brand-div { width: 1px; height: 14px; background: var(--rule); }
@@ -188,6 +233,8 @@
       line-height: 1; letter-spacing: -0.04em; color: var(--ink);
     }
     .hero-title .ch { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+    /* scrambled (decoding) characters during the language switch */
+    .hero-title .ch-s { color: var(--ghost); }
     .hero-title .ch > i {
       display: inline-block; font-style: normal; transform: translateY(125%);
       transition: transform 0.95s var(--ease-out);
@@ -218,14 +265,18 @@
     .hero-count b { font-size: 17px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; }
     .hero-count span { font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ghost); }
 
+    .hero-clock { font-family: var(--mono); display: inline-flex; align-items: baseline; gap: 8px; }
+    .hero-clock b { font-size: 14px; font-weight: 500; color: var(--ink); letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+
     .hero-asterisk {
       position: absolute; z-index: 2; right: 46px; top: 15%;
       width: 70px; height: 70px; color: var(--blue);
       opacity: 0; transition: opacity 0.9s var(--ease-out) 0.95s;
+      translate: 0 0; /* magnetic offset, set by JS */
       animation: spin 22s linear infinite; pointer-events: none;
     }
     .hero.in .hero-asterisk { opacity: 0.8; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes spin { from { rotate: 0deg; } to { rotate: 360deg; } }
 
     /* generic hero entrance for static blocks */
     .fx { opacity: 0; transform: translateY(26px); transition: opacity 0.9s var(--ease-out) var(--fd, 0ms), transform 0.9s var(--ease-out) var(--fd, 0ms); }
@@ -238,9 +289,9 @@
       border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
       overflow: hidden; padding: 17px 0; background: var(--paper);
     }
-    .mq-track { display: flex; width: max-content; animation: mq 34s linear infinite; }
-    .marquee:hover .mq-track { animation-play-state: paused; }
-    @keyframes mq { to { transform: translateX(-50%); } }
+    /* marquee: driven by JS (base speed + scroll velocity), pinned to the
+       bottom of the left pane, bleeding to its edges */
+    .mq-track { display: flex; width: max-content; will-change: transform; }
     .mq-group { display: flex; align-items: center; }
     .mq-i {
       font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.2em;
@@ -251,7 +302,6 @@
       background: var(--blue); transform: rotate(45deg);
       margin: 0 26px; vertical-align: 2px;
     }
-    /* marquee pinned to the bottom of the left pane, bleeding to its edges */
     .hero .marquee { margin: 22px -40px 0; }
 
     /* ── Sticky list bar (right pane / stacked page) ─────────── */
@@ -272,6 +322,15 @@
       display: inline-flex; align-items: baseline; gap: 7px;
     }
     .list-bar-count b { font-size: 15px; font-weight: 500; color: var(--ink); letter-spacing: -0.02em; }
+
+    /* sticky-bar morph: compacts once the list scrolls (JS adds .compact) */
+    .list-bar, .list-bar-title, .list-bar-count, .chip { transition-timing-function: var(--ease-out); }
+    .list-bar { transition-property: padding-top, padding-bottom; transition-duration: 0.45s; }
+    .list-bar-title { transition-property: font-size; transition-duration: 0.45s; }
+    .list-bar-count { transition-property: opacity; transition-duration: 0.35s; }
+    .list-bar.compact { padding-top: 9px; padding-bottom: 9px; }
+    .list-bar.compact .list-bar-title { font-size: 18px; }
+    .list-bar.compact .list-bar-count { opacity: 0; }
 
     .filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
     .chip {
@@ -298,21 +357,28 @@
       transition: background 0.35s;
     }
     .card.is-hidden { display: none; }
-    .card::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--blue-04), transparent 62%);
-      opacity: 0; transition: opacity 0.45s;
+    /* directional sweep — blue tint expands as a circle from the cursor's
+       entry point (Codrops-style directional hover) */
+    .card-sweep {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: var(--blue-06);
+      clip-path: circle(0px at var(--sx, 50%) var(--sy, 50%));
+      transition: clip-path 0.7s var(--ease-out);
     }
+    .card:hover .card-sweep { clip-path: circle(150% at var(--sx, 50%) var(--sy, 50%)); }
     .card::after {
       content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 2px;
       background: var(--blue); transform: scaleY(0); transform-origin: 0 0;
       transition: transform 0.55s var(--ease-out);
     }
     .card:hover { background: var(--lift); }
-    .card:hover::before { opacity: 1; }
     .card:hover::after { transform: scaleY(1); }
 
-    .card-body { position: relative; z-index: 1; min-width: 0; }
+    .card-body {
+      position: relative; z-index: 1; min-width: 0;
+      transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+      transition: transform 0.55s var(--ease-out);
+    }
 
     .card-num {
       position: relative; z-index: 1; padding-top: 2px;
@@ -354,12 +420,13 @@
       transform: translateY(-50%);
       font-size: 62px; font-weight: 800; line-height: 1; color: transparent;
       -webkit-text-stroke: 1px var(--rule);
-      transition: transform 0.5s var(--ease-out), -webkit-text-stroke-color 0.4s;
+      transition: transform 0.5s var(--ease-out), translate 0.18s linear,
+                  -webkit-text-stroke-color 0.4s;
       pointer-events: none; user-select: none;
     }
     .card:hover .card-gnum { transform: translateY(-50%) translate(-9px, -9px); -webkit-text-stroke-color: var(--blue-12); }
 
-    /* scroll reveal (JS adds .rv) */
+    /* scroll reveal (JS adds .rv) — rows enter from alternating sides */
     .js .card, .js [data-rv] { opacity: 0; transform: translateY(34px); }
     .js .card.rv, .js [data-rv].rv {
       opacity: 1; transform: none;
@@ -369,6 +436,10 @@
     .js .card.rv { transition-property: opacity, transform; }
     .js .card { transition-property: background; }
     .js .card.rv { transition-property: opacity, transform, background; }
+    /* directional entrance: odd rows slide in from the left, even from the right */
+    .js .card:nth-child(odd) { transform: translateY(30px) translateX(-34px); }
+    .js .card:nth-child(even) { transform: translateY(30px) translateX(34px); }
+    .js .card.rv:nth-child(odd), .js .card.rv:nth-child(even) { transform: none; }
 
     /* language text swap */
     @keyframes flipx { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
@@ -404,12 +475,26 @@
     .footer-links a:hover { color: var(--ink); }
     .footer-links .sep { color: var(--rule); }
 
+    /* keyboard hint + screen-reader live region */
+    .kbd-hint { display: inline-flex; align-items: center; gap: 8px; color: var(--dim); }
+    .kbd-hint kbd {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.06em; color: var(--dim);
+      border: 1px solid var(--rule); border-radius: 4px; padding: 3px 7px; line-height: 1;
+      background: var(--paper);
+    }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
     .footer-big {
       margin-top: 80px; line-height: 0.86; font-weight: 800;
       font-size: clamp(84px, 19vw, 270px); letter-spacing: -0.03em;
       color: transparent; -webkit-text-stroke: 1px var(--rule);
       user-select: none; pointer-events: none; white-space: nowrap;
     }
+    /* kinetic letters: each char gets a scroll-linked parallax offset */
+    .footer-big span { display: inline-block; translate: 0 0; will-change: translate; }
 
     .noscript-note {
       margin: 24px 40px 32px; padding: 22px 26px; border: 1px solid var(--rule);
@@ -480,13 +565,17 @@
     /* ── Reduced motion ─────────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .mq-track { animation: none; }
       .hero-asterisk { animation: none; }
       .js .card, .js [data-rv] { opacity: 1; transform: none; }
       .hero-title .ch > i, .hero-sub .wd > i { transform: none; }
       .fx { opacity: 1; transform: none; }
       .hero-asterisk { opacity: 0.8; }
       .flipx { animation: none; }
+      .card-sweep { transition: none; }
+      .card-body { transition: none; }
+      .loader-pane { transition: none; }
+      .list-bar, .list-bar-title, .list-bar-count { transition: none; }
+      .topbar { transition: none; }
     }
   </style>
 </head>
@@ -496,15 +585,24 @@
   <div class="prog" aria-hidden="true"><i id="progressBar"></i></div>
   <div class="grain" aria-hidden="true"></div>
   <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-label">↗</span></div>
+  <!-- deck page transition (Codrops revealers): ink panel + blue label -->
+  <div class="deck-trans" id="deckTrans" aria-hidden="true">
+    <div class="dt-move"><div class="dt-inner"><span class="dt-label" id="dtLabel"></span></div></div>
+  </div>
+  <!-- language-change announcement for screen readers -->
+  <div class="sr-only" id="langAnnounce" aria-live="polite" role="status"></div>
 
-  <!-- preloader -->
+  <!-- preloader: two panels splitting along the pane seam -->
   <div class="loader" id="loader" aria-hidden="true">
-    <div class="loader-inner">
-      <img class="loader-logo" src="assets/logo.svg" alt="Dify">
-      <div class="loader-count"><b id="loaderNum">0</b><span>%</span></div>
-      <div class="loader-bar"><i id="loaderBar"></i></div>
-      <div class="loader-hint" data-i18n="loaderHint">Loading the archive</div>
+    <div class="loader-pane loader-pane--left">
+      <div class="loader-inner">
+        <img class="loader-logo" src="assets/logo.svg" alt="Dify">
+        <div class="loader-count"><b id="loaderNum">0</b><span>%</span></div>
+        <div class="loader-bar"><i id="loaderBar"></i></div>
+        <div class="loader-hint" data-i18n="loaderHint">Loading the archive</div>
+      </div>
     </div>
+    <div class="loader-pane loader-pane--right"></div>
   </div>
 
   <!-- top bar -->
@@ -538,6 +636,7 @@
             <span>banana@dify.ai</span>
             <span>Developer Relations @ Dify</span>
             <span class="hero-count"><b id="deckCount" data-to="15">0</b><span data-i18n="decksUnit">Decks</span></span>
+            <span class="hero-clock"><b id="clock">--:--:--</b><span data-i18n="localTime">Local time</span></span>
           </div>
         </div>
       </div>
@@ -599,6 +698,8 @@
           <a href="https://github.com/crazywoola/dify-x" target="_blank" rel="noopener">dify-x</a>
           <span class="sep">·</span>
           <a href="https://crazywoola.github.io/dify-x/" target="_blank" rel="noopener" data-i18n="liveDemo">Live Demo</a>
+          <span class="sep">·</span>
+          <span class="kbd-hint"><kbd>L</kbd><span data-i18n="langHint">press L to switch language</span></span>
           <span class="sep">·</span>
           <span>© 2026 LangGenius, Inc.</span>
         </div>
@@ -737,7 +838,11 @@
         decksUnit: 'Decks',
         presentationsUnit: 'Presentations',
         indexTitle: 'Index',
+        localTime: 'Local time',
         liveDemo: 'Live Demo',
+        langHint: 'press L to switch language',
+        langSwitched: 'Language switched to English',
+        description: 'Presentation index for Dify X — agent systems, workflows, RAG, and industry case decks. Bilingual: language follows your system, toggle in the top bar.',
         loaderHint: 'Loading the archive',
         contactLabel: 'Get in touch',
         marquee: ['Presentations', 'Agent Systems', 'Workflow', 'RAG', 'Plugin Governance', 'HITL', 'Observability', 'Risk Control', 'Workshops', 'Field Notes'],
@@ -751,7 +856,11 @@
         decksUnit: '份演讲',
         presentationsUnit: '份演讲',
         indexTitle: '索引',
+        localTime: '本地时间',
         liveDemo: '在线演示',
+        langHint: '按 L 切换语言',
+        langSwitched: '已切换为中文',
+        description: 'Dify X 演讲资料索引 — Agent 系统、Workflow 架构、RAG 与行业案例。双语站点：语言跟随系统设置，也可在顶栏切换。',
         loaderHint: '正在装载档案',
         contactLabel: '联系方式',
         marquee: ['演讲资料', 'Agent 系统', 'Workflow', 'RAG', '插件治理', '人机协同', '可观测性', '风控实战', '工作坊', '交付笔记'],
@@ -781,6 +890,39 @@
       return String(s).replace(/[&<>"']/g, function (m) {
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
       });
+    }
+
+    /* Codrops-style text scramble — characters randomize, then resolve */
+    var SCR_CHARS = '!<>-_\\/[]{}—=+*^?#________';
+    function scrambleTo(el, newText) {
+      if (RM) { splitChars(el, newText); return; }
+      var oldText = el.textContent;
+      var len = Math.max(oldText.length, newText.length);
+      var queue = [];
+      for (var i = 0; i < len; i++) {
+        var start = Math.floor(Math.random() * 18);
+        queue.push({
+          from: oldText[i] || '', to: newText[i] || '',
+          start: start, end: start + 8 + Math.floor(Math.random() * 18), ch: null
+        });
+      }
+      if (el._scrRaf) cancelAnimationFrame(el._scrRaf);
+      var frame = 0;
+      (function update() {
+        var out = '', done = 0;
+        for (var i = 0; i < queue.length; i++) {
+          var q = queue[i];
+          if (frame >= q.end) { done++; out += esc(q.to); }
+          else if (frame >= q.start) {
+            if (!q.ch || Math.random() < 0.3) q.ch = SCR_CHARS[Math.floor(Math.random() * SCR_CHARS.length)];
+            out += '<span class="ch-s">' + q.ch + '</span>';
+          } else out += esc(q.from);
+        }
+        el.innerHTML = out;
+        if (done === queue.length) { splitChars(el, newText); el._scrRaf = 0; return; }
+        frame++;
+        el._scrRaf = raf(update);
+      })();
     }
 
     function splitChars(el, text) {
@@ -855,6 +997,7 @@
         var label = lang === 'zh' ? d.labelZh : d.labelEn;
         var desc = lang === 'zh' ? d.dZh : d.dEn;
         return '<a class="card" data-f="' + d.f + '" href="' + href + '" style="--rd:' + (i * 55) + 'ms">' +
+          '<i class="card-sweep" aria-hidden="true"></i>' +
           '<span class="card-gnum" aria-hidden="true">' + d.n + '</span>' +
           '<span class="card-num">' + d.n + '</span>' +
           '<div class="card-body">' +
@@ -876,29 +1019,41 @@
     }
 
     function splitHero(animate) {
-      splitChars($('#heroTitle'), T[lang].heroTitle);
+      var title = T[lang].heroTitle;
+      if (animate) scrambleTo($('#heroTitle'), title);
+      else splitChars($('#heroTitle'), title);
       splitWords($('#heroSub'), T[lang].heroSub);
-      if (animate) {
-        heroEl.classList.remove('in');
-        void heroEl.offsetWidth; /* restart the transitions */
-        heroEl.classList.add('in');
-      }
     }
 
-    /* ── static i18n text (with flip animation) ─────────────── */
-    function setText(el, val) {
-      el.classList.remove('flipx');
-      void el.offsetWidth;
-      el.textContent = val;
-      el.classList.add('flipx');
+    /* ── static i18n text (staggered flip wave) ─────────────── */
+    function flipWave(els) {
+      els.forEach(function (el, i) {
+        el.classList.remove('flipx');
+        void el.offsetWidth;
+        el.style.animationDelay = (i * 40) + 'ms';
+        el.classList.add('flipx');
+      });
     }
 
     function applyStatic() {
       var t = T[lang];
-      $$('[data-i18n]').forEach(function (el) {
+      var els = $$('[data-i18n]').filter(function (el) {
         var v = t[el.getAttribute('data-i18n')];
-        if (v != null) setText(el, v);
+        if (v == null) return false;
+        el.textContent = v;
+        return true;
       });
+      flipWave(els);
+    }
+
+    function applyMeta() {
+      var m = document.querySelector('meta[name="description"]');
+      if (m) m.setAttribute('content', T[lang].description);
+    }
+
+    function announceLang() {
+      var el = $('#langAnnounce');
+      if (el) el.textContent = T[lang].langSwitched;
     }
 
     function updateLangNav() {
@@ -913,21 +1068,28 @@
     function setLang(l) {
       if (l !== 'zh' && l !== 'en') return;
       if (l === lang) return;
-      lang = l;
-      try { localStorage.setItem('difyx.lang', l); } catch (e) { /* private mode */ }
-      try {
-        var u = new URL(location.href);
-        u.searchParams.set('lang', l);
-        history.replaceState(null, '', u.toString());
-      } catch (e) { /* file:// */ }
-      document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
-      document.title = T[l].docTitle;
-      applyStatic();
-      splitHero(true);
-      renderMarquee();
-      renderChips();
-      renderDecks();
-      updateLangNav();
+      var apply = function () {
+        lang = l;
+        try { localStorage.setItem('difyx.lang', l); } catch (e) { /* private mode */ }
+        try {
+          var u = new URL(location.href);
+          u.searchParams.set('lang', l);
+          history.replaceState(null, '', u.toString());
+        } catch (e) { /* file:// */ }
+        document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
+        document.title = T[l].docTitle;
+        applyMeta();
+        applyStatic();
+        splitHero(true);
+        renderMarquee();
+        renderChips();
+        flipWave($$('.chip', filtersEl));
+        renderDecks();
+        updateLangNav();
+        announceLang();
+      };
+      if (document.startViewTransition && !RM) document.startViewTransition(apply);
+      else apply();
     }
 
     /* ── filtering with FLIP ────────────────────────────────── */
@@ -1010,18 +1172,84 @@
       });
     }
 
-    /* ── scroll progress (right pane on desktop, page on mobile) ── */
+    /* ── scroll progress, marquee velocity, ghost parallax, bar morph ── */
+    var mqMotion = { off: 0, vel: 0, last: 0, paused: false, measure: function () {} };
+    var lastScrollTop = 0;
+    function updateFooterLetters() {
+      var big = $('.footer-big');
+      if (!big || !big._letters) return;
+      var r = big.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var p = (vh - r.top) / (vh + r.height);
+      p = p < 0 ? 0 : p > 1 ? 1 : p;
+      var n = big._letters.length;
+      for (var i = 0; i < n; i++) {
+        var c = n > 1 ? i / (n - 1) - 0.5 : 0;
+        big._letters[i].style.translate = '0 ' + (c * (1 - p) * 24).toFixed(1) + 'px';
+      }
+    }
+    /* ghost numbers drift slower than their row — depth parallax */
+    function updateGhostParallax() {
+      var mid = window.innerHeight / 2;
+      $$('.card:not(.is-hidden)', gridEl).forEach(function (c) {
+        var r = c.getBoundingClientRect();
+        if (r.bottom < -80 || r.top > mid * 2 + 80) return;
+        var g = c.querySelector('.card-gnum');
+        if (g) g.style.translate = '0 ' + (((r.top + r.bottom) / 2 - mid) * -0.06).toFixed(1) + 'px';
+      });
+    }
     function initProgress() {
       var bar = $('#progressBar');
       var pane = $('#paneRight');
+      var listBar = $('.list-bar');
+      var ticking = false;
       var onScroll = function () {
-        var el = pane.scrollHeight > pane.clientHeight + 4 ? pane : document.documentElement;
-        var max = el.scrollHeight - el.clientHeight;
-        bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, Math.max(0, el.scrollTop / max)) : 0) + ')';
+        if (ticking) return;
+        ticking = true;
+        raf(function () {
+          ticking = false;
+          var el = pane.scrollHeight > pane.clientHeight + 4 ? pane : document.documentElement;
+          var max = el.scrollHeight - el.clientHeight;
+          bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, Math.max(0, el.scrollTop / max)) : 0) + ')';
+          /* feed scroll velocity into the marquee */
+          var d = el.scrollTop - lastScrollTop;
+          lastScrollTop = el.scrollTop;
+          mqMotion.vel = Math.max(-180, Math.min(180, d * 7));
+          /* sticky bar compacts once the list scrolls */
+          if (listBar) listBar.classList.toggle('compact', el.scrollTop > 100);
+          updateFooterLetters();
+          if (!RM) updateGhostParallax();
+        });
       };
       pane.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
+    }
+
+    /* ── kinetic marquee: base drift + scroll velocity ──────── */
+    function initMarqueeMotion() {
+      if (RM) return;
+      var measure = function () {
+        var w = mqTrack.firstElementChild ? mqTrack.firstElementChild.offsetWidth : 0;
+        return w;
+      };
+      mqMotion.measure = measure;
+      window.addEventListener('resize', measure);
+      var mqEl = mqTrack.parentElement;
+      mqEl.addEventListener('mouseenter', function () { mqMotion.paused = true; });
+      mqEl.addEventListener('mouseleave', function () { mqMotion.paused = false; });
+      (function loop(t) {
+        var dt = mqMotion.last ? Math.min(48, t - mqMotion.last) : 16;
+        mqMotion.last = t;
+        var w = measure();
+        if (!mqMotion.paused && w > 0) {
+          mqMotion.off += 0.085 * dt + mqMotion.vel * 0.055;
+          mqMotion.off = ((mqMotion.off % w) + w) % w;
+          mqTrack.style.transform = 'translateX(' + (-mqMotion.off) + 'px)';
+        }
+        mqMotion.vel *= 0.9;
+        raf(loop);
+      })(performance.now());
     }
 
     /* ── hero canvas: drifting particle network ─────────────── */
@@ -1134,8 +1362,9 @@
         try { sessionStorage.setItem('difyx.seen', '1'); } catch (e) { /* private mode */ }
         loader.classList.add('done');
         document.body.classList.remove('loading');
+        document.documentElement.classList.add('booted');
         revealHero();
-        setTimeout(function () { loader.style.display = 'none'; }, 1300);
+        setTimeout(function () { loader.style.display = 'none'; }, 1500);
       };
       if (RM) { finish(); return; }
       var seen = false;
@@ -1154,6 +1383,57 @@
       })(performance.now());
     }
 
+    /* ── magnetic asterisk (Codrops-style pointer attraction) ─ */
+    function initAsterisk() {
+      if (RM) return;
+      var ast = $('.hero-asterisk');
+      if (!ast) return;
+      var x = 0, y = 0, tx = 0, ty = 0;
+      heroEl.addEventListener('mousemove', function (e) {
+        var r = ast.getBoundingClientRect();
+        var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+        var dx = e.clientX - cx, dy = e.clientY - cy;
+        var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        var k = Math.max(0, 1 - dist / 340) * 30;
+        tx = dx / dist * k; ty = dy / dist * k;
+      }, { passive: true });
+      heroEl.addEventListener('mouseleave', function () { tx = 0; ty = 0; });
+      (function loop() {
+        x += (tx - x) * 0.07; y += (ty - y) * 0.07;
+        ast.style.translate = x.toFixed(2) + 'px ' + y.toFixed(2) + 'px';
+        raf(loop);
+      })();
+    }
+
+    /* ── live local-time clock (editorial portfolio touch) ──── */
+    function initClock() {
+      var el = $('#clock');
+      if (!el) return;
+      var tick = function () {
+        var d = new Date();
+        var p = function (n) { return (n < 10 ? '0' : '') + n; };
+        el.textContent = p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+      };
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    /* ── kinetic footer letters ─────────────────────────────── */
+    function initFooterLetters() {
+      var big = $('.footer-big');
+      if (!big) return;
+      var text = big.textContent.trim();
+      big.textContent = '';
+      var spans = [];
+      Array.from(text).forEach(function (ch) {
+        var s = document.createElement('span');
+        s.textContent = ch;
+        big.appendChild(s);
+        spans.push(s);
+      });
+      big._letters = spans;
+    }
+
     /* ── interactions ───────────────────────────────────────── */
     function initEvents() {
       filtersEl.addEventListener('click', function (e) {
@@ -1163,18 +1443,60 @@
       $$('.langbtn').forEach(function (b) {
         b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
       });
+      /* L toggles language (ignored with modifiers or while typing) */
+      document.addEventListener('keydown', function (e) {
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        var t = e.target;
+        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+        if (e.key === 'l' || e.key === 'L') setLang(lang === 'zh' ? 'en' : 'zh');
+      });
+      /* deck page transition: ink panel wipes down, then navigate */
+      var deckTrans = $('#deckTrans'), dtLabel = $('#dtLabel'), transBusy = false;
+      gridEl.addEventListener('click', function (e) {
+        if (RM || transBusy) return;
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) return;
+        var c = e.target.closest ? e.target.closest('.card') : null;
+        if (!c) return;
+        e.preventDefault();
+        transBusy = true;
+        var tag = c.querySelector('.card-tag');
+        dtLabel.textContent = tag ? tag.textContent : '';
+        deckTrans.classList.add('go');
+        setTimeout(function () { location.href = c.getAttribute('href'); }, 560);
+      });
+      /* directional sweep origin + subtle 3D tilt, cursor-driven */
+      var swept = null;
       gridEl.addEventListener('mousemove', function (e) {
         var c = e.target.closest ? e.target.closest('.card') : null;
         if (!c) return;
+        if (c !== swept) {
+          swept = c;
+          var r0 = c.getBoundingClientRect();
+          c.style.setProperty('--sx', (e.clientX - r0.left) + 'px');
+          c.style.setProperty('--sy', (e.clientY - r0.top) + 'px');
+        }
+        if (RM) return;
         var r = c.getBoundingClientRect();
-        c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-        c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        var body = c.querySelector('.card-body');
+        if (!body) return;
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        body.style.setProperty('--ry', (px * 5).toFixed(2) + 'deg');
+        body.style.setProperty('--rx', (-py * 4).toFixed(2) + 'deg');
       }, { passive: true });
+      gridEl.addEventListener('mouseleave', function () {
+        swept = null;
+        $$('.card-body', gridEl).forEach(function (el) {
+          el.style.removeProperty('--rx');
+          el.style.removeProperty('--ry');
+        });
+      });
     }
 
     /* ── init ───────────────────────────────────────────────── */
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
     document.title = T[lang].docTitle;
+    applyMeta();
     splitHero(false);
     renderMarquee();
     renderChips();
@@ -1186,6 +1508,11 @@
     initProgress();
     initCanvas();
     initEvents();
+    initClock();
+    initAsterisk();
+    initMarqueeMotion();
+    initFooterLetters();
+    updateFooterLetters();
     startPreloader();
   })();
   </script>
