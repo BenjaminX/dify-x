@@ -58,7 +58,7 @@ Online:
 - Brand: `#0033ff` (Dify Blue); logo in `assets/logo.svg`.
 - Fonts: prefer Söhne / Söhne Mono; fallbacks Inter, JetBrains Mono, Mi Sans / Noto Sans SC / Noto Sans Mono SC.
 - Hosting: GitHub Pages (https://crazywoola.github.io/dify-x/).
-- Every deck ships a Chinese and an English page that share slide order, `data-slide-id`s, timing, and speaker notes.
+- Every deck ships a Chinese and an English page with the same slide order and speaker notes (`enterprise-agent-campus` and `stripe-agent-workshop` additionally use `data-slide-id`s). A few decks — `paypal`, `pupu`, `amd-x-dify-hackathon` — differ slightly in slide count between the two languages.
 
 ## Contribute & extend
 - Use the in-repo skill: `.claude/skills/new-slide-deck/SKILL.md` (mirrored at `.agents/skills/new-slide-deck/SKILL.md`) — it covers theme selection, deck skeletons, and index registration.
