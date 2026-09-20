@@ -57,11 +57,6 @@
     button { font: inherit; background: none; border: 0; color: inherit; }
     :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 
-    /* language switch crossfade (View Transitions API) */
-    ::view-transition-old(root), ::view-transition-new(root) {
-      animation-duration: 0.45s;
-      animation-timing-function: var(--ease-out);
-    }
 
     /* ── Scroll progress ────────────────────────────────────── */
     .prog {
@@ -205,6 +200,62 @@
     /* keyboard row navigation focus */
     .js .card:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; }
 
+    /* odometer counters (Codrops number interaction) */
+    .od {
+      display: inline-block; overflow: hidden; height: 1em; line-height: 1;
+      vertical-align: baseline;
+      /* overflow boxes baseline at their bottom edge — lift it by the
+         descender so digit baselines match the neighbouring label */
+      margin-bottom: -0.22em;
+    }
+    .od-strip { display: block; will-change: transform; }
+    .od-strip i { display: block; height: 1em; line-height: 1; font-style: normal; }
+    .rolling .od-strip { filter: blur(0.35px); }
+
+    /* cursor lamp in the hero pane (interactive background) */
+    .hero-lamp {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(460px circle at var(--lx, 50%) var(--ly, 50%), var(--blue-04), transparent 70%);
+      opacity: 0; transition: opacity 0.6s var(--ease-out);
+    }
+    .hero.lamp-on .hero-lamp { opacity: 1; }
+
+    /* text-roll hover links (Codrops hover link ideas) */
+    .footer-links a[data-roll] { display: inline-block; overflow: hidden; line-height: 1.5; vertical-align: bottom; }
+    .roll-i { display: block; transition: transform 0.45s var(--ease-out); }
+    .roll-i > span { display: block; line-height: 1.5; }
+    .roll-i > span:last-child { color: var(--blue); }
+    .footer-links a[data-roll]:hover .roll-i { transform: translateY(-50%); }
+
+    /* row press feedback (microinteraction) */
+    .card:active .card-body { scale: 0.985; transition-duration: 0.12s, 0.12s; }
+
+    /* button click ripple (microinteraction) */
+    .chip, .langbtn, .qj-trigger { position: relative; overflow: hidden; }
+    .rip {
+      position: absolute; border-radius: 50%; background: var(--blue-12);
+      pointer-events: none; animation: rip 0.6s var(--ease-out) forwards;
+    }
+    @keyframes rip { from { transform: scale(0); opacity: 1; } to { transform: scale(1); opacity: 0; } }
+
+    /* shortcuts help overlay (command-palette companion) */
+    .help .qj-head { gap: 12px; }
+    .help-title { font-size: 14px; font-weight: 700; color: var(--ink); flex: 1; letter-spacing: 0; text-transform: none; }
+    .help-list { padding: 8px 20px 16px; }
+    .help-row {
+      display: flex; align-items: center; gap: 18px; padding: 11px 0;
+      border-bottom: 1px solid var(--rule); font-size: 13px; color: var(--dim);
+    }
+    .help-row:last-child { border-bottom: 0; }
+    .help-keys { display: inline-flex; gap: 5px; min-width: 76px; }
+
+    /* marquee letter wave on hover (Letter Interactions) */
+    .mq-l {
+      display: inline-block;
+      transition: transform 0.4s var(--ease-out) calc(var(--i, 0) * 25ms);
+    }
+    .marquee:hover .mq-l { transform: translateY(-4px); }
+
     /* ── Preloader ──────────────────────────────────────────── */
     .loader {
       position: fixed; inset: 0; z-index: 400; pointer-events: none;
@@ -270,7 +321,7 @@
     .langpill {
       position: absolute; top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px);
       background: var(--ink); border-radius: 999px;
-      transition: transform 0.4s var(--ease-out);
+      transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); /* elastic overshoot */
     }
     .langbtn {
       position: relative; z-index: 1; flex: 1; min-width: 54px;
@@ -312,8 +363,6 @@
       line-height: 1; letter-spacing: -0.04em; color: var(--ink);
     }
     .hero-title .ch { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.14em; margin-bottom: -0.14em; }
-    /* scrambled (decoding) characters during the language switch */
-    .hero-title .ch-s { color: var(--ghost); }
     .hero-title .ch > i {
       display: inline-block; font-style: normal; transform: translateY(125%);
       transition: transform 0.95s var(--ease-out);
@@ -457,7 +506,7 @@
     .card-body {
       position: relative; z-index: 1; min-width: 0;
       transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-      transition: transform 0.55s var(--ease-out);
+      transition: transform 0.55s var(--ease-out), scale 0.2s var(--ease-out);
     }
 
     .card-num {
@@ -481,7 +530,7 @@
       font-size: 19px; font-weight: 700; line-height: 1.32; letter-spacing: -0.01em;
       transition: transform 0.4s var(--ease-out), color 0.3s;
     }
-    .card:hover .card-title { color: var(--blue); transform: translateX(6px); }
+    .card:hover .card-title { color: var(--blue); }
 
     .card-desc {
       position: relative; z-index: 1; margin-top: 9px; max-width: 78ch;
@@ -573,8 +622,13 @@
       color: transparent; -webkit-text-stroke: 1px var(--rule);
       user-select: none; pointer-events: none; white-space: nowrap;
     }
-    /* kinetic letters: each char gets a scroll-linked parallax offset */
-    .footer-big span { display: inline-block; translate: 0 0; will-change: translate; }
+    /* kinetic letters: clip-path draw-in, one char at a time */
+    .js .footer-big span {
+      display: inline-block;
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 0.7s var(--ease-out) calc(var(--i, 0) * 60ms);
+    }
+    .js .footer-big.drawn span { clip-path: inset(0 0 0 0); }
 
     .noscript-note {
       margin: 24px 40px 32px; padding: 22px 26px; border: 1px solid var(--rule);
@@ -659,6 +713,11 @@
       .qj-panel { transition: none; }
       .card-title .lt { transition: none; }
       .chip { transition: color 0.25s, border-color 0.25s, background 0.25s; }
+      .js .footer-big span { transition: none; }
+      .langpill { transition: none; }
+      .roll-i { transition: none; }
+      .mq-l { transition: none; }
+      .rip { animation: none; }
     }
   </style>
 </head>
@@ -687,6 +746,22 @@
   </div>
   <!-- language-change announcement for screen readers -->
   <div class="sr-only" id="langAnnounce" aria-live="polite" role="status"></div>
+  <!-- keyboard shortcuts help (? key) -->
+  <div class="qj help" id="help" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
+    <div class="qj-panel">
+      <div class="qj-head">
+        <span class="qj-icon" aria-hidden="true">?</span>
+        <span class="help-title" data-i18n="helpTitle">Keyboard shortcuts</span>
+        <kbd class="qj-esc">esc</kbd>
+      </div>
+      <div class="help-list">
+        <div class="help-row"><span class="help-keys"><kbd>L</kbd></span><span data-i18n="helpL">Switch language</span></div>
+        <div class="help-row"><span class="help-keys"><kbd>⌘</kbd><kbd>K</kbd></span><span data-i18n="helpK">Quick jump to a deck</span></div>
+        <div class="help-row"><span class="help-keys"><kbd>J</kbd><kbd>K</kbd></span><span data-i18n="helpJ">Navigate the deck list</span></div>
+        <div class="help-row"><span class="help-keys"><kbd>Esc</kbd></span><span data-i18n="helpEsc">Close overlays</span></div>
+      </div>
+    </div>
+  </div>
 
   <!-- preloader: two panels splitting along the pane seam -->
   <div class="loader" id="loader" aria-hidden="true">
@@ -725,6 +800,7 @@
     <section class="hero" id="hero">
       <div class="hero-dots" aria-hidden="true"></div>
       <canvas id="heroCanvas" aria-hidden="true"></canvas>
+      <div class="hero-lamp" aria-hidden="true"></div>
       <div class="hero-inner">
         <div class="hero-kicker fx">
           <span>Dify · <span data-i18n="kicker">Presentations</span></span>
@@ -794,15 +870,17 @@
           </a>
         </div>
         <div class="footer-links" data-rv>
-          <a href="https://github.com/crazywoola" target="_blank" rel="noopener">@crazywoola</a>
+          <a href="https://github.com/crazywoola" target="_blank" rel="noopener" data-roll>@crazywoola</a>
           <span class="sep">·</span>
-          <a href="https://github.com/crazywoola/dify-x" target="_blank" rel="noopener">dify-x</a>
+          <a href="https://github.com/crazywoola/dify-x" target="_blank" rel="noopener" data-roll>dify-x</a>
           <span class="sep">·</span>
-          <a href="https://crazywoola.github.io/dify-x/" target="_blank" rel="noopener" data-i18n="liveDemo">Live Demo</a>
+          <a href="https://crazywoola.github.io/dify-x/" target="_blank" rel="noopener" data-i18n="liveDemo" data-roll>Live Demo</a>
           <span class="sep">·</span>
           <span class="kbd-hint"><kbd>L</kbd><span data-i18n="langHint">press L to switch language</span></span>
           <span class="sep">·</span>
           <span class="kbd-hint"><kbd>⌘</kbd><kbd>K</kbd><span data-i18n="qjHint">jump to a deck</span></span>
+          <span class="sep">·</span>
+          <span class="kbd-hint"><kbd>?</kbd><span data-i18n="helpHint">shortcuts</span></span>
           <span class="sep">·</span>
           <span>© 2026 LangGenius, Inc.</span>
         </div>
@@ -947,6 +1025,12 @@
         qjHint: 'jump to a deck',
         qjPlaceholder: 'Jump to a deck…',
         qjNoResults: 'No decks match',
+        helpTitle: 'Keyboard shortcuts',
+        helpL: 'Switch language',
+        helpK: 'Quick jump to a deck',
+        helpJ: 'Navigate the deck list',
+        helpEsc: 'Close overlays',
+        helpHint: 'shortcuts',
         langSwitched: 'Language switched to English',
         description: 'Presentation index for Dify X — agent systems, workflows, RAG, and industry case decks. Bilingual: language follows your system, toggle in the top bar.',
         loaderHint: 'Loading the archive',
@@ -968,6 +1052,12 @@
         qjHint: '快速跳转演讲',
         qjPlaceholder: '跳转到演讲…',
         qjNoResults: '没有匹配的演讲',
+        helpTitle: '键盘快捷键',
+        helpL: '切换语言',
+        helpK: '快速跳转演讲',
+        helpJ: '在列表中上下移动',
+        helpEsc: '关闭浮层',
+        helpHint: '快捷键',
         langSwitched: '已切换为中文',
         description: 'Dify X 演讲资料索引 — Agent 系统、Workflow 架构、RAG 与行业案例。双语站点：语言跟随系统设置，也可在顶栏切换。',
         loaderHint: '正在装载档案',
@@ -1001,38 +1091,6 @@
       });
     }
 
-    /* Codrops-style text scramble — characters randomize, then resolve */
-    var SCR_CHARS = '!<>-_\\/[]{}—=+*^?#________';
-    function scrambleTo(el, newText) {
-      if (RM) { splitChars(el, newText); return; }
-      var oldText = el.textContent;
-      var len = Math.max(oldText.length, newText.length);
-      var queue = [];
-      for (var i = 0; i < len; i++) {
-        var start = Math.floor(Math.random() * 18);
-        queue.push({
-          from: oldText[i] || '', to: newText[i] || '',
-          start: start, end: start + 8 + Math.floor(Math.random() * 18), ch: null
-        });
-      }
-      if (el._scrRaf) cancelAnimationFrame(el._scrRaf);
-      var frame = 0;
-      (function update() {
-        var out = '', done = 0;
-        for (var i = 0; i < queue.length; i++) {
-          var q = queue[i];
-          if (frame >= q.end) { done++; out += esc(q.to); }
-          else if (frame >= q.start) {
-            if (!q.ch || Math.random() < 0.3) q.ch = SCR_CHARS[Math.floor(Math.random() * SCR_CHARS.length)];
-            out += '<span class="ch-s">' + q.ch + '</span>';
-          } else out += esc(q.from);
-        }
-        el.innerHTML = out;
-        if (done === queue.length) { splitChars(el, newText); el._scrRaf = 0; return; }
-        frame++;
-        el._scrRaf = raf(update);
-      })();
-    }
 
     function splitChars(el, text) {
       el.textContent = '';
@@ -1081,7 +1139,10 @@
 
     function renderMarquee() {
       var items = T[lang].marquee.map(function (w) {
-        return '<span class="mq-i">' + esc(w) + '</span>';
+        var letters = Array.from(w).map(function (c, i) {
+          return c === ' ' ? ' ' : '<span class="mq-l" style="--i:' + i + '">' + esc(c) + '</span>';
+        }).join('');
+        return '<span class="mq-i">' + letters + '</span>';
       }).join('');
       mqTrack.innerHTML = '<div class="mq-group">' + items + '</div><div class="mq-group">' + items + '</div>';
     }
@@ -1136,10 +1197,9 @@
     }
 
     function splitHero(animate) {
-      var title = T[lang].heroTitle;
-      if (animate) scrambleTo($('#heroTitle'), title);
-      else splitChars($('#heroTitle'), title);
+      splitChars($('#heroTitle'), T[lang].heroTitle);
       splitWords($('#heroSub'), T[lang].heroSub);
+      if (animate) flipWave([$('#heroTitle'), $('#heroSub')]);
     }
 
     /* ── static i18n text (staggered flip wave) ─────────────── */
@@ -1206,6 +1266,7 @@
         document.title = T[l].docTitle;
         applyMeta();
         applyStatic();
+        initRolls();
         splitHero(true);
         renderMarquee();
         renderChips();
@@ -1216,8 +1277,7 @@
         var qjEl = $('#qj');
         if (qjEl && qjEl._close) qjEl._close();
       };
-      if (document.startViewTransition && !RM) document.startViewTransition(apply);
-      else apply();
+      apply();
     }
 
     /* ── filtering with FLIP ────────────────────────────────── */
@@ -1303,19 +1363,6 @@
     /* ── scroll progress, marquee velocity, ghost parallax, bar morph ── */
     var mqMotion = { off: 0, vel: 0, last: 0, paused: false, measure: function () {} };
     var lastScrollTop = 0;
-    function updateFooterLetters() {
-      var big = $('.footer-big');
-      if (!big || !big._letters) return;
-      var r = big.getBoundingClientRect();
-      var vh = window.innerHeight;
-      var p = (vh - r.top) / (vh + r.height);
-      p = p < 0 ? 0 : p > 1 ? 1 : p;
-      var n = big._letters.length;
-      for (var i = 0; i < n; i++) {
-        var c = n > 1 ? i / (n - 1) - 0.5 : 0;
-        big._letters[i].style.translate = '0 ' + (c * (1 - p) * 24).toFixed(1) + 'px';
-      }
-    }
     /* ghost numbers drift slower than their row — depth parallax */
     function updateGhostParallax() {
       var mid = window.innerHeight / 2;
@@ -1345,7 +1392,6 @@
           mqMotion.vel = Math.max(-180, Math.min(180, d * 7));
           /* sticky bar compacts once the list scrolls */
           if (listBar) listBar.classList.toggle('compact', el.scrollTop > 100);
-          updateFooterLetters();
           if (!RM) updateGhostParallax();
         });
       };
@@ -1493,14 +1539,44 @@
     }
 
     /* ── number counters ────────────────────────────────────── */
+    /* ── odometer counters (Codrops number interaction) ─────── */
+    function buildOdometer(el, digits) {
+      el.textContent = '';
+      var strips = [];
+      for (var i = 0; i < digits; i++) {
+        var col = document.createElement('span');
+        col.className = 'od';
+        var strip = document.createElement('span');
+        strip.className = 'od-strip';
+        var h = '';
+        for (var d = 0; d <= 9; d++) h += '<i>' + d + '</i>';
+        strip.innerHTML = h;
+        col.appendChild(strip);
+        el.appendChild(col);
+        strips.push(strip);
+      }
+      el._strips = strips;
+      el._digits = digits;
+    }
+    function setOdometer(el, val) {
+      if (!el._strips) return;
+      var str = String(Math.max(0, val));
+      if (str.length < el._digits) str = new Array(el._digits - str.length + 1).join('0') + str;
+      for (var i = 0; i < el._strips.length; i++) {
+        el._strips[i].style.transform = 'translateY(-' + (parseInt(str[i], 10) * 10) + '%)';
+      }
+    }
     function countTo(el) {
-      var to = parseInt(el.getAttribute('data-to'), 10) || 15;
+      var to = parseInt(el.getAttribute('data-to'), 10) || 0;
       if (RM) { el.textContent = to; return; }
+      buildOdometer(el, String(to).length);
       var t0 = performance.now();
       (function step(t) {
-        var k = Math.min(1, (t - t0) / 1200);
-        el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
+        var k = Math.min(1, (t - t0) / 1300);
+        el.classList.add('rolling');
+        setOdometer(el, Math.round(to * (1 - Math.pow(1 - k, 3))));
         if (k < 1) raf(step);
+        else el.classList.remove('rolling');
       })(performance.now());
     }
 
@@ -1527,14 +1603,15 @@
       if (seen) { finish(); return; }
 
       var num = $('#loaderNum'), bar = $('#loaderBar');
+      if (num) buildOdometer(num, 3);
       var t0 = performance.now(), dur = 1100;
       (function step(t) {
         var k = Math.min(1, (t - t0) / dur);
         var p = Math.round(100 * (1 - Math.pow(1 - k, 2)));
-        num.textContent = p < 10 ? '0' + p : '' + p;
+        if (num) { num.classList.add('rolling'); setOdometer(num, p); }
         bar.style.transform = 'scaleX(' + k.toFixed(3) + ')';
         if (k < 1) raf(step);
-        else finish();
+        else { if (num) num.classList.remove('rolling'); finish(); }
       })(performance.now());
     }
 
@@ -1560,6 +1637,87 @@
       })();
     }
 
+    /* ── hero title depth parallax — chars drift with the cursor ── */
+    function initTitleParallax() {
+      if (RM) return;
+      var title = $('#heroTitle');
+      if (!title) return;
+      var chars = $$('.ch', title);
+      var tx = 0, x = 0, frame = 0;
+      heroEl.addEventListener('mousemove', function (e) {
+        var r = title.getBoundingClientRect();
+        var p = (e.clientX - (r.left + r.width / 2)) / (r.width || 1);
+        tx = Math.max(-1, Math.min(1, p)) * 5;
+      }, { passive: true });
+      heroEl.addEventListener('mouseleave', function () { tx = 0; });
+      (function loop() {
+        x += (tx - x) * 0.06;
+        if ((frame++ % 30) === 0) chars = $$('.ch', title);
+        var v = x.toFixed(2) + 'px';
+        for (var i = 0; i < chars.length; i++) {
+          chars[i].style.translate = v + ' ' + (i % 2 ? '1.5px' : '0');
+        }
+        raf(loop);
+      })();
+    }
+
+    /* ── cursor lamp: soft blue light following the cursor ──── */
+    function initLamp() {
+      if (RM) return;
+      var lamp = $('.hero-lamp');
+      if (!lamp) return;
+      var lx = 0.5, ly = 0.5, tx = 0.5, ty = 0.5;
+      heroEl.addEventListener('mousemove', function (e) {
+        var r = heroEl.getBoundingClientRect();
+        tx = (e.clientX - r.left) / (r.width || 1);
+        ty = (e.clientY - r.top) / (r.height || 1);
+        heroEl.classList.add('lamp-on');
+      }, { passive: true });
+      heroEl.addEventListener('mouseleave', function () { heroEl.classList.remove('lamp-on'); });
+      (function loop() {
+        lx += (tx - lx) * 0.12; ly += (ty - ly) * 0.12;
+        lamp.style.setProperty('--lx', (lx * 100).toFixed(2) + '%');
+        lamp.style.setProperty('--ly', (ly * 100).toFixed(2) + '%');
+        raf(loop);
+      })();
+    }
+
+    /* ── text-roll hover links (Codrops hover link ideas) ───── */
+    function initRolls() {
+      $$('[data-roll]').forEach(function (a) {
+        /* idempotent: re-read the label from an existing roll if present
+           (applyStatic flattens i18n links, but plain ones keep theirs) */
+        var first = a.querySelector('.roll-i > span');
+        var t = first ? first.textContent : a.textContent;
+        if (!t) return;
+        a.textContent = '';
+        var wrap = document.createElement('span');
+        wrap.className = 'roll-i';
+        var s1 = document.createElement('span'); s1.textContent = t;
+        var s2 = document.createElement('span'); s2.textContent = t;
+        wrap.appendChild(s1); wrap.appendChild(s2);
+        a.appendChild(wrap);
+      });
+    }
+
+    /* ── button click ripple (delegated, survives re-renders) ── */
+    function initRipples() {
+      document.addEventListener('pointerdown', function (e) {
+        if (RM) return;
+        var btn = e.target.closest ? e.target.closest('.chip, .langbtn, .qj-trigger') : null;
+        if (!btn) return;
+        var r = btn.getBoundingClientRect();
+        var size = Math.max(r.width, r.height) * 2.2;
+        var s = document.createElement('span');
+        s.className = 'rip';
+        s.style.width = s.style.height = size + 'px';
+        s.style.left = (e.clientX - r.left - size / 2) + 'px';
+        s.style.top = (e.clientY - r.top - size / 2) + 'px';
+        btn.appendChild(s);
+        setTimeout(function () { if (s.remove) s.remove(); }, 650);
+      });
+    }
+
     /* ── live local-time clock (editorial portfolio touch) ──── */
     function initClock() {
       var el = $('#clock');
@@ -1573,20 +1731,27 @@
       setInterval(tick, 1000);
     }
 
-    /* ── kinetic footer letters ─────────────────────────────── */
+    /* ── footer letters: clip-path draw-in (line-drawing inspired) ── */
     function initFooterLetters() {
       var big = $('.footer-big');
       if (!big) return;
       var text = big.textContent.trim();
       big.textContent = '';
       var spans = [];
-      Array.from(text).forEach(function (ch) {
+      Array.from(text).forEach(function (ch, i) {
         var s = document.createElement('span');
         s.textContent = ch;
+        s.style.setProperty('--i', i);
         big.appendChild(s);
         spans.push(s);
       });
-      big._letters = spans;
+      if (RM || !('IntersectionObserver' in window)) { big.classList.add('drawn'); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { big.classList.add('drawn'); io.disconnect(); }
+        });
+      }, { threshold: 0.2 });
+      io.observe(big);
     }
 
     /* ── deck page transition: ink panel wipes down, then navigate ── */
@@ -1638,6 +1803,8 @@
       }
       function openQJ() {
         if (open) return;
+        var helpEl = $('#help');
+        if (helpEl && helpEl._close) helpEl._close();
         open = true;
         lastFocus = document.activeElement;
         qj.classList.add('open');
@@ -1691,6 +1858,39 @@
         }
       });
       qj._close = closeQJ;
+    }
+
+    /* ── shortcuts help overlay (? key) ─────────────────────── */
+    function initHelp() {
+      var help = $('#help');
+      if (!help) return;
+      var open = false, lastFocus = null;
+      function close() {
+        if (!open) return;
+        open = false;
+        help.classList.remove('open');
+        if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) { /* detached */ } }
+      }
+      function show() {
+        var qjEl = $('#qj');
+        if (qjEl && qjEl._close) qjEl._close();
+        open = true;
+        lastFocus = document.activeElement;
+        help.classList.add('open');
+      }
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (open) { e.preventDefault(); close(); }
+          return;
+        }
+        if (e.key !== '?' && !(e.key === '/' && e.shiftKey)) return;
+        var t = e.target;
+        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+        e.preventDefault();
+        if (open) close(); else show();
+      });
+      help.addEventListener('click', function (e) { if (e.target === help) close(); });
+      help._close = close;
     }
 
     /* ── interactions ───────────────────────────────────────── */
@@ -1791,6 +1991,7 @@
     renderChips();
     renderDecks();
     applyStatic();
+    initRolls();
     updateLangNav();
     initObservers();
     initCursor();
@@ -1798,11 +1999,14 @@
     initCanvas();
     initEvents();
     initSearch();
+    initHelp();
+    initRipples();
     initClock();
     initAsterisk();
+    initTitleParallax();
+    initLamp();
     initMarqueeMotion();
     initFooterLetters();
-    updateFooterLetters();
     startPreloader();
   })();
   </script>
