@@ -61,6 +61,6 @@ Online:
 - Every deck ships a Chinese and an English page with the same slide order and speaker notes (`enterprise-agent-campus` and `stripe-agent-workshop` additionally use `data-slide-id`s). A few decks — `paypal`, `pupu`, `amd-x-dify-hackathon` — differ slightly in slide count between the two languages.
 
 ## Contribute & extend
-- Use the in-repo skill: `.claude/skills/new-slide-deck/SKILL.md` (mirrored at `.agents/skills/new-slide-deck/SKILL.md`) — it covers theme selection, deck skeletons, and index registration.
+- Use the in-repo skill: `.agents/skills/new-slide-deck/SKILL.md` — it covers theme selection, deck skeletons, and index registration.
 - Copy any deck directory as a template; tweak theme variables in `milvus/styles/dify-theme.css`.
 - PRs and feedback welcome via `banana@dify.ai`.
