@@ -126,6 +126,85 @@
     .deck-trans.go .dt-move { transform: translateY(0); }
     .deck-trans.go .dt-inner { transform: translateY(0); }
 
+    /* quick-jump overlay (Codrops SearchUIEffects pattern): ⌘K / Ctrl+K */
+    .qj {
+      position: fixed; inset: 0; z-index: 600; pointer-events: none; visibility: hidden;
+      background: rgba(13, 13, 13, 0.32);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 12vh 20px 20px;
+    }
+    .qj-panel {
+      width: min(620px, 100%); background: var(--paper);
+      border: 1px solid var(--rule); border-radius: 14px; overflow: hidden;
+      box-shadow: 0 30px 80px rgba(13, 13, 13, 0.22);
+      opacity: 0; transform: translateY(14px) scale(0.985);
+      transition: opacity 0.28s var(--ease-out), transform 0.28s var(--ease-out);
+    }
+    .qj.open { visibility: visible; pointer-events: auto; }
+    .qj.open .qj-panel { opacity: 1; transform: none; }
+    .qj-head {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 20px; border-bottom: 1px solid var(--rule);
+    }
+    .qj-icon { font-family: var(--mono); font-size: 13px; color: var(--blue); }
+    .qj-input {
+      flex: 1; border: 0; outline: 0; background: transparent;
+      font-family: var(--mono); font-size: 14px; letter-spacing: 0.02em; color: var(--ink);
+      min-width: 0;
+    }
+    .qj-input::placeholder { color: var(--ghost); }
+    .qj-esc, .qj-trigger kbd {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; color: var(--dim);
+      border: 1px solid var(--rule); border-radius: 5px; padding: 4px 7px; line-height: 1;
+      background: var(--paper);
+    }
+    .qj-list { max-height: min(52vh, 460px); overflow-y: auto; padding: 8px; }
+    .qj-item {
+      display: flex; align-items: baseline; gap: 14px; width: 100%;
+      padding: 12px 14px; border: 0; border-radius: 9px; background: transparent;
+      text-align: left; cursor: pointer; position: relative;
+      font-family: var(--sans); color: var(--ink);
+    }
+    .qj-item .qi-num {
+      font-family: var(--mono); font-size: 10px; color: var(--ghost);
+      letter-spacing: 0.1em; flex-shrink: 0;
+    }
+    .qj-item .qi-label {
+      font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue); flex-shrink: 0;
+    }
+    .qj-item .qi-title { font-size: 14px; font-weight: 600; flex: 1; min-width: 0; }
+    .qj-item .qi-arrow { color: var(--ghost); font-size: 13px; flex-shrink: 0; }
+    .qj-item.sel { background: var(--lift); }
+    .qj-item.sel::before {
+      content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px;
+      background: var(--blue); border-radius: 2px;
+    }
+    .qj-item.sel .qi-arrow { color: var(--blue); }
+    .qj-empty {
+      padding: 34px 20px; text-align: center;
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--ghost);
+    }
+    .topbar-right { display: flex; align-items: center; gap: 14px; }
+    .qj-trigger {
+      display: inline-flex; align-items: center; gap: 5px;
+      border: 1px solid var(--rule); border-radius: 8px; background: var(--paper);
+      padding: 6px 9px; cursor: pointer;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .qj-trigger:hover { border-color: var(--ink); background: var(--lift); }
+
+    /* per-letter hover wave on row titles (Codrops Letter Interactions) */
+    .card-title .lt {
+      display: inline-block;
+      transition: transform 0.45s var(--ease-out) calc(var(--i, 0) * 20ms), color 0.3s;
+    }
+    .card:hover .card-title .lt { transform: translateY(-5px); }
+
+    /* keyboard row navigation focus */
+    .js .card:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; }
+
     /* ── Preloader ──────────────────────────────────────────── */
     .loader {
       position: fixed; inset: 0; z-index: 400; pointer-events: none;
@@ -337,8 +416,9 @@
       display: inline-flex; align-items: center; gap: 9px;
       font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
       padding: 11px 20px; border: 1px solid var(--rule); border-radius: 999px;
-      color: var(--dim); transition: color 0.25s, border-color 0.25s, background 0.25s;
-      white-space: nowrap;
+      color: var(--dim); white-space: nowrap;
+      transition: color 0.25s, border-color 0.25s, background 0.25s,
+                  translate 0.3s var(--ease-out);
     }
     .chip:hover { color: var(--ink); border-color: var(--ink); }
     .chip.on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
@@ -576,6 +656,9 @@
       .loader-pane { transition: none; }
       .list-bar, .list-bar-title, .list-bar-count { transition: none; }
       .topbar { transition: none; }
+      .qj-panel { transition: none; }
+      .card-title .lt { transition: none; }
+      .chip { transition: color 0.25s, border-color 0.25s, background 0.25s; }
     }
   </style>
 </head>
@@ -588,6 +671,19 @@
   <!-- deck page transition (Codrops revealers): ink panel + blue label -->
   <div class="deck-trans" id="deckTrans" aria-hidden="true">
     <div class="dt-move"><div class="dt-inner"><span class="dt-label" id="dtLabel"></span></div></div>
+  </div>
+  <!-- quick-jump overlay (Codrops SearchUIEffects): ⌘K / Ctrl+K -->
+  <div class="qj" id="qj" role="dialog" aria-modal="true" aria-label="Quick jump">
+    <div class="qj-panel">
+      <div class="qj-head">
+        <span class="qj-icon" aria-hidden="true">⌘</span>
+        <input class="qj-input" id="qjInput" type="text" autocomplete="off" spellcheck="false"
+               placeholder="Jump to a deck…" data-i18n-attr="placeholder:qjPlaceholder">
+        <kbd class="qj-esc">esc</kbd>
+      </div>
+      <div class="qj-list" id="qjList" role="listbox"></div>
+      <div class="qj-empty" id="qjEmpty" hidden data-i18n="qjNoResults">No decks match</div>
+    </div>
   </div>
   <!-- language-change announcement for screen readers -->
   <div class="sr-only" id="langAnnounce" aria-live="polite" role="status"></div>
@@ -612,11 +708,16 @@
       <span class="brand-div"></span>
       <span class="brand-tag">Field Notes</span>
     </a>
-    <nav class="langnav" aria-label="Language">
-      <span class="langpill" id="langPill" aria-hidden="true"></span>
-      <button type="button" class="langbtn" data-lang="zh" aria-pressed="false">中文</button>
-      <button type="button" class="langbtn" data-lang="en" aria-pressed="false">EN</button>
-    </nav>
+    <div class="topbar-right">
+      <button type="button" class="qj-trigger" id="qjTrigger" aria-label="Quick jump">
+        <kbd>⌘</kbd><kbd>K</kbd>
+      </button>
+      <nav class="langnav" aria-label="Language">
+        <span class="langpill" id="langPill" aria-hidden="true"></span>
+        <button type="button" class="langbtn" data-lang="zh" aria-pressed="false">中文</button>
+        <button type="button" class="langbtn" data-lang="en" aria-pressed="false">EN</button>
+      </nav>
+    </div>
   </header>
 
   <main class="shell">
@@ -700,6 +801,8 @@
           <a href="https://crazywoola.github.io/dify-x/" target="_blank" rel="noopener" data-i18n="liveDemo">Live Demo</a>
           <span class="sep">·</span>
           <span class="kbd-hint"><kbd>L</kbd><span data-i18n="langHint">press L to switch language</span></span>
+          <span class="sep">·</span>
+          <span class="kbd-hint"><kbd>⌘</kbd><kbd>K</kbd><span data-i18n="qjHint">jump to a deck</span></span>
           <span class="sep">·</span>
           <span>© 2026 LangGenius, Inc.</span>
         </div>
@@ -841,6 +944,9 @@
         localTime: 'Local time',
         liveDemo: 'Live Demo',
         langHint: 'press L to switch language',
+        qjHint: 'jump to a deck',
+        qjPlaceholder: 'Jump to a deck…',
+        qjNoResults: 'No decks match',
         langSwitched: 'Language switched to English',
         description: 'Presentation index for Dify X — agent systems, workflows, RAG, and industry case decks. Bilingual: language follows your system, toggle in the top bar.',
         loaderHint: 'Loading the archive',
@@ -859,6 +965,9 @@
         localTime: '本地时间',
         liveDemo: '在线演示',
         langHint: '按 L 切换语言',
+        qjHint: '快速跳转演讲',
+        qjPlaceholder: '跳转到演讲…',
+        qjNoResults: '没有匹配的演讲',
         langSwitched: '已切换为中文',
         description: 'Dify X 演讲资料索引 — Agent 系统、Workflow 架构、RAG 与行业案例。双语站点：语言跟随系统设置，也可在顶栏切换。',
         loaderHint: '正在装载档案',
@@ -990,6 +1099,14 @@
       }).join('');
     }
 
+    /* per-letter spans for the hover wave (Codrops Letter Interactions) */
+    function splitLetters(text) {
+      return Array.from(String(text)).map(function (c, i) {
+        if (c === ' ') return ' ';
+        return '<span class="lt" style="--i:' + i + '">' + esc(c) + '</span>';
+      }).join('');
+    }
+
     function renderDecks() {
       gridEl.innerHTML = DECKS.map(function (d, i) {
         var href = lang === 'zh' ? d.hrefZh : d.hrefEn;
@@ -1002,7 +1119,7 @@
           '<span class="card-num">' + d.n + '</span>' +
           '<div class="card-body">' +
             '<span class="card-tag"><i></i>' + esc(label) + '</span>' +
-            '<h3 class="card-title">' + esc(title) + '</h3>' +
+            '<h3 class="card-title">' + splitLetters(title) + '</h3>' +
             '<p class="card-desc">' + esc(desc) + '</p>' +
           '</div>' +
           '<span class="card-arrow" aria-hidden="true">↗</span>' +
@@ -1044,6 +1161,15 @@
         return true;
       });
       flipWave(els);
+      /* attribute-based i18n, e.g. data-i18n-attr="placeholder:qjPlaceholder" */
+      $$('[data-i18n-attr]').forEach(function (el) {
+        (el.getAttribute('data-i18n-attr') || '').split(/\s+/).forEach(function (pair) {
+          var i = pair.indexOf(':');
+          if (i < 0) return;
+          var v = t[pair.slice(i + 1)];
+          if (v != null) el.setAttribute(pair.slice(0, i), v);
+        });
+      });
     }
 
     function applyMeta() {
@@ -1087,6 +1213,8 @@
         renderDecks();
         updateLangNav();
         announceLang();
+        var qjEl = $('#qj');
+        if (qjEl && qjEl._close) qjEl._close();
       };
       if (document.startViewTransition && !RM) document.startViewTransition(apply);
       else apply();
@@ -1257,7 +1385,7 @@
       var cv = $('#heroCanvas');
       var ctx = cv && cv.getContext ? cv.getContext('2d') : null;
       if (!cv || !ctx || RM || window.innerWidth <= 900) return;
-      var W = 0, H = 0, parts = [], mouse = { x: -1e4, y: -1e4 };
+      var W = 0, H = 0, parts = [], ripples = [], mouse = { x: -1e4, y: -1e4 };
       var running = false, rafId = 0;
       var LINK = 150, MLINK = 180;
 
@@ -1319,8 +1447,35 @@
             ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 6.2832); ctx.fill();
           }
         }
+        /* click ripples: expanding rings */
+        for (i = ripples.length - 1; i >= 0; i--) {
+          var rp = ripples[i];
+          rp.r += 3.4;
+          var ral = 1 - rp.r / 230;
+          if (ral <= 0) { ripples.splice(i, 1); continue; }
+          ctx.strokeStyle = 'rgba(0,51,255,' + (ral * 0.4).toFixed(3) + ')';
+          ctx.lineWidth = 1.2;
+          ctx.beginPath(); ctx.arc(rp.x, rp.y, rp.r, 0, 6.2832); ctx.stroke();
+        }
         if (running) rafId = raf(frame);
       }
+      /* click: ripple ring + outward particle impulse */
+      heroEl.addEventListener('pointerdown', function (e) {
+        var r = cv.getBoundingClientRect();
+        var x = e.clientX - r.left, y = e.clientY - r.top;
+        ripples.push({ x: x, y: y, r: 0 });
+        if (ripples.length > 3) ripples.shift();
+        for (var i = 0; i < parts.length; i++) {
+          var a = parts[i];
+          var dx = a.x - x, dy = a.y - y;
+          var d2 = dx * dx + dy * dy;
+          if (d2 < 160 * 160 && d2 > 0.01) {
+            var d = Math.sqrt(d2);
+            var f = (1 - d / 160) * 1.8;
+            a.vx += dx / d * f; a.vy += dy / d * f;
+          }
+        }
+      });
       heroEl.addEventListener('mousemove', function (e) {
         var r = cv.getBoundingClientRect();
         mouse.x = e.clientX - r.left;
@@ -1434,6 +1589,110 @@
       big._letters = spans;
     }
 
+    /* ── deck page transition: ink panel wipes down, then navigate ── */
+    var transBusy = false;
+    function goToDeck(href, label) {
+      if (RM) { location.href = href; return; }
+      if (transBusy || !href) return;
+      var deckTrans = $('#deckTrans'), dtLabel = $('#dtLabel');
+      if (!deckTrans || !dtLabel) { location.href = href; return; }
+      transBusy = true;
+      dtLabel.textContent = label || '';
+      deckTrans.classList.add('go');
+      setTimeout(function () { location.href = href; }, 560);
+    }
+
+    /* ── quick-jump overlay (Codrops SearchUIEffects pattern) ── */
+    function initSearch() {
+      var qj = $('#qj'), input = $('#qjInput'), list = $('#qjList'), empty = $('#qjEmpty');
+      var trigger = $('#qjTrigger');
+      if (!qj || !input || !list) return;
+      var results = DECKS.slice();
+      var sel = 0, open = false, lastFocus = null;
+
+      function titleOf(d) { return lang === 'zh' ? d.tZh : d.tEn; }
+      function labelOf(d) { return lang === 'zh' ? d.labelZh : d.labelEn; }
+      function hay(d) {
+        return [d.n, titleOf(d), labelOf(d),
+                lang === 'zh' ? d.dZh : d.dEn,
+                lang === 'zh' ? d.tEn : d.tZh].join(' ').toLowerCase();
+      }
+      function render() {
+        var q = input.value.trim().toLowerCase();
+        results = DECKS.filter(function (d) { return !q || hay(d).indexOf(q) > -1; });
+        results.sort(function (a, b) {
+          var sa = titleOf(a).toLowerCase().indexOf(q) === 0 && q ? 0 : 1;
+          var sb = titleOf(b).toLowerCase().indexOf(q) === 0 && q ? 0 : 1;
+          return sa - sb || DECKS.indexOf(a) - DECKS.indexOf(b);
+        });
+        if (sel >= results.length) sel = Math.max(0, results.length - 1);
+        list.innerHTML = results.map(function (d, i) {
+          return '<button type="button" role="option" aria-selected="' + (i === sel) + '"' +
+            ' class="qj-item' + (i === sel ? ' sel' : '') + '">' +
+            '<span class="qi-num">' + d.n + '</span>' +
+            '<span class="qi-label">' + esc(labelOf(d)) + '</span>' +
+            '<span class="qi-title">' + esc(titleOf(d)) + '</span>' +
+            '<span class="qi-arrow" aria-hidden="true">↗</span></button>';
+        }).join('');
+        if (empty) empty.hidden = results.length > 0;
+      }
+      function openQJ() {
+        if (open) return;
+        open = true;
+        lastFocus = document.activeElement;
+        qj.classList.add('open');
+        input.value = '';
+        sel = 0;
+        render();
+        input.focus();
+      }
+      function closeQJ() {
+        if (!open) return;
+        open = false;
+        qj.classList.remove('open');
+        if (lastFocus && lastFocus.focus) { try { lastFocus.focus(); } catch (e) { /* detached */ } }
+      }
+      function choose() {
+        var d = results[sel];
+        if (!d) return;
+        closeQJ();
+        goToDeck(lang === 'zh' ? d.hrefZh : d.hrefEn, labelOf(d));
+      }
+      input.addEventListener('input', function () { sel = 0; render(); });
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown' || (e.key === 'n' && e.ctrlKey)) {
+          e.preventDefault();
+          if (results.length) { sel = (sel + 1) % results.length; render(); }
+        } else if (e.key === 'ArrowUp' || (e.key === 'p' && e.ctrlKey)) {
+          e.preventDefault();
+          if (results.length) { sel = (sel - 1 + results.length) % results.length; render(); }
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          choose();
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          closeQJ();
+        }
+      });
+      list.addEventListener('click', function (e) {
+        var item = e.target.closest ? e.target.closest('.qj-item') : null;
+        if (!item) return;
+        sel = Array.prototype.indexOf.call(list.children, item);
+        choose();
+      });
+      qj.addEventListener('click', function (e) { if (e.target === qj) closeQJ(); });
+      if (trigger) trigger.addEventListener('click', openQJ);
+      document.addEventListener('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+          e.preventDefault();
+          if (open) closeQJ(); else openQJ();
+        } else if (e.key === 'Escape' && open) {
+          closeQJ();
+        }
+      });
+      qj._close = closeQJ;
+    }
+
     /* ── interactions ───────────────────────────────────────── */
     function initEvents() {
       filtersEl.addEventListener('click', function (e) {
@@ -1450,20 +1709,50 @@
         if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
         if (e.key === 'l' || e.key === 'L') setLang(lang === 'zh' ? 'en' : 'zh');
       });
-      /* deck page transition: ink panel wipes down, then navigate */
-      var deckTrans = $('#deckTrans'), dtLabel = $('#dtLabel'), transBusy = false;
+      /* j/k keyboard row navigation (Vim-style, GitHub pattern) */
+      document.addEventListener('keydown', function (e) {
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        var t = e.target;
+        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+        var qjEl = $('#qj');
+        if (qjEl && qjEl.classList.contains('open')) return;
+        var cards = $$('.card:not(.is-hidden)', gridEl);
+        if (!cards.length) return;
+        var cur = cards.indexOf(document.activeElement);
+        var next = -1;
+        if (e.key === 'j') next = cur < 0 ? 0 : Math.min(cards.length - 1, cur + 1);
+        else if (e.key === 'k') next = cur <= 0 ? 0 : cur - 1;
+        else return;
+        e.preventDefault();
+        cards[next].focus();
+        if (cards[next].scrollIntoView) cards[next].scrollIntoView({ block: 'nearest' });
+      });
+      /* deck rows go through the ink transition */
       gridEl.addEventListener('click', function (e) {
         if (RM || transBusy) return;
         if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) return;
         var c = e.target.closest ? e.target.closest('.card') : null;
         if (!c) return;
         e.preventDefault();
-        transBusy = true;
         var tag = c.querySelector('.card-tag');
-        dtLabel.textContent = tag ? tag.textContent : '';
-        deckTrans.classList.add('go');
-        setTimeout(function () { location.href = c.getAttribute('href'); }, 560);
+        goToDeck(c.getAttribute('href'), tag ? tag.textContent : '');
       });
+      /* magnetic chips — pull toward the cursor (magnetic UI pattern) */
+      if (!RM && window.matchMedia('(pointer: fine)').matches) {
+        filtersEl.addEventListener('mousemove', function (e) {
+          $$('.chip', filtersEl).forEach(function (chip) {
+            var r = chip.getBoundingClientRect();
+            var dx = e.clientX - (r.left + r.width / 2);
+            var dy = e.clientY - (r.top + r.height / 2);
+            var d = Math.sqrt(dx * dx + dy * dy) || 1;
+            var k = Math.max(0, 1 - d / 90) * 6;
+            chip.style.translate = (dx / d * k).toFixed(2) + 'px ' + (dy / d * k).toFixed(2) + 'px';
+          });
+        }, { passive: true });
+        filtersEl.addEventListener('mouseleave', function () {
+          $$('.chip', filtersEl).forEach(function (chip) { chip.style.translate = '0 0'; });
+        });
+      }
       /* directional sweep origin + subtle 3D tilt, cursor-driven */
       var swept = null;
       gridEl.addEventListener('mousemove', function (e) {
@@ -1508,6 +1797,7 @@
     initProgress();
     initCanvas();
     initEvents();
+    initSearch();
     initClock();
     initAsterisk();
     initMarqueeMotion();
